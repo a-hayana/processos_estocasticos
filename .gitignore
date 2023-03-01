@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+index.qmd
+cap_1_pe.qmd
+cap_2_poisson.qmd
+cap_3_renovacao.qmd
+cap_4_cmtd.qmd
+cap_5_cmtc.qmd
+cap_6_notas.qmd
+
+/.quarto/
