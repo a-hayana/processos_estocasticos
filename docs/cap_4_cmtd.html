@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.207">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Processos Estocásticos: Um Curso de Graduação - 4&nbsp; Cadeias de Markov a Tempo Discreto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap_5_cmtc.html" rel="next">
+<link href="./cap_3_renovacao.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Processos Estocásticos: Um Curso de Graduação</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Apresentação</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_1_pe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_2_poisson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_3_renovacao.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_4_cmtd.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_5_cmtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Contínuo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_6_notas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Notas</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="toc-section-number">4.1</span>  Introdução</a></li>
+  <li><a href="#grafo-de-uma-cadeia-de-markov" id="toc-grafo-de-uma-cadeia-de-markov" class="nav-link" data-scroll-target="#grafo-de-uma-cadeia-de-markov"><span class="toc-section-number">4.2</span>  Grafo de uma Cadeia de Markov</a></li>
+  <li><a href="#exemplos-de-cadeias-de-markov" id="toc-exemplos-de-cadeias-de-markov" class="nav-link" data-scroll-target="#exemplos-de-cadeias-de-markov"><span class="toc-section-number">4.3</span>  Exemplos de Cadeias de Markov</a></li>
+  <li><a href="#as-equações-de-chapman-kolmogorov" id="toc-as-equações-de-chapman-kolmogorov" class="nav-link" data-scroll-target="#as-equações-de-chapman-kolmogorov"><span class="toc-section-number">4.4</span>  As Equações de Chapman-Kolmogorov</a></li>
+  <li><a href="#classificação-de-estados" id="toc-classificação-de-estados" class="nav-link" data-scroll-target="#classificação-de-estados"><span class="toc-section-number">4.5</span>  Classificação de Estados</a>
+  <ul class="collapse">
+  <li><a href="#comunicação-entre-estados" id="toc-comunicação-entre-estados" class="nav-link" data-scroll-target="#comunicação-entre-estados"><span class="toc-section-number">4.5.1</span>  Comunicação entre Estados</a></li>
+  <li><a href="#classes-transientes-e-recorrentes" id="toc-classes-transientes-e-recorrentes" class="nav-link" data-scroll-target="#classes-transientes-e-recorrentes"><span class="toc-section-number">4.5.2</span>  Classes Transientes e Recorrentes</a></li>
+  <li><a href="#periodicidade-de-um-estado" id="toc-periodicidade-de-um-estado" class="nav-link" data-scroll-target="#periodicidade-de-um-estado"><span class="toc-section-number">4.5.3</span>  Periodicidade de um Estado</a></li>
+  </ul></li>
+  <li><a href="#sec-4.6" id="toc-sec-4.6" class="nav-link" data-scroll-target="#sec-4.6"><span class="toc-section-number">4.6</span>  Distribuição Estacionária</a></li>
+  <li><a href="#processo-de-ramificação" id="toc-processo-de-ramificação" class="nav-link" data-scroll-target="#processo-de-ramificação"><span class="toc-section-number">4.7</span>  Processo de Ramificação</a></li>
+  <li><a href="#cadeias-de-ordens-maiores" id="toc-cadeias-de-ordens-maiores" class="nav-link" data-scroll-target="#cadeias-de-ordens-maiores"><span class="toc-section-number">4.8</span>  Cadeias de Ordens Maiores</a>
+  <ul class="collapse">
+  <li><a href="#transformação-para-uma-cmtd-de-ordem-1" id="toc-transformação-para-uma-cmtd-de-ordem-1" class="nav-link" data-scroll-target="#transformação-para-uma-cmtd-de-ordem-1"><span class="toc-section-number">4.8.1</span>  Transformação para uma CMTD de ordem 1</a></li>
+  <li><a href="#o-modelo-de-rafttery" id="toc-o-modelo-de-rafttery" class="nav-link" data-scroll-target="#o-modelo-de-rafttery"><span class="toc-section-number">4.8.2</span>  O Modelo de Rafttery</a></li>
+  </ul></li>
+  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios"><span class="toc-section-number">4.9</span>  Exercícios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-discreto" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">4.1</span> Introdução</h2>
+<p>Considere um processo estocástico <span class="math inline">\(\{X_n,n=0,1,2,\ldots\}\)</span>, com <span class="math inline">\(X_n\in \mathcal{X}\)</span> para todo <span class="math inline">\(n\)</span> onde <span class="math inline">\(\mathcal{X}\)</span> é um conjunto discreto dos estados. Neste capítulo, o conjunto de índices deste processo será interpretado como os tempos de ocorrência do processo (por exemplo, o evento <span class="math inline">\(\{X_n=x\}\)</span> implica que no tempo <span class="math inline">\(n\)</span> o processo apresentou o valor <span class="math inline">\(x\)</span>). A probabilidade do processo estar no estado <span class="math inline">\(j\)</span> no tempo <span class="math inline">\(n\)</span> será denotada por <span class="math inline">\(P(X_n =j)\)</span>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: De volta ao lago…
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.1 </strong></span>Lembremos do sapo que vivia em um lago e que se movimentava exclusivamente saltando entre uma vitória régia para outra (<a href="cap_6_notas.html#exr-6.33">Exercício&nbsp;<span>6.33</span></a>). No tempo <span class="math inline">\(n\)</span>, ele faz um deslocamento no tempo <span class="math inline">\(n+1\)</span> para uma das plantas vizinhas, nunca saltando na diagonal. Rotularemos as vitórias régias do lago pelos números <span class="math inline">\(1,2,\ldots,9\)</span>, gerando o grafo abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_1.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se a escolha do destino é feita segundo algum mecanismo aleatório, podemos considerar o processo <span class="math inline">\(\{X_n,n=0,1,2,\ldots\}\)</span> como sendo a planta (estado) no qual o sapo está o tempo <span class="math inline">\(n\)</span>. A mudança de estado, do tempo <span class="math inline">\(t\)</span> para o tempo <span class="math inline">\(t+1\)</span> é denominada <strong>passo</strong>. Por exemplo, se <span class="math inline">\(X_2=1\)</span>, os possíveis lugares que o sapo estará no seu próximo movimento (passo) são os estados 2 e 4. Voltaremos a este exemplo mais adiante.</p>
+</div>
+</div>
+</div>
+<p>Considere que foram observados os estados <span class="math inline">\(x_0,\ldots,x_{n-1}\)</span>. A probabilidade de que <span class="math inline">\(X_{n}=j\)</span> é expressada por <span class="math display">\[\begin{equation}
+P(X_{n}=j|X_{0}=x_{0},X_1=x_1,\ldots,X_{n-1}=x_{n-1}).
+\end{equation}\]</span></p>
+<p>Dizemos que um processo estocástico possui a propriedade de Markov se a probabilidade acima depende apenas do último estado observado, ou seja <span class="math display">\[\begin{equation}
+P(X_{n}=j|X_{0}=x_{0},X_1=x_1,\ldots,X_{n-1}=x_{n-1})=P(X_{n}=j|X_{n-1} = x_{n-1}).
+\end{equation}\]</span> para qualquer <span class="math inline">\(n&gt;0\)</span>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.1" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.1 </strong></span>Um processo estocástico <span class="math inline">\(\{X_n,n=0,1,\ldots\}\)</span> cujo espaço dos estados é discreto e que possui a propriedade de Markov é denominado Cadeia de Markov a tempo discreto (CMTD).</p>
+</div>
+</div>
+</div>
+<p>Como a cadeia é definido para todo <span class="math inline">\(n=0,1,\ldots\)</span>, dizemos que o tempo se desloca em passos. Embora isto soe um pouco coloquial, este jargão é muito comum na literatura. Por exemplo, estando no tempo <span class="math inline">\(n\)</span>, a mudança para o tempo <span class="math inline">\(n+1\)</span> é denominada um passo a frente e, de modo geral, <strong>“</strong><span class="math inline">\(k\)</span> passos a frente” implica na mudança para o tempo <span class="math inline">\(n+k\)</span>.</p>
+<p>Em cada passo, o processo pode (ou não) mudar de estado. Essa mudança é denominada transição.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.2 </strong></span>No tempo <span class="math inline">\(n\)</span>, a probabilidade do processo fazer uma transição do estado <span class="math inline">\(i\)</span> para o estado <span class="math inline">\(j\)</span> será denotada por <span class="math display">\[\begin{equation}
+p_{ij}(n)=P(X_{n+1}=j|X_n = i),
+\end{equation}\]</span> e será denominada probabilidade de transição.</p>
+</div>
+</div>
+</div>
+<p>É imediato que</p>
+<ul>
+<li><span class="math inline">\(0\leq p_{ij}(n)\leq 1\)</span> para todo <span class="math inline">\(i,j\)</span> em <span class="math inline">\(\mathcal{X}\)</span> e <span class="math inline">\(n\in \mathbb{Z}^+\)</span>;</li>
+<li><span class="math inline">\(\sum_{j\in\mathcal{X}}p_{ij}(n)=1\)</span>.</li>
+</ul>
+<p>A probabilidade de transição pode, ou não, depender de <span class="math inline">\(n\)</span>. Se <span class="math inline">\(p_{ij}(n)\)</span> é constante para todo <span class="math inline">\(n\geq 0\)</span>, dizemos que a e denotamos tal probabilidade por <span class="math inline">\(p_{ij}\)</span>. Em caso contrário, dizemos que a CM é não-homogênea. Neste capítulo, estamos interessados apenas nas CM homogêneas. Algumas características dos processos não-homogêneos serão exploradas nos exercícios no fim do capítulo.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: De volta ao lago II
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.2 </strong></span>Lembremos do exemplo do sapo dado no começo deste capítulo, onde o processo <span class="math inline">\(\{X_n,n=0,1,2,\}\)</span> que denota a planta na qual o sapo está no instante <span class="math inline">\(n\)</span>. Se a escolha do próximo destino depender apenas da planta atual, este processo será uma CMTD. Isto implica que:</p>
+<ul>
+<li>Não importa quantas vezes o sapo esteve na planta <span class="math inline">\(i\)</span>. A probabilidade dele escolher outra planta a partir de <span class="math inline">\(i\)</span> sempre será a mesma.</li>
+<li>Independente do valor de <span class="math inline">\(n\)</span>, o sapo sempre fará as transições do estado <span class="math inline">\(i\)</span> para o <span class="math inline">\(j\)</span> segundo a mesma distribuição.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="grafo-de-uma-cadeia-de-markov" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="grafo-de-uma-cadeia-de-markov"><span class="header-section-number">4.2</span> Grafo de uma Cadeia de Markov</h2>
+<p>A matriz <span class="math inline">\({\bf P}=\{p_{ij}\}\)</span> é denominada <em>matriz de transição em um passo</em>, ou simplesmente <em>matriz de transição</em>. Podemos fazer a seguinte analogia entre as matrizes de adjacência e de transição:</p>
+<ul>
+<li><p>Na matriz de transição, se <span class="math inline">\(p_{ij}=0\)</span> então é impossível fazer uma transição de <span class="math inline">\(i\)</span> para <span class="math inline">\(j\)</span> em um passo.</p></li>
+<li><p>Na matriz de adjacências, se <span class="math inline">\(p_{ij}=0\)</span> então não existe um arco saindo de <span class="math inline">\(i\)</span> e chegando em <span class="math inline">\(j\)</span>.</p></li>
+</ul>
+<p>Com a analogia acima, podemos construir um grafo a partir de uma cadeia de Markov como segue:</p>
+<ol type="1">
+<li><p>Cada estado da cadeia será um vértice do grafo.</p></li>
+<li><p>Adicione um arco saindo de <span class="math inline">\(i\)</span> para <span class="math inline">\(j\)</span> se <span class="math inline">\(p_{ij}&gt;0\)</span>.</p></li>
+<li><p>Adicione um arco saindo e voltando para <span class="math inline">\(i\)</span> se <span class="math inline">\(p_{ii}&gt;0\)</span> (esse arco é denominado <strong>laço</strong>).</p></li>
+<li><p>Coloque o valor de <span class="math inline">\(p_{ij}\)</span> no arco de <span class="math inline">\((i,j)\)</span>.</p></li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.3 </strong></span>Considere a seguinte matriz de transição para uma cadeia de Markov:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_2.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O diagrama do grafo desta cadeia é dado a seguir</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_3.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>É fácil notar algumas particularidades:</p>
+<ul>
+<li>É impossível sair dos estados 0, 1, 2 ou 3 e alcançar os estados 4 ou 5. O contrário também é verdadeiro.</li>
+<li>Do estado 2 o processo só pode chegar ao estado 0.</li>
+<li>Uma vez que o processo alcança o estado 3 ele permanece nesse estado para sempre.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exemplos-de-cadeias-de-markov" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="exemplos-de-cadeias-de-markov"><span class="header-section-number">4.3</span> Exemplos de Cadeias de Markov</h2>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Chuva
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.4 </strong></span>Suponha que a probabilidade de chover ou não amanhã dependa apenas do fato de que choveu ou não hoje. Se choveu hoje, choverá amanhã com probabilidade <span class="math inline">\(\alpha\)</span>. Se não choveu hoje, choverá amanhã com probabilidade <span class="math inline">\(\beta\)</span>. Seja <span class="math inline">\({X_n,n=0,1,\ldots}\)</span> o processo estocástico com espaço dos estados <span class="math inline">\(\mathcal{X}=\{0,1\}\)</span>, onde <span class="math inline">\(X_n=0\)</span> representa o evento **“não chove no dia** <span class="math inline">\(n\)</span>” e 1 representa seu complementar. Explique porquê este processo é uma CMTD, encontre a sua matriz de transição e esboce o grafo da cadeia.</p>
+<p><strong>Resolução:</strong></p>
+<p>Pelo enunciado, temos que</p>
+<ul>
+<li><span class="math inline">\(P(X_n=1|X_{n-1}=1)=\alpha\)</span></li>
+<li><span class="math inline">\(P(X_n=1|X_{n-1}=0)=\beta\)</span></li>
+</ul>
+<p>Como a informação do dia no tempo <span class="math inline">\(n\)</span> é suficiente para determinar a probabilidade de chover no dia <span class="math inline">\(n+1\)</span>, temos que este processo é uma CMTD. A matriz de transição é dada por</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_4.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>e o diagrama do grafo desta cadeia é dado por</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_5.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Passeio Aleatório
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.5" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.5 </strong></span>Seja <span class="math inline">\(\mathcal{X}\subseteq\mathbb{Z}\)</span>. Uma CMTD será um passeio aleatório se, para algum <span class="math inline">\(0&lt;p&lt;1\)</span> <span class="math display">\[p_{i,i+1}=p=1-p_{i,i-1}.\]</span> Assim, a cadeia só pode fazer transições de um estado para os seus estados vizinhos. Um exemplo simples é dado pelo processo <span class="math inline">\({X_n,n=0,1,2,\ldots}\)</span>, onde <span class="math inline">\(n\)</span> representa o número de lançamentos de uma moeda com probabilidade de dar cara igual a <span class="math inline">\(p\)</span> e <span class="math inline">\(X_n\)</span> representa a diferença entre o número de caras e coroas que saíram até o <span class="math inline">\(n\)</span>-ésimo lançamento. Começando com <span class="math inline">\(X_0=0\)</span>, teremos que</p>
+<ul>
+<li><span class="math inline">\(P(X_n=i+1|X_{n-1}=i)=P(\hbox{Sair um resultado cara})=p.\)</span></li>
+<li><span class="math inline">\(P(X_n=i-1|X_{n-1}=i)=P(\hbox{Sair um resultado coroa})=1-p.\)</span></li>
+</ul>
+<p>A representação gráfica desta cadeia é dada abaixo.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_6.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: A ruína do jogador
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.6 </strong></span>Considere um jogador que, a cada rodada, ou ganha R$ 1,00 com probabilidade <span class="math inline">\(p\)</span> ou perde R$ 1,00 com probabilidade <span class="math inline">\(1-p\)</span>. Suponha que o jogador só abandona o jogo se ele perde todo seu dinheiro ou se ele atinge a quantidade R$ <span class="math inline">\(N\)</span>. Seja <span class="math inline">\(\{X_n,n=0,1,2,\ldots\}\)</span> o processo estocástico que representa a fortuna do jogador, cujo espaço dos estados é <span class="math inline">\(\mathcal{X}=\{0,1,2,\ldots,N\}\)</span>. Mostre que este processo é uma CMTD, encontre sua matriz de transição e esboce o diagrama do grafo correspondente.</p>
+<p><strong>Resolução:</strong></p>
+<p>A quantidade de dinheiro que ele vai na próxima rodada depende unicamente de quanto ele possui na rodada atual, logo o processo representa uma cadeia de Markov com as seguintes probabilidades de transição:</p>
+<ul>
+<li><span class="math inline">\(p_{i,i+1}=p=1-p_{i,i-1}\)</span> para todo <span class="math inline">\(i=1,2,\ldots, N-1,\)</span></li>
+<li><span class="math inline">\(p_{00}=p_{NN}=1,\)</span></li>
+<li><span class="math inline">\(p_{ij}=0\)</span>, caso contrário.</li>
+</ul>
+<p>O grafo será dado por</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_7.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Sequência de somas de v.a.i.id
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.7" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.7 </strong></span>Sejam <span class="math inline">\(Y_1,\ldots,Y_n\)</span> variáveis aleatórias independentes e identicamente distribuídas, com <span class="math display">\[P(Y_n=k)=a_k,\quad k=0,1,2,\ldots .\]</span> Considere a variável <span class="math inline">\(X_n=Y_1 + \cdots +Y_n\)</span>. Notemos que <span class="math display">\[X_n = \sum_{i=1}^{n}Y_i=Y_n + \sum_{i=1}^{n-1}Y_i=Y_n+X_{n-1},\]</span> logo <span class="math inline">\(X_n\)</span> depende apenas de <span class="math inline">\(X_{n-1}\)</span>. Como <span class="math inline">\(Y_n\)</span> é independente de <span class="math inline">\(X_{n-1}\)</span>, temos que, para <span class="math inline">\(j\geq i\)</span>, <span class="math display">\[\begin{align*}
+P(X_n=j|X_{n-1}=i)&amp;=P(X_{n-1}+Y_n=j|X_{n-1}=i)\\
+&amp;=P(Y_n=j-i|X_{n-1}=i)\\
+&amp;=P(Y_n=j-i)=a_{j-i}.
+\end{align*}\]</span> e, para <span class="math inline">\(j&lt;i\)</span>, <span class="math display">\[P(X_n=j|X_{n-1}=i)=0.\]</span> Portanto, o processo de contagem em tempo discreto de variáveis aleatórias discretas, independentes e identicamente distribuídas é uma cadeia de Markov.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Inventário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.8" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.8 </strong></span>Considere um intervalo pré-fixado de tempo (como um mês, um semestre, etc). Suponha que a demanda <span class="math inline">\(Y_n\)</span> por certo produto no <span class="math inline">\(n\)</span>-ésimo intervalo de tempo é independente do tempo e identicamente distribuída com <span class="math display">\[P(Y_n = k)=a_k,\quad k=0,1,\ldots.\]</span> Uma loja estoca este produto. Seja <span class="math inline">\(X_n\)</span> o número destes produtos em estoque no final do intervalo de tempo <span class="math inline">\(n\)</span> e seja <span class="math inline">\(C\)</span> o número máximo de itens a serem estocados. No início do <span class="math inline">\(n\)</span>-ésimo período o estoque é examinado e a seguinte política de renovação é adotada:</p>
+<ul>
+<li>Se <span class="math inline">\(X_n\leq s\)</span>, o estoque é imediatamente completado até atingir a quantidade <span class="math inline">\(C\)</span>.</li>
+<li>Se <span class="math inline">\(X_n&gt;s\)</span>, nada é feito.</li>
+</ul>
+<p>Notemos que <span class="math inline">\(X_n\)</span> depende apenas de <span class="math inline">\(X_{n-1}\)</span>, pois:</p>
+<ul>
+<li>Se <span class="math inline">\(X_{n-1}\leq s\)</span>, o estoque é renovado. Como demanda levará <span class="math inline">\(Y\)</span> unidades, teremos <span class="math inline">\(X_{n}=C-Y\)</span>.</li>
+<li>Se <span class="math inline">\(X_{n-1}&gt;s\)</span>, a demanda no tempo <span class="math inline">\(n\)</span> levará <span class="math inline">\(Y\)</span> unidades do estoque e <span class="math inline">\(X_n = X_{n-1}-Y.\)</span></li>
+</ul>
+<p>Assim, temos que <span class="math inline">\(X_n\)</span> é uma CMTD com as seguintes probabilidades de transição: <span class="math display">\[\begin{align*}
+&amp;P(X_n=j|X_{n-1}=i,i\leq s)=P(Y=C-j)=a_{C-j}\\
+&amp;P(X_n=j|X_{n-1}=i,i&gt; s)=P(Y=i-j)=a_{i-j}.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: <em>PageRank</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.9" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.9 </strong></span>Páginas de pesquisa da <em>web</em>, como o <em>Google</em>, utilizam uma CMTD para mostrar as páginas com maior relevância. Suponha que existem <span class="math inline">\(N\)</span> páginas conhecidas. Suponha ainda que a <span class="math inline">\(i\)</span>-ésima página possui <span class="math inline">\(k_i\)</span> links. Seja <span class="math inline">\(H\)</span> o evento no qual um usuário utiliza os links para navegar, com <span class="math inline">\(P(H)=\alpha\)</span> e seja <span class="math inline">\(X_n\)</span> a página na qual o indivíduo se encontra no tempo <span class="math inline">\(n\)</span>. Estando na página <span class="math inline">\(i\)</span> considere que:</p>
+<ul>
+<li>o usuário escolhe um link ao acaso. Neste caso, <span class="math display">\[P(X_n =j|X_{n-1}=i, H)=\frac{1}{k_i},\]</span> quando existe um link na página <span class="math inline">\(i\)</span> para a página <span class="math inline">\(j\)</span>.</li>
+<li>o usuário não utiliza um link. Neste caso, ele escolhe ao acaso entre todas as páginas <span class="math display">\[P(X_n= j|X_{n-1}=i,H^c)=\frac{1}{N},\]</span> onde <span class="math inline">\(N\)</span> é o número de páginas disponíveis (essa probabilidade inclui a possibilidade do indivíduo entrar na mesma página outra vez).</li>
+</ul>
+<p>Assim, se existe um link para a página <span class="math inline">\(j\)</span> a partir da página <span class="math inline">\(i\)</span>, a probabilidade desta transição é dada por <span class="math display">\[\begin{align*}
+p_{ij}&amp;=P(X_n=j|X_{n-1}=i)\\&amp;=P(X_n=j,H|X_{n-1}=i)+P(X_n=j,H^c|X_{n-1}=i)\\&amp;=P(X_n=j|X_{n-1}=i,H)P(H)+P(X_{n}=j|X_{n-1}=i,H^c)P(H^c)\\
+&amp;=\frac{\alpha}{k_i}+\frac{1-\alpha}{N},
+\end{align*}\]</span> e, se <span class="math inline">\(k_i=0\)</span>, ou se <span class="math inline">\(j=i\)</span>, então utiliza-se a seguinte expressão: <span class="math display">\[\begin{align*}
+p_{ij}=\frac{1-\alpha}{N}.
+\end{align*}\]</span> Podemos calcular a probabilidade de que <span class="math display">\[\lim_{n\rightarrow\infty}P(X_n=i),\]</span> o que, intuitivamente, implica em calcular a probabilidade de se estar no site <span class="math inline">\(i\)</span> após muito tempo de navegação. Organizando estas últimas probabilidades em ordem decrescente, temos o ranqueamento das páginas por ordem de relevância. Este método é conhecido como <em>PageRank</em>. Mais detalhes serão dados posteriormente.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="as-equações-de-chapman-kolmogorov" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="as-equações-de-chapman-kolmogorov"><span class="header-section-number">4.4</span> As Equações de Chapman-Kolmogorov</h2>
+<p>No estudo de uma CMTD, é interessante saber qual a probabilidade do processo, saindo do estado <span class="math inline">\(i\)</span>, estar em <span class="math inline">\(j\)</span> após <span class="math inline">\(n\)</span> passos, ou seja <span class="math inline">\(P(X_{n}=j|X_0 = i)\)</span>. Tal probabilidade é denominada <em>transição</em> <span class="math inline">\(n\)</span> passos a frente, e é denotada por <span class="math inline">\(p_{ij}^{(n)}\)</span>. A partir desta definição, pode-se enunciar a seguinte proposição.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.3" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.1 </strong></span>Para uma CMTD, <span class="math display">\[\begin{align}
+P(X_{n+m}=j|X_n=i,X_{n-1}=i_{n-1},\ldots,X_0=i_0)=p_{ij}^{(m)}
+\end{align}\]</span></p>
+<p><code>Demonstração:</code></p>
+<p>A prova pode ser feita por indução. Note que a proposição é verdadeira para <span class="math inline">\(m=1\)</span>, pois pela propriedade de Markov, <span class="math display">\[P(X_{n+1}=j|X_{n}=i,X_{n-1}=i_{n-1},\ldots,X_0=i_0)=p_{ij}=p_{ij}^{(1)}.\]</span> Para <span class="math inline">\(m&gt;2\)</span>, suponha que <span class="math display">\[P(X_{n+m-1}=j|X_{n}=i,Y_{n-1})=P(X_{n+m-1}=j|X_{n}=i)=p_{ij}^{(m-1)},\]</span> onde <span class="math inline">\(Y_{n-1} = \{X_{n-1}=x_{n-1},\ldots,X_0=x_0\}\)</span>. Então, <span class="math display">\[\begin{align*}
+P(X_{n+m}=j|X_{n}=i, Y_{n-1})&amp;=\sum_{x=0}^{\infty} P(X_{n+m}=j,X_{n+m-1}=x|X_{n}=i, Y_{n-1})\\
+&amp;=\sum_{x=}^{\infty} P(X_{n+m}=j|X_{n+m-1}=x,X_{n}=i,Y_{n-1})\\
+&amp;\times P(X_{n+m-1}=x|X_{n}=i,Y_{n-1})\\
+&amp;=\sum_{x=0}^{\infty}P(X_{n+m}=j|X_{n+m-1}=x)P(X_{n+m-1}=x|X_{n}=i)\\
+&amp;=\sum_{x=0}^\infty P(X_{n+m}=i,X_{n+m-1}=x|X_{n}=i)\\
+&amp;=P(X_{n+m}=j|X_n=i)=p_{ij}^{(m)}.
+\end{align*}\]</span></p>
+<p>Portanto, a propriedade de Markov continua válida para um número de passos maior que um.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.10" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.10 </strong></span>A CMTD abaixo foi apresentada no <a href="#exm-4.3">Exemplo&nbsp;<span>4.3</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_8.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mas, note que <span class="math inline">\(p_{0i}p_{ij}\)</span> é o produto do valor do arco <span class="math inline">\((0,i)\)</span> com o valor do arco <span class="math inline">\((i,j)\)</span>. Assim, calcular a probabilidade de sair de <span class="math inline">\(0\)</span> e chegar em <span class="math inline">\(j\)</span> em dois passos é equivalente a colocar uma caneta no estado zero e encontrar todos os caminhos em dois passos até <span class="math inline">\(j\)</span>, multiplicar os valores dos arcos em cada caminho e somar o resultado final. Continuando com o exemplo, temos os seguintes caminhos com suas respectivas probabilidades:</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estado de destino<br>(<span class="math inline">\(j\)</span>)</th>
+<th></th>
+<th></th>
+<th>Caminhos em<br> dois passos</th>
+<th><span class="math inline">\(p_{0i}p_{ij}\)</span></th>
+<th><span class="math inline">\(p_{0j}^{(2)}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(0\rightarrow 0\rightarrow 0\)</span> <br> <span class="math inline">\(0\rightarrow 2\rightarrow 0\)</span></td>
+<td><span class="math inline">\(p_{00}p_{00}=\frac{1}{9}\)</span> <br> <span class="math inline">\(p_{02}p_{20}=\frac{1}{3}\)</span></td>
+<td><span class="math inline">\(p_{00}^{(2)}=\frac{1}{9}+\frac{1}{3}=\frac{4}{9}\)</span></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(0\rightarrow 0\rightarrow 1\)</span></td>
+<td><span class="math inline">\(p_{00}p_{01}=\frac{1}{9}\)</span></td>
+<td><span class="math inline">\(p_{01}^{(2)}=1/9\)</span></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(0\rightarrow 0\rightarrow 2\)</span> <br> <span class="math inline">\(0\rightarrow 1\rightarrow 2\)</span></td>
+<td><span class="math inline">\(p_{00}p_{02}=\frac{1}{9}\)</span> <br> <span class="math inline">\(p_{00}p_{02}=\frac{1}{9}\)</span></td>
+<td><span class="math inline">\(p_{02}^{(2)}=2/9\)</span></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(0\rightarrow 1\rightarrow 3\)</span></td>
+<td><span class="math inline">\(p_{01}p_{13}=\frac{2}{9}\)</span></td>
+<td><span class="math inline">\(p_{03}^{(2)}=2/9\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Assim, estando em <span class="math inline">\(0\)</span>, a probabilidade de que o estado esteja em 0 em dois passos é de 4/9. Agora, para calcular as probabilidades <span class="math inline">\(p_{0j}^{(3)}\)</span>, note primeiro que nós já conhecemos essas probabilidades em dois passos. Assim, <span class="math display">\[\begin{align}
+p_{0j}^{(3)}&amp;=P(X_3=j|X_0=0)=\sum_{i=0}^{5}P(X_3=j,X_2=i|X_0=0)\notag\\
+&amp;=\sum_{i=0}^{5}P(X_3=j|X_2=i,X_0=0)P(X_2=i|X_0=0)\notag\\
+&amp;=\sum_{i=0}^{5}P(X_3=j|X_2=i)P(X_2=i|X_0=0) \\
+&amp;=\sum_{i=0}^5 p_{0i}p_{ij}^{(2)}.
+\end{align}\]</span> Como no caso anterior, o cálculo de <span class="math inline">\(p_{0j}^{(3)}\)</span> depende do produto <span class="math inline">\(p_{0i}p_{ij}^{(2)}\)</span>. Entretanto, <span class="math display">\[p_{0i}p_{ij}^{(2)}=p_{0i}\sum_{k=0}^{5}p_{ik}p_{kj}.\]</span> Portanto, a probabilidade de <span class="math inline">\(p_{0j}^{(3)}\)</span> é obtida pela soma dos produtos <span class="math inline">\(p_{0i}p_{ik}p_{kj}\)</span>. Novamente, poderíamos colocar uma caneta no estado 0 e traçar todos os caminhos que saem de 0 e chegam em <span class="math inline">\(j\)</span> em três passos, calcular o produto dos valores dos arcos de cada caminho e somar os resultados. Contudo, como já conhecemos <span class="math inline">\(p_{0i}^{(2)}\)</span>, podemos simplificar nosso trabalho com utilizando a expressão acima. A tabela abaixo mostra os cálculos.</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 42%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Estado de destino<br>(<span class="math inline">\(j\)</span>)</th>
+<th style="text-align: center;">Caminhos em dois passos (i)</th>
+<th style="text-align: center;"><span class="math inline">\(p_{0i}^{(2)}p_{ij}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(p_{0j}^{(3)}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><br><br>0</td>
+<td style="text-align: center;">0<br><br>1<br><br>2<br><br>3</td>
+<td style="text-align: center;"><span class="math inline">\(p_{00}^{(2)}p_{00}=\frac{4}{27}\)</span> <br><br> <span class="math inline">\(p_{01}^{(2)}p_{10}=0\)</span> <br><br> <span class="math inline">\(p_{02}^{(2)}p_{20}=\frac{6}{27}\)</span> <br><br> <span class="math inline">\(p_{03}^{(2)}p_{30}=0\)</span></td>
+<td style="text-align: center;"><br><br> <span class="math inline">\(p_{00}^{(3)}=\frac{10}{27}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><br><br>1</td>
+<td style="text-align: center;">0<br><br>1<br><br>2<br><br>3</td>
+<td style="text-align: center;"><span class="math inline">\(p_{00}^{(2)}p_{01}=\frac{4}{27}\)</span> <br><br> <span class="math inline">\(p_{01}^{(2)}p_{11}=0\)</span> <br><br> <span class="math inline">\(p_{02}^{(2)}p_{21}=0\)</span> <br><br> <span class="math inline">\(p_{03}^{(2)}p_{31}=0\)</span></td>
+<td style="text-align: center;"><br><br> <span class="math inline">\(p_{01}^{(3)}=\frac{4}{27}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><br><br>2</td>
+<td style="text-align: center;">0<br><br>1<br><br>2<br><br>3</td>
+<td style="text-align: center;"><span class="math inline">\(p_{00}^{(2)}p_{02}=\frac{4}{27}\)</span> <br><br> <span class="math inline">\(p_{01}^{(2)}p_{12}=\frac{1}{27}\)</span> <br><br> <span class="math inline">\(p_{02}^{(2)}p_{22}=0\)</span> <br><br> <span class="math inline">\(p_{03}^{(2)}p_{32}=0\)</span></td>
+<td style="text-align: center;"><br><br> <span class="math inline">\(p_{02}^{(3)}=\frac{5}{27}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><br><br>3</td>
+<td style="text-align: center;">0<br><br>1<br><br>2<br><br>3</td>
+<td style="text-align: center;"><span class="math inline">\(p_{00}^{(2)}p_{03}=0\)</span> <br> <span class="math inline">\(p_{01}^{(2)}p_{13}=\frac{2}{27}\)</span> <br><br> <span class="math inline">\(p_{02}^{(2)}p_{23}=0\)</span> <br><br> <span class="math inline">\(p_{03}^{(2)}p_{33}=\frac{2}{9}\)</span></td>
+<td style="text-align: center;"><br><br> <span class="math inline">\(p_{03}^{(3)}=\frac{8}{27}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>O exemplo anterior nos mostrou que as probabilidades de transição em dois passos podem ser utilizadas para encontrar as probabilidades em três passos. Esse resultado pode ser generalizado. Primeiro, supondo-se que <span class="math inline">\(p_{ij}^{(m-n)}\)</span> é conhecida, pela homogeneidade da CMTD, é intuitivo que para calcular <span style="color:blue"><span class="math inline">\(p_{ij}^{(m)}\)</span></span> basta conhecer a probabilidade dos <span class="math inline">\(n\)</span> passos restantes, ou seja <span style="color:blue"><span class="math inline">\(p_{ij}^{(n)}\)</span></span>. Esta relação é verdadeira, como mostra a proposição a seguir.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição: Chapman-Kolmogorov
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.4" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.2 </strong></span>Para <span class="math inline">\(m&gt; n\)</span>, <span class="math display">\[p_{ij}^{(m)}=\sum_{k=0}^{\infty}p_{ik}^{(n)}p_{kj}^{(m-n)}.\]</span> Esse conjunto de equações<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> é denominado Equações de Chapman-Kolmogorov (CK).</p>
+<p><code>Demontração:</code></p>
+<span class="math display">\[\begin{align*}
+p_{ij}^{(m)}&amp;=P(X_{m}=j|X_0 = i)= \sum_{k=0}^{\infty}P(X_{m}=j, X_n = k|X_0 = i) \\
+&amp;=\sum_{k=0}^{\infty}P(X_{m}=j | X_n = k, X_0 = i) P(X_n = k| X_0 = i)\\
+&amp;= \sum_{k=0}^{\infty}P(X_{m}=j | X_n = k)P(X_n = k| X_0 = i)=\sum_{k=0}^{\infty}p_{ik}^{(n)}p_{kj}^{(m-n)}
+\end{align*}\]</span>
+<p>Portanto, a partir das probabilidades de transição em <span class="math inline">\(m\)</span> passos pode-se definir a matriz de transição em <span class="math inline">\(m\)</span> passos, denotada por <span class="math inline">\({\bf P}^{(m)}\)</span>. Novamente, tem-se que <span class="math inline">\(p_{ij}^{(m)}\)</span> estará no cruzamento entre a <span class="math inline">\(i\)</span>-ésima linha com a <span class="math inline">\(j\)</span>-ésima coluna de <span class="math inline">\({\bf P}^{(m)}\)</span>.</p>
+<p>Existe uma relação direta entre as matrizes <span class="math inline">\({\bf P}\)</span> e <span class="math inline">\({\bf P}^{(m)}\)</span>. Considerando-se a <span class="math inline">\({\bf A}=\{a_{i,j},i,j=0,\ldots,n\}\)</span>, tem-se que <span class="math inline">\({\bf A}^2=\{b_{ij}=\sum_{k=0}^{n}a_{ik}a_{kj}\}\)</span> (a regra ainda é válida para <span class="math inline">\(n=\infty\)</span>). Se tomarmos <span class="math inline">\({\bf A}={\bf P}\)</span>, teremos que <span class="math display">\[{\bf P}^{2}=\{ q_{ij}=\sum_{k=0}^{n}p_{ik}p_{kj},i,j=0,1,\ldots,n\}.\]</span> Mas, por CK, temos que <span class="math inline">\(q_{ij}=p_{ij}^{(2)}\)</span>. Assim, <span class="math inline">\({\bf P}^{(2)}={\bf P}^2\)</span>. É deixado como exercício para o leitor mostrar a seguinte proposição.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.5" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.3 </strong></span>Seja <span class="math inline">\(\bf{P}\)</span> a matriz de transição de uma CMTD e seja <span class="math inline">\({\bf P}^{(n)}\)</span> sua respectiva matriz de transição <span class="math inline">\(n\)</span> passos a frente. Então <span class="math inline">\({\bf P}^{(m)}={\bf P}^m\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Chuva revisitado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.11" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.11 </strong></span>No <a href="#exm-4.4">Exemplo&nbsp;<span>4.4</span></a> foi apresentado o processo <span class="math inline">\(\{X_n,n=0,1,\ldots\}\)</span> sendo que <span class="math inline">\(X_{n}=I(\text{Chove no dia n})\)</span>. Suponha que <span class="math inline">\({\bf P}\)</span> é dada por:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_9.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A matriz de transição dois passos a frente é</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_10.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Por exemplo, se não chove hoje, a probabilidade de chover daqui a dois dias é de 65,4%. Podem ser feitas previsões para horizontes maiores. Por exemplo, as matrizes de transição para 3 e 10 passos a frente são</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_11.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>e</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_12.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Entretanto, as linhas destas matriz parecem ficar cada vez mais próximas na medida em que o número de passos as frente aumenta. Isso implica em dizer que o último estado conhecido não tem influência quando o número de passos aumenta. Assumir que isto é verdade implica em assumir que existem constantes <span class="math inline">\(\pi_j\)</span>, <span class="math inline">\(j=0,1\)</span> tais que <span class="math display">\[\lim_{n\rightarrow\infty}p_{ij}^{(n)}=\pi_j,\]</span> Neste exemplo em especial, <span class="math inline">\(\pi_0\approx.3478\)</span> e <span class="math inline">\(\pi_1\approx.652\)</span>, o que implicaria que, após observar o processo por um tempo suficiente, a probabilidade de se observar um dia chuvoso é de aproximadamente 65%. Entretanto, não temos (ainda!) garantias da existência desse limite. Este assunto é discutido na <a href="#sec-4.6"><span>Seção&nbsp;4.6</span></a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="classificação-de-estados" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="classificação-de-estados"><span class="header-section-number">4.5</span> Classificação de Estados</h2>
+<section id="comunicação-entre-estados" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="comunicação-entre-estados"><span class="header-section-number">4.5.1</span> Comunicação entre Estados</h3>
+<p>É dito que <span class="math inline">\(j\)</span> é acessível a partir de <span class="math inline">\(i\)</span> se existe a probabilidade de que o processo saia de <span class="math inline">\(i\)</span> e entre em <span class="math inline">\(j\)</span> em algum momento. Na representação do grafo, <span class="math inline">\(j\)</span> é acessível a partir de <span class="math inline">\(i\)</span> se existe um arco orientado saindo de <span class="math inline">\(i\)</span> e chegando em <span class="math inline">\(j\)</span>. Formalmente:</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Acessibilidade
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.6" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.3 </strong></span>É dito que o estado <span class="math inline">\(j\)</span> é <em>acessível</em> a partir de <span class="math inline">\(i\)</span>, se existe pelo menos um <span class="math inline">\(n\)</span> tal que <span class="math inline">\(p_{ij}^{(n)}&gt;0\)</span>. Notação: <span class="math inline">\(i\rightarrow j\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Comunicabilidade
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.7" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.4 </strong></span>É dito que <span class="math inline">\(i\)</span> se comunica com <span class="math inline">\(j\)</span> se <span class="math inline">\(i\rightarrow j\)</span> e <span class="math inline">\(j\rightarrow i\)</span>. Notação: <span class="math inline">\(i\leftrightarrow j\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.8" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.5 </strong></span>É dito que os estados <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span> estão na mesma classe se <span class="math inline">\(i\leftrightarrow j\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Em um grafo, dois estado comunicam-se se existem caminhos orientados que ligam os estados nos dois sentidos.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.9" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.4 </strong></span>Para dois estados <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span> quaisquer:</p>
+<ul>
+<li><span class="math inline">\(i\leftrightarrow i\)</span>.</li>
+<li>Se <span class="math inline">\(i\leftrightarrow j\)</span> então <span class="math inline">\(j\leftrightarrow i\)</span> (propriedade reflexiva).</li>
+<li>Se <span class="math inline">\(i\leftrightarrow k\)</span> e <span class="math inline">\(k\leftrightarrow j\)</span>, então <span class="math inline">\(i\leftrightarrow j\)</span>.</li>
+</ul>
+<p><strong>Demontração:</strong></p>
+<p>Temos que:</p>
+<ol type="1">
+<li>Como <span class="math inline">\(p_{ii}^{(0)}=1\)</span>, temos que <span class="math inline">\(i\rightarrow i\)</span>, logo <span class="math inline">\(i\leftrightarrow i\)</span>.</li>
+<li>Se <span class="math inline">\(i\leftrightarrow j\)</span>, então existem <span class="math inline">\(i\rightarrow j\)</span> e <span class="math inline">\(j\rightarrow i\)</span>. Logo, existe <span class="math inline">\(j\leftrightarrow i\)</span>.</li>
+<li>Se <span class="math inline">\(i\leftrightarrow k\)</span> e <span class="math inline">\(k\leftrightarrow j\)</span>, então <span class="math inline">\(i\rightarrow j\)</span> (pois existe uma sequência de arcos orientados saindo de <span class="math inline">\(i\)</span> e chegando em <span class="math inline">\(k\)</span>, outra sequência saindo de <span class="math inline">\(k\)</span> e chegando em <span class="math inline">\(j\)</span>). De maneira análoga <span class="math inline">\(j\rightarrow i\)</span>, logo <span class="math inline">\(i\leftrightarrow j\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+<p>Por último, existem estados que não podem acessar nenhum outro, ou seja, para todo <span class="math inline">\(j\neq i\)</span> e qualquer <span class="math inline">\(n\)</span> teremos <span class="math inline">\(p_{ij}^{n}=0\)</span>. Neste caso, teremos que <span class="math inline">\(p_{ii}^{(n)}=1\)</span> para qualquer <span class="math inline">\(n\)</span>. Um estado com essa característica é denominado <strong>estado absorvente</strong>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.12" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.12 </strong></span>A CMTD abaixo foi apresentada no <a href="#exm-4.3">Exemplo&nbsp;<span>4.3</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_13.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sobre a acessibilidade, podemos dizer que:</p>
+<ul>
+<li>Os estados 1,2 e 3 são acessíveis a partir de 0. Note que podemos sair de 0 e chegar em 1 e 2 com apenas um passos, enquanto que serão necessários pelo menos dois passos para chegar no estado 3. Assim <span class="math inline">\(0\rightarrow 1\)</span>,<span class="math inline">\(0\rightarrow 2\)</span> e <span class="math inline">\(0\rightarrow 3\)</span>, mas <span class="math inline">\(0\nrightarrow 4\)</span> e <span class="math inline">\(0\nrightarrow 5\)</span>.</li>
+<li>Os estados 0, 2 e 3 são acessíveis a partir de 1. Assim, <span class="math inline">\(1\rightarrow 0\)</span>, <span class="math inline">\(1\rightarrow 2\)</span> e <span class="math inline">\(1\rightarrow 3\)</span>, mas <span class="math inline">\(1\nrightarrow 4\)</span> e <span class="math inline">\(1\nrightarrow 5\)</span>.</li>
+<li>Nenhum estado é acessível a partir de 3. Assim <span class="math inline">\(3\nrightarrow j\)</span> para todo <span class="math inline">\(j\neq 3\)</span>.</li>
+<li>Por último <span class="math inline">\(4\nrightarrow 5\)</span> e <span class="math inline">\(5\nrightarrow 4\)</span>.</li>
+</ul>
+<p>Sobre a comunicabilidade, podemos dizer que</p>
+<ul>
+<li><span class="math inline">\(0\leftrightarrow 1\)</span> e <span class="math inline">\(0\leftrightarrow 2\)</span>, pois podemos sair de 0, chegar nestes estados e voltar.</li>
+<li><span class="math inline">\(1\leftrightarrow 0\)</span> e <span class="math inline">\(1\leftrightarrow 2\)</span>, pois podemos sair de 1, chegar nestes estados e voltar.</li>
+<li><span class="math inline">\(2\leftrightarrow 0\)</span> e <span class="math inline">\(2\leftrightarrow 1\)</span>, pois podemos sair de 2, chegar nestes estados e voltar.</li>
+<li><span class="math inline">\(4\leftrightarrow 5\)</span>.</li>
+</ul>
+<p>Disto, temos as seguintes classes de estados: <span class="math inline">\(\{0,1,2\}, \{3\} \text{ e } \{4,5\}\)</span>. Por último, note que o estado 3 é absorvente.</p>
+<p>Por último, dizemos que uma CMTD é <strong>irredutível</strong> se ela possui uma única classe.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+4.13 Exemplo (Chuva revisitado)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.13" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.13 </strong></span>A CMTD do <a href="#exm-4.4">Exemplo&nbsp;<span>4.4</span></a> é irredutível.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="classes-transientes-e-recorrentes" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="classes-transientes-e-recorrentes"><span class="header-section-number">4.5.2</span> Classes Transientes e Recorrentes</h3>
+<p>Considere o grafo da seguinte CMDT</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_14.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Existem duas classes nessa cadeia: <span class="math inline">\(C_1=\{0,1,2\}\)</span> e <span class="math inline">\(C_2\{3\}\)</span>. Se o processo começar no estado 3, ele nunca mais sairá destes (ele é absorvente). Então, considere que o processo começou em outro estado da classe <span class="math inline">\(C_1\)</span>. Toda vez que o processo passar pelo estado 2, existe a chance ele ir para a classe <span class="math inline">\(C_2\)</span> - e, portanto, de nunca voltar para <span class="math inline">\(C_1\)</span>. Considere agora o grafo abaixo</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_15.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Podemos notar que existem duas classes: <span class="math inline">\(C_1=\{0,1,2\}\)</span> e <span class="math inline">\(C_2=\{3,4\}\)</span>. Começando na classe <span class="math inline">\(C_2\)</span>, não é como o processo chegar até a classe <span class="math inline">\(C_1\)</span>. Entretanto, estando em <span class="math inline">\(C_1\)</span>, sempre existe a probabilidade do processo fazer uma transição do estado 2 para o 3 e nunca mais voltar para <span class="math inline">\(C_1\)</span>.</p>
+<p>os dois exemplos acima vimos dois tipos de classes: aquelas que o processo pode abandonar e as que o processo nunca abandona. Esses tipos são denominados transiente e recorrente, respectivamente. Antes de definirmos formalmente estes tipos de classes, é conveniente primeiro definir estados recorrentes e transientes.</p>
+<p>Seja <span class="math inline">\(f_{ij}^{(n)}\)</span> a probabilidade do processo sair do estado <span class="math inline">\(i\)</span> e chegar, pela primeira vez em <span class="math inline">\(j\)</span>, em exatos <span class="math inline">\(n\)</span> passos, ou seja <span class="math display">\[\begin{equation}
+f_{ij}^{(n)}=P(X_n=j,X_{n-1}\neq j,\ldots, X_1\neq j|X_0 =i).
+\end{equation}\]</span></p>
+<p>A probabilidade de que o processo saia de <span class="math inline">\(i\)</span> e chegue em <span class="math inline">\(j\)</span> em algum momento é dada por <span class="math display">\[\begin{align*}
+f_{ij}&amp;=P(\hbox{$\cup_{n=1}^\infty$\{chegar em $j$ em exatos $n$ passos\}})\\
+&amp;=\sum_{n=1}^{\infty}P(\hbox{ \{chegar em $j$ em exatos $n$ passos\}})\\
+&amp;=\sum_{n=1}^{\infty}f_{ij}^{(n)}.
+\end{align*}\]</span></p>
+<p>Com isso, podemos definir estados transientes e recorrentes.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.10" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.6 </strong></span>Dizemos que o estado <span class="math inline">\(i\)</span> é recorrente se <span class="math inline">\(f_{ii}=1\)</span> e dizemos que ele é transiente se <span class="math inline">\(f_{ii}&lt;1\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Assim, ao sair de um estado recorrente, o processo retornará com probabilidade um (ele retornará certamente). Por outro lado, ao sair de um estado transiente, sempre haverá a possibilidade de o processo não voltar para este estado. De fato, podemos mostrar que um estado transiente só pode ser visitado um número finito de vezes.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.11" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.5 </strong></span>eja <span class="math inline">\(i\)</span> um estado transiente. Então, se o processo passar por <span class="math inline">\(i\)</span>, esse estado será visitado um número finito de vezes.</p>
+<p><code>Demontração:</code></p>
+<p>Seja <span class="math inline">\(i\)</span> um estado transiente e, sem perda de generalidade, assuma que <span class="math inline">\(X_0=i\)</span>. Seja <span class="math inline">\(A_k\)</span> o evento no qual o processo saiu de <span class="math inline">\(i\)</span> e voltou pela <span class="math inline">\(k\)</span>-ésima vez. Temos que os eventos <span class="math inline">\(A_k\)</span>, <span class="math inline">\(k=1,2,\ldots,\)</span> são independentes (pela propriedade de Markov, uma vez estando no estado <span class="math inline">\(i\)</span>, todo o caminho já percorrido é irrelevante). Temos ainda que <span class="math inline">\(P(A_k)=f_{ii}\)</span>. Notemos que, se ocorrer <span class="math inline">\(A_{k}^c\)</span>, o processo nunca mais retornará para <span class="math inline">\(i\)</span>. Seja <span class="math inline">\(M\)</span> o número de vezes que o processo voltou para <span class="math inline">\(i\)</span>. Temos que <span class="math inline">\(M\)</span> terá distribuição geométrica, ou seja <span class="math display">\[P(M=m)=f_{ii}^{m}(1-f_{ii}),\quad n=0,1,2,\ldots.\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-4.12" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 4.1 </strong></span>eja <span class="math inline">\(i\)</span> um estado transiente e seja <span class="math inline">\(M\)</span> de vezes que o processo voltou para <span class="math inline">\(i\)</span>. Então <span class="math display">\[E(M)=\frac{f_{ii}}{1-f_{ii}}&lt;\infty.\]</span></p>
+</div>
+</div>
+</div>
+<p>Para mostrar que um estado <span class="math inline">\(i\)</span> é transiente (ou recorrente) diretamente pela Definição 4.10, é necessário calcular a probabilidade <span class="math inline">\(f_{ii}\)</span>. A seguinte proposição mostra que isto também é possível utilizando diretamente as probabilidades de transição em <span class="math inline">\(n\)</span> passos.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.13" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.6 </strong></span>O estado <span class="math inline">\(i\)</span> é transiente se e somente se <span class="math inline">\(\sum_{n=1}^{\infty}p_{ii}^{(n)}&lt;\infty\)</span>.</p>
+<p><code>Demonstração:</code></p>
+<p>Seja <span class="math inline">\(M=\sum_{n=1}^{\infty}I(X_n=i)\)</span> (i.é, <span class="math inline">\(M\)</span> é o número de vezes que o processo retorna a <span class="math inline">\(i\)</span>). Então <span class="math display">\[\begin{align*}
+E(M|X_0=i)&amp;= E[\sum_{n=1}^{\infty}I(X_n=i)|X_0=i]=\sum_{n=1}^{\infty} E[I(X_n=i)|X_0=i]\\
+&amp;=\sum_{n=1}^\infty P(X_n =i | X_0 = i)=\sum_{n=1}^\infty p_{ii}^{(n)}.
+\end{align*}\]</span> Se <span class="math inline">\(i\)</span> é transiente, então <span class="math inline">\(E(M|X_0=i)\)</span> deve ser finito, o que implica em <span class="math inline">\(\sum_{n=1}^\infty p_{ii}^{(n)}&lt;\infty\)</span>. Se <span class="math inline">\(\sum_{n=1}^{(n)}p_{ij}^{(n)}&lt;\infty\)</span>, então <span class="math inline">\(E(M|X_0)\)</span> é finito e o estado <span class="math inline">\(i\)</span> é visitado apenas um número finito de vezes, o que implica que <span class="math inline">\(i\)</span> é transiente.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-4.14" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 4.2 </strong></span>estado <span class="math inline">\(j\)</span> é recorrente se e somente se <span class="math inline">\(\sum_{n=1}^{\infty}p_{jj}^{(n)}=\infty\)</span>.</p>
+<p>Agora, mostraremos que se existe um estado transiente(recorrente) em uma classe, então, todos os estados da classes também serão transientes (recorrentes).</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.15" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.7 </strong></span>Se <span class="math inline">\(i\leftrightarrow j\)</span> e <span class="math inline">\(i\)</span> é transiente, então <span class="math inline">\(j\)</span> é transiente. Além disso, se <span class="math inline">\(i\leftrightarrow j\)</span> e <span class="math inline">\(i\)</span> é recorrente, então <span class="math inline">\(j\)</span> é recorrente.</p>
+<p>Como <span class="math inline">\(i\leftrightarrow j\)</span>, então existe um número de passos <span class="math inline">\(n\)</span> tal que é possível sair de <span class="math inline">\(i\)</span> e chegar em <span class="math inline">\(j\)</span> e um número de passos <span class="math inline">\(m\)</span> tal que é possível sair de <span class="math inline">\(j\)</span> e chegar em <span class="math inline">\(i\)</span>, logo <span class="math inline">\(p_{ij}^{(n)}&gt;0\)</span> e <span class="math inline">\(p_{ji}^{(m)}&gt;0\)</span>. Notemos que <span class="math display">\[\begin{align*}
+\sum_{v=0}^{\infty}p_{jj}^{(m+n+v)}&amp;=
+\sum_{v=0}^{\infty}\sum_{u=0}^{\infty}\sum_{s=0}^{\infty}p_{ju}^{(m)}p_{us}^{(v)}p_{sj}^{(n)}
+\geq \sum_{v=0}^{\infty}p_{ji}^{(m)}p_{ii}^{(v)}p_{ij}^{(n)}\\&amp;=p_{ji}^{(m)}p_{ij}^{(n)}\sum_{v=0}^{\infty}p_{ii}^{(v)}
+\end{align*}\]</span> Notando que <span class="math inline">\(\sum_{v=0}^{\infty} p_{jj}^{(m+n+v)}=\sum_{v^\star=m+n}^{\infty}p_{jj}^{(v^\star)}\)</span>, teremos <span class="math display">\[\sum_{v^\star=0}^\infty p_{jj}^{(v^\star)}&gt;\textcolor{blue}{\sum_{v^\star=m+n}^\infty p_{jj}^{(v^\star)}}\geq p_{ji}^{(m)}p_{ij}^{(n)}\sum_{v=0}^{\infty}p_{ii}^{(v)}\]</span></p>
+<p>Assim, se <span class="math inline">\(j\)</span> for transiente, teremos que <span class="math inline">\(\sum_{v=0}^{\infty}p_{jj}^{(v)}&lt;\infty\)</span> e, portanto <span class="math inline">\(\sum_{v=0}^{\infty}p_{ii}^{ (v)}&lt;\infty\)</span> o que implica em <span style="color:blue"><span class="math inline">\(i\)</span></span> ser transiente. Além disso, podemos seguir os mesmos passos e mostrar que <span class="math display">\[\sum_{v^\star=0}^\infty p_{ii}^{(v^\star)}\geq p_{ji}^{(n)}p_{ji}^{(m)}\sum_{v=0}^{\infty}p_{jj}^{(v)},\]</span> logo, <span class="math inline">\(i\)</span> transiente implica em <span class="math inline">\(j\)</span> transiente. Por último, se um dos dois estados for recorrente, o outro deve ser recorrente também.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-4.16" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 4.3 </strong></span>Seja <span class="math inline">\(C\)</span> uma classe de estados. Se <span class="math inline">\(i\in C\)</span> e <span class="math inline">\(i\)</span> é transiente(recorrente), então todos os estados de <span class="math inline">\(C\)</span> serão transientes(recorrentes).</p>
+</div>
+</div>
+</div>
+<p>Agora, seja um estado <span class="math inline">\(i\)</span> recorrente. Já é conhecido que, partindo de <span class="math inline">\(i\)</span>, o processo visitará <span class="math inline">\(i\)</span> infinitas vezes. Entretanto, existem estados recorrentes cujo tempo médio de retorno não é finito. Para explicar melhor esse fenômeno, recorde que, se <span class="math inline">\(i\)</span> é recorrente, então <span class="math inline">\(f_{ii}=\sum_{n=1}^{\infty}f_{ii}^{(n)}=1\)</span>. Deste modo, <span class="math inline">\(f_{ii}^{(n)}\)</span> é função de probabilidade de uma variável <span class="math inline">\(N\)</span> que representa o número de passos necessários para o processo sair de <span class="math inline">\(i\)</span> e voltar pela primeira vez para <span class="math inline">\(i\)</span>. Assim, defina <span class="math display">\[\begin{equation}
+\mu_{ii}=\sum_{n=1}^\infty n f_{ii}^{(n)},
+\end{equation}\]</span> como sendo <strong>o tempo médio</strong> da recorrência e considere a CMTD abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_16.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>É fácil notar que a <span style="color:blue">CMTD</span> acima é irredutível e sua única classe é recorrente. Tomando o estado 0, notemos que:</p>
+<ul>
+<li><span class="math inline">\(f_{00}^{(1)}=0\)</span>, pois é impossível chegar em zero em um passo.</li>
+<li><span class="math inline">\(f_{00}^{(2)}=1\)</span>, pois sempre chegaremos em zero em dois passos.</li>
+<li><span class="math inline">\(f_{00}^{(k)}=0\)</span>, <span class="math inline">\(k&gt;2\)</span>, pois não é possível partir de zero e chegar em zero pela primeira vez em um número de passos maior que 2.</li>
+</ul>
+<p>Portanto, <span class="math display">\[\begin{equation}
+\mu_{00}=\sum_{n=1}^{\infty}nf_{00}^{(n)}=1\times f_{00}^{(1)} + 2\times f_{00}^{(2)} =2
+\end{equation}\]</span> Como a <span class="math inline">\(\mu_{00}=2&lt;\infty\)</span>, esperamos que o processo volte para 0 em um tempo finito. Indo para o outro extremo, considere a CMDT com as seguintes probabilidades de transição: <span class="math display">\[p_{01}=1,p_{i,i+1}=\frac{i}{i+1},p_{i0}=\frac{1}{i+1},\]</span> com <span class="math inline">\(i=1,2,\ldots\)</span>, cujo grafo está esboçado abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_17.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como existe a probabilidade do processo chegar em qualquer estado e depois voltar para zero, a CMDT acima é irredutível. Para mostrar que a cadeia é recorrente, note que:</p>
+<ul>
+<li><span class="math inline">\(f_{00}^{(1)}=0\)</span>;</li>
+<li><span class="math inline">\(f_{00}^{(2)}=\frac{1}{1}\frac{1}{2}\)</span>;</li>
+<li><span class="math inline">\(f_{00}^{(3)}=\frac{1}{2}\frac{1}{3}\)</span></li>
+<li><span class="math inline">\(f_{00}^{(4)}=\frac{1}{2}\frac{2}{3}\frac{1}{4}=\frac{1}{3}\frac{1}{4}\)</span></li>
+<li><span class="math inline">\(\vdots\)</span></li>
+<li><span class="math inline">\(f_{00}^{(n)}=\frac{1}{n(n-1)}\)</span></li>
+</ul>
+<p>Assim, <span class="math display">\[f_{00}=\sum_{n=2}^{\infty}\frac{1}{n(n-1)}=\lim_{k\rightarrow\infty}\sum_{n=2}^{k}\frac{1}{n(n-1)}=\lim_{k\rightarrow\infty}\frac{k-1}{k}=1,\]</span> logo 0 é recorrente. Além disso, <span class="math display">\[\mu_{00}=\sum_{n=1}^{\infty}nf_{00}^{(n)}=\sum_{n=2}^{\infty}\frac{1}{n-1}=\infty,\]</span> sendo que o tempo médio de recorrência para o estado 0 não é finito. Portanto, os estados recorrentes podem ser classificados em dois tipos, segundo a definição abaixo.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.17" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.7 </strong></span>Seja <span class="math inline">\(i\)</span> um estado recorrente. Dizemos que <span class="math inline">\(i\)</span> é recorrente positivo se <span class="math inline">\(\mu_{ii}&lt;\infty\)</span> e dizemos que <span class="math inline">\(i\)</span> é recorrente nulo se <span class="math inline">\(\mu_{ii}=\infty\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.18" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.8 </strong></span>Recorrência positiva(nula) são propriedades de classe.</p>
+<p><code>Demonstração:</code> Considere uma classe recorrente contendo os estados <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span>. Se <span class="math inline">\(i\)</span> é recorrente positivo, então o processo consegue se deslocar de <span class="math inline">\(i\)</span> para <span class="math inline">\(j\)</span> e depois voltar para <span class="math inline">\(i\)</span> em um tempo finito. Isto implica que o processo consegue sair de <span class="math inline">\(j\)</span>, chegar em <span class="math inline">\(i\)</span> e voltar para <span class="math inline">\(j\)</span> em um tempo finito. Assim, <span class="math inline">\(j\)</span> deve ser recorrente positivo e, recorrência positiva é propriedade de classe.</p>
+<p>Agora, se um dos estados de uma classe for recorrente nulo, os outros não podem ser recorrentes positivos, pelo resultado acima. Logo, recorrência nula também é propriedade de classe.</p>
+</div>
+</div>
+</div>
+<p>O próximo resultado será útil mais adiante.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.19" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.9 </strong></span>Uma CMTD irredutível finita (ou seja, com espaço dos estados finito) é recorrente positiva.</p>
+<p><code>Demonstração:</code> Em uma cadeia irredutível todos os estados se comunicam. Suponha por absurdo que a cadeia é transiente. Então, todos os estados deveriam ser visitados um número finito de vezes. Isso é absurdo pois, como existe um número finito de estados, o processo sempre deve revisitar algum estado. Assim, toda CMTD irredutível e finita é recorrente.</p>
+<p>Agora, suponha por absurdo que <span class="math inline">\(j\)</span> é recorrente nulo. Isto implica que a cadeia gasta pouco tempo neste estado. Mas essa afirmativa deveria ser verdadeira para todos os estados. Assim, saindo de <span class="math inline">\(j\)</span>, cada estado só poderia ser visitado poucas vezes. Como a cadeia é finita, o processo será obrigado a revisitar um dos estados em um tempo finito, fazendo com que esse estado seja recorrente positivo, e implicando que <span class="math inline">\(j\)</span> deveria ser recorrente positivo, gerando um absurdo. Portanto, o estado <span class="math inline">\(j\)</span> deve ser recorrente positivo.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="periodicidade-de-um-estado" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="periodicidade-de-um-estado"><span class="header-section-number">4.5.3</span> Periodicidade de um Estado</h3>
+<p>Alguns estados em uma CM possuem a propriedade de só poderem ser atingidos em tempos distintos. Tais estados são ditos periódicos. Por exemplo, considere o grafo a seguir:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_18.png" class="img-fluid figure-img" style="width:35.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se o processo estiver em 0 no tempo <span class="math inline">\(0\)</span>, ele estará de volta ao estado 0 apenas nos tempos <span class="math inline">\(4,8,12,\ldots\)</span>, que são múltiplos de 4. Cadeias que possuem esse tipo de regularidade são denominadas periódicas.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Estado periódico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.20" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.8 </strong></span>O estado <span class="math inline">\(i\)</span> de uma Cadeia de Markov é dito ser periódico se todos os retornos ao estado <span class="math inline">\(i\)</span> ocorrem em um número de passos múltiplo de <span class="math inline">\(k\)</span> (neste caso, é dito que o período de <span class="math inline">\(i\)</span> é igual a <span class="math inline">\(k\)</span>).</p>
+<p>Formalmente, seja <span class="math inline">\(D_i=\{n\geq 1 : p_{ii}^{(n)}&gt;0\}\)</span>, ou seja, o conjunto com os números de passos necessários para o retorno ao estado e seja <span class="math inline">\(k\)</span> o máximo divisor comum (mdc) de <span class="math inline">\(D_i\)</span>. Então <span class="math inline">\(k\)</span> é denominado período do estado <span class="math inline">\(i\)</span>. Notação: <span class="math inline">\(d(i)=k\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Voltando ao exemplo acima, pode-se notar que <span class="math display">\[D_0=\{4n,n=1,2,\ldots\},\]</span> logo <span class="math inline">\(d(0)=4\)</span>.</p>
+<p>Sejam <span class="math inline">\(mdc(a,b)\)</span> o máximo divisor comum entre <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span>. É importante recordar alguns fatos:</p>
+<ul>
+<li>Todo número pode ser decomposto em fatores primos.</li>
+<li>Sejam <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> dois números e sejam <span class="math inline">\(a=p\times p_a\)</span> e <span class="math inline">\(b=p\times p_b\)</span> suas respectivas decomposições em fatores primos, onde <span class="math inline">\(p\)</span> é comum para ambos. Então o <span class="math inline">\(mdc(a,b)=p\)</span>.</li>
+<li>Sejam <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span> inteiros positivos e seja <span class="math inline">\(c=n_1a+n_2b\)</span>. Se <span class="math inline">\(mdc(a,b)=p\)</span>, então o <span class="math inline">\(mcd(a,b,c)=p\)</span>.</li>
+</ul>
+<p>É importante separar a noção de período com o número de passos necessários para retornar ao estado. Se um estado possui período <span class="math inline">\(d\)</span>, então o processo só retornará ao estado em passos múltiplos de <span class="math inline">\(d\)</span>, <strong>mas não em todos</strong> os passos múltiplos de <span class="math inline">\(d\)</span>. O exemplo abaixo ilustra esse fato.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Relação entre período e passos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.14" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.14 </strong></span>É possível que uma CMTD tenha estados com período <span class="math inline">\(d\)</span> que não podem ser atingidos em <span class="math inline">\(d\)</span> passos (ou seja, com <span class="math inline">\(p_{ii}^{(d)}=0\)</span>). Considere a CMDT abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_19.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No grafo acima, pode-se perceber que, saindo de 0, o processo só retorna por dois caminhos: de <span class="math inline">\(\{0,1,2,3,4,5,6,7,0\}\)</span> ou <span class="math inline">\(\{0,1,2,3,4,5,0\}\)</span>. Neste caso, é possível voltar em um número de passos múltiplo de 6, de 8 e de combinações destes dois (por exemplo, é possível volar em 14 passos, fazendo o caminho completo de seis passos e depois fazendo o caminho de 8 passos). Entretanto, como todos esses caminhos são combinações de <span class="math inline">\(6\)</span> e <span class="math inline">\(8\)</span>, precisamos apenas encontrar o <span class="math inline">\(mdc\)</span> destes dois. Assim, o período de 0 é <span class="math inline">\(d(0)=2\)</span>. Entretanto, note que <span class="math inline">\(p_{ii}^{(2)}\)</span> é igual a zero.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.15" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.15 </strong></span>Considere a seguinte matriz de transição:</p>
+<p><span class="math display">\[\begin{align}{\bf P}=\left(\begin{array}{cc} 0 &amp; 1 \\ 1 &amp; 0\end{array}\right)\end{align}\]</span></p>
+<p>Note que não podemos voltar para nenhum dos dois estados em um passo, mas</p>
+<p><span class="math display">\[\begin{align}{\bf P}^2=\left(\begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 1\end{array}\right),\end{align}\]</span></p>
+<p>logo, o processo pode retornar para qualquer um dos estados em dois passos. É fácil notar que, <span class="math inline">\({\bf P}^{2n}={\bf I}\)</span> para <span class="math inline">\(n=1,2,\ldots\)</span>. Assim, para o estado <span class="math inline">\(0\)</span> ou <span class="math inline">\(1\)</span> teremos <span class="math inline">\(D=\{2,4,6,\ldots\}\)</span>. Como o máximo denominador comum de <span class="math inline">\(D_i\)</span> é 2, teremos que o período dos estados <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span> é igual a 2.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.21" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.9 </strong></span>Para um estado <span class="math inline">\(i\)</span> qualquer, se <span class="math inline">\(D_i=\varnothing\)</span>, é definido que <span class="math inline">\(d(i)=0\)</span>. Se <span class="math inline">\(D_i\)</span> não for vazio, então <span class="math inline">\(d(i)\)</span> será pelo menos 1. Em particular, se <span class="math inline">\(d(i)=1\)</span>, é dito que <span class="math inline">\(i\)</span> é aperiódico.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo <span class="math inline">\(d(i)=0\)</span> e <span class="math inline">\(d(j)=1\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.16" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.16 </strong></span>Considere a CMDT abaixo</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_20.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Começando em 0, o processo nunca mais retorna a este estado, fazendo com que <span class="math inline">\(D_0=\varnothing\)</span> e <span class="math inline">\(d(0)=0\)</span>. Como o estado 1 pode retorna para ele mesmo em um passo, temos que <span class="math inline">\(d(1)=1\)</span>. Além disso, para o estado 2 temos <span class="math inline">\(D=\{2,3,4,\ldots,\}\)</span> fazendo com que <span class="math inline">\(d(2)=1\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.22" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.10 </strong></span>Seja <span class="math inline">\(C\)</span> uma classe de estados. Se <span class="math inline">\(i\in C\)</span> e <span class="math inline">\(d(i)=d\)</span>, então todo estado em <span class="math inline">\(C\)</span> terá período igual a <span class="math inline">\(d\)</span>.</p>
+<p><code>Demonstração:</code> Como <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span> se comunicam, existem <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span> tais que <span class="math inline">\(p_{ij}^{(n_1)}&gt;0\)</span> e <span class="math inline">\(p_{ji}^{(n_2)}&gt;0\)</span>. Assim, temos que <span class="math display">\[p_{ii}^{(n_1+n_2)}=\sum_{s=0}^{\infty}p_{is}^{(n_1)}p_{si}^{(n_2)}\geq p_{ij}^{(n_1)}p_{ji}^{(n_2)}&gt;0.\]</span> Portanto, <span class="math inline">\(n_1+n_2\in D_i\)</span>, o que equivale a dizer que existe <span class="math inline">\(a\)</span> inteiro positivo tal que <span class="math inline">\(n_1+n_2=a\times d(i)\)</span>. Agora, note que <span class="math display">\[\begin{align*}
+p_{ii}^{(n_1+n_2+d(j))}&amp;=\sum_{s=0}^{\infty}p_{is}^{(n_1)}p_{si}^{(n_2)}\geq
+p_{ij}^{(n_1)}p_{ji}^{(n_2+d(j))}\\
+&amp;=p_{ij}^{(n_1)}\sum_{s=0}^{\infty}p_{js}^{(d(j))}p_{si}^{(n_2)}\geq
+p_{ij}^{(n_1)}p_{jj}^{(d(j))}p_{ji}^{(n_2)}&gt;0.
+\end{align*}\]</span> Portanto, <span class="math inline">\(d(j)+n_1+n_2\in D_i\)</span> e existe <span class="math inline">\(b\)</span> inteiro positivo tal que <span class="math inline">\(n_1+n_2+d(j)=b\times d(i)\)</span>. Portanto, <span class="math display">\[(n_1+n_2)+d(j)=b\times d(i)\Rightarrow a\times d(i)+d(j)=b\times d(i)\Rightarrow a+\frac{d(j)}{d(i)}=b.\]</span> Portanto, <span class="math inline">\(d(j)\)</span> é divisível por <span class="math inline">\(d(i)\)</span>. Entretanto, trocando os estados <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span> no desenvolvimento acima, pode-se concluir que <span class="math inline">\(d(i)\)</span> é divisível por <span class="math inline">\(d(j)\)</span>. Isto implica que <span class="math inline">\(d(i)=d(j)\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Por último, temos a seguinte definição.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.23" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.10 </strong></span>Um estado recorrente positivo e aperiódico é denominado <strong>ergódico</strong>. Por consequência, a classe desse estado é também denominada <strong>ergódica</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-4.6" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sec-4.6"><span class="header-section-number">4.6</span> Distribuição Estacionária</h2>
+<p>Considere o problema de determinar a probabilidade do processo estar em um estado <span class="math inline">\(j\)</span> em particular. Conhecendo a matriz de transição e a probabilidade do estado no instante 0, para qualquer tem-se que <span class="math inline">\(n\)</span>, <span class="math display">\[P(X_n=j)=\sum_{j=0}^{\infty}P(X_{n}=j|X_0=i)P(X_0=i)=\sum_{j=0}^{\infty}p_{ij}^{n}P(X_0=i).\]</span> A probabilidade <span class="math inline">\(P(X_n=j)\)</span> depende do valor de <span class="math inline">\(n\)</span>. Entretanto, se voltarmos ao <a href="#exm-4.10">Exemplo&nbsp;<span>4.10</span></a>, podemos conjecturar que <span class="math inline">\(p_{ij}^{(n)}\)</span> se aproxima de uma constante com o aumento de <span class="math inline">\(n\)</span>, fazendo com que <span class="math inline">\(P(X_n=j)\)</span> também se torne constante. Com isso, considere a seguinte definição.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-4.24" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 4.11 </strong></span>Seja <span class="math inline">\(\{X_n, n=0,1,\ldots,\}\)</span> uma CMTD, com o espaço dos estados igual a <span class="math inline">\(\mathbb{N}\)</span>. Seja <span class="math inline">\(\pi_j,\quad j=0,1,\ldots\)</span> a probabilidade do processo estar no estado <span class="math inline">\(j\)</span>. Dizemos que <span class="math inline">\(\bf{\pi}=\{\pi_0,\pi_1,\ldots\}\)</span> é uma distribuição estacionária se</p>
+<p><span class="math display">\[\pi_j = \sum_{i=0}^{\infty}P(X_{m+n}=j|X_{n}=i)\pi_i\]</span></p>
+<p>para todo <span class="math inline">\(j\)</span> e <span class="math inline">\(m,n\geq 0\)</span>.</p>
+<p>Se um processo possui distribuição estacionária, então a probabilidade <span class="math inline">\(P(X_n=j)=\pi_j\)</span> é constante em relação a <span class="math inline">\(n\)</span>. De fato, temos que</p>
+<p><span class="math display">\[\begin{align}
+P(X_1=j)&amp;=\sum_{k=0}^{\infty}P(X_1=j|X_0=k)P(X_0=k)=\sum_{k=0}^{\infty}\textcolor{blue}{p_{kj}}\pi_k =\pi_j
+\end{align}\]</span> e, por indução,</p>
+<p><span class="math display">\[\begin{align}
+P(X_n=j)&amp;=\sum_{k=0}^{\infty}P(X_n=j|X_{n-1}=k)P(X_{n-1}=k)=\sum_{k=0}^{\infty}\textcolor{blue}{p_{kj}}\pi_k =\pi_j.
+\end{align}\]</span></p>
+<p>Entretanto, uma CMTD não necessariamente possui distribuição estacionária. Por exemplo, considere a cadeia abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_20.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Seja <span class="math inline">\(\pi_0=P(X_0=0)&gt;0\)</span> (ou seja, a probabilidade do processo começar em zero). Note que <span class="math display">\[P(X_1=0)=\sum_{j=0}^{2}p_{j0}\pi_0=0\neq\pi_0,\]</span> logo esta cadeia não tem distribuição estacionária.</p>
+<p>Como já mencionado, em certas condições existe o limite <span class="math display">\[\pi_j=\lim_{n\rightarrow\infty}p_{ij}^{(n)},\]</span> independente do valor de <span class="math inline">\(i\)</span>. Sendo o limite acima verdadeiro para certa cadeia, teremos que <span class="math display">\[\begin{align*}
+\lim_{n\rightarrow\infty}P(X_n=j)&amp;=\lim_{n\rightarrow\infty}\sum_{k=0}^{\infty}p_{kj}^{(n)}P(X_{0}=k)\\
+&amp;=\sum_{k=0}^{\infty}\left[\lim_{n\rightarrow\infty}p_{kj}^{(n)}\right]P(X_{0}=k)\\
+&amp;=\pi_j\sum_{k=0}^{\infty}P(X_0=k)=\pi_j,
+\end{align*}\]</span> e, portanto, <span class="math inline">\(\pi\)</span> será a distribuição estacionária da cadeia. Tais probabilidades são muitas vezes é interpretadas como a proporção do tempo que o processo gasta no estado.</p>
+<p>No que segue são discutidas em quais situações uma CMTD possui distribuição estacionária.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.25" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.11 </strong></span>Cadeias irredutíveis transientes não possuem distribuição estacionária.</p>
+<p><code>Demonstração</code>: Em cadeias transientes, todos os estados são visitados um número finito de vezes, logo <span class="math inline">\(\lim_{n\rightarrow\infty}p_{ij}^{(n)}=0\)</span> para quaisquer <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span>. Neste caso, teremos <span class="math inline">\(\pi_j=0\)</span> para todo <span class="math inline">\(j\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.26" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.12 </strong></span>Cadeias irredutíveis recorrente nulas não possuem distribuição estacionária.</p>
+<p><code>Demonstração:</code> Em uma cadeia recorrente nula, é esperado que qualquer estado não seja revisitado em um tempo finito. Com isso, para qualquer <span class="math inline">\(n\)</span> suficientemente grande e finito, o estado foi revisitado apenas um número finito de vezes e seu comportamento é análogo a uma cadeia transiente e teremos <span class="math inline">\(\pi_j=0\)</span> para todo <span class="math inline">\(j\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.27" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.13 </strong></span>Cadeias recorrente positivas com período maior que um não possuem distribuição estacionária.</p>
+<p><code>Demonstração:</code> Se existe <span class="math inline">\(\lim_{n\rightarrow\infty}p_{ij}^{(n)}=\pi_j\)</span>, então a sequência <span class="math inline">\(p_{ij}^{(1)},p_{ij}^{(2)},\ldots\)</span> é convergente. Disto, qualquer subsequência infinita desta sequência deveria ser convergente. Isto não ocorre se houver um período maior que 1, pois haverá uma subsequência identicamente nula e outra estritamente positiva. <strong>Assim, apenas cadeias aperiódicas podem ter distribuição estacionária.</strong></p>
+<p>Portanto, apenas cadeias ergódicas possuem distribuição estacionária. Considerando essas restrições verdadeiras, vamos provar a existência da distribuição estacionária, caracterizá-la e demonstrar sua unicidade.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-4.28" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 4.1 </strong></span>Uma cadeia irredutível ergódica possui distribuição estacionária. Além disso, essa distribuição é única e é dada por <span class="math display">\[\begin{equation}
+\pi_j = \lim_{n\rightarrow\infty}p_{ij}^{(n)}.
+\end{equation}\]</span></p>
+<p><code>Demonstração:</code> Pelas equações de Chapman-Kolmogorov, teremos que <span class="math display">\[p_{ij}^{(n+1)}=\sum_{k=0}^{\infty}p_{ik}^{(n)}p_{kj}.\]</span> Como <span class="math inline">\(\pi_j =\lim_{n\rightarrow\infty}p_{ij}^{(n)}\)</span>, teremos que <span class="math display">\[\lim_{n\rightarrow \infty}p_{ij}^{(n+1)}=\sum_{k=0}^{\infty}\lim_{n\rightarrow\infty}p_{ik}^{(n)}p_{kj}\Rightarrow \pi_j=\sum_{k=0}^{\infty}\pi_kp_{kj},\]</span> logo, <span class="math inline">\(\pi_j\)</span> é estacionária. Agora, seja <span class="math inline">\(\delta_0,\delta_1,\ldots\)</span> outra distribuição estacionária. Então, é verdade que <span class="math display">\[\delta_j=\sum_{k=0}^{\infty}p_{kj}^{(n)}\delta_k.\]</span> Além disso, temos que <span class="math display">\[\begin{align*}
+\lim_{n\rightarrow \infty} \delta_j=\sum_{k=0}^{\infty}\lim_{n\rightarrow\infty}p_{kj}^{(n)}\delta_k\Rightarrow \delta_j =\sum_{k=0}^\infty \pi_j\delta_k = \pi_j,
+\end{align*}\]</span> logo, <span class="math inline">\(\delta_j=\pi_j\)</span> e a distribuição estacionária é única.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-4.29" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 4.4 </strong></span>Se existe distribuição estacionária, esta é calculada como solução do sistema <span class="math display">\[ \mathcal{\pi}= \mathcal{\pi}{\bf P},\]</span> com a restrição de que <span class="math inline">\(\sum_{j}\pi_j=1\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Chuva - conclusão
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-4.17" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4.17 </strong></span>Vamos concluir o <a href="#exm-4.11">Exemplo&nbsp;<span>4.11</span></a>. O processo considerado é <span class="math inline">\(\{X_n,n=0,1,\ldots\}\)</span>, sendo que <span class="math inline">\(X_{n}=I({\text{Chove no dia n}})\)</span>, com a seguinte matriz de transição</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_23.png" class="img-fluid figure-img" style="width:20.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Esta cadeia é irredutível, finita e aperiódica, logo ela é ergódica. A sua distribuição estacionária será dada por</p>
+<p><span class="math display">\[\left(\pi_0,\pi_1\right)=\left(\pi_0,\pi_1\right)\left(\begin{array}{rccc}
+.25 &amp; .75 \\
+.4 &amp; .6\\
+\end{array}\right).\]</span></p>
+<p>O sistema resultante é</p>
+<p><span class="math display">\[\begin{align}\left\{\begin{array}{l}\
+\pi_0=\frac{1}{4}\pi_0+\frac{2}{5}\pi_1\\
+\pi_1=\frac{3}{4}\pi_0+\frac{3}{5}\pi_1\\
+\pi_0+\pi_1=1.
+\end{array}\right.
+\end{align}\]</span></p>
+<p>Note que a terceira restrição é necessária, pois a primeira linha é linearmente dependente da segunda. Resolvendo o sistema, teremos <span class="math inline">\(\bf{π}\)</span> <span class="math inline">\(= (8/23,15/23)\)</span> (compare estes valores com aqueles obtidos no o Exemplo 4.11). Assim, a proporção do tempo em que chove é de <span class="math inline">\(\approx 65,22\% (15/23)\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="processo-de-ramificação" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="processo-de-ramificação"><span class="header-section-number">4.7</span> Processo de Ramificação</h2>
+<p>O seguinte problema foi proposto por Galton, no fim do século 19. Considere que todo filho recebe o nome do pai. Considere ainda que a distribuição do número de filhos de um indivíduo não se altere ao longo dos anos. Qual é a probabilidade de que um sobrenome seja extinto? Este tipo de problema gera uma cadeia de Markov denominada processo de ramificação.</p>
+<p>Seja <span class="math inline">\(Z_i\)</span> o número de descendentes do <span class="math inline">\(i\)</span>-ésimo indivíduo, com <span class="math inline">\(E(Z)=\mu\)</span> e <span class="math inline">\(Var(Z)=\sigma^2&lt;\infty\)</span>. Consideremos que os indivíduos geram sua descendência independente dos demais com igual distribuição. Seja <span class="math inline">\(X_n\)</span> o número de indivíduos na <span class="math inline">\(n\)</span>-ésima geração. Considere que, no tempo inicial, havia apenas um indivíduo (<span class="math inline">\(X_0=1\)</span>). Então <span class="math inline">\(X_1\)</span>, o número de indivíduos na primeira geração, é igual ao número de descendentes na primeira geração (no caso <span class="math inline">\(X_1=Z_1\)</span>). O número de indivíduos na segunda geração (<span class="math inline">\(X_2\)</span>) dependerá do número de indivíduos da primeira geração, e assim sucessivamente, criando</p>
+<p><span class="math display">\[\begin{equation}
+X_n=\sum_{i=1}^{X_{n-1}}Z_i.
+\end{equation}\]</span> Claramente, <span class="math inline">\(\{X_n,n=0,1,2,\ldots\}\)</span> é uma cadeia de Markov. Desde que <span class="math inline">\(P(Z_1\leq 0)\)</span>, existe a possibilidade de que uma dada geração seja nula. Se isto ocorrer, teremos a extinção desta população, o que implica em dizer que o estado 0 é absorvente. Como sempre há a possibilidade de o processo entrar no estado zero, teremos que todos os outros estados devem ser transientes.</p>
+<p>Embora a distribuição de <span class="math inline">\(X_n\)</span> possa ser complicada, podemos obter sua média e variância.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-4.30" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 4.14 </strong></span>Temos que <span class="math display">\[\begin{equation}E(X_n)=\mu^n
+\end{equation}\]</span> e que <span class="math display">\[\begin{align}Var(X_n)=\left\{\begin{array}{ll}\sigma^2\mu^{n-1}\frac{1-\mu^{n-1}}{1-\mu} &amp;,\mu\neq 1 \\ n\sigma^2 &amp;\mu=1 \\ \end{array} \right.
+\end{align}\]</span></p>
+</div>
+</div>
+</div>
+<p><span class="math display">\[\begin{align*}
+E(X_n)&amp;=E\left(\sum_{i=1}^{X_{n-1}Z_i}\right)=E\left.\left(E\left(\sum_{i=1}^{X_{n-1}}Z_i\right|X_{n-1}\right)\right)=
+E\left.\left(\sum_{i=1}^{X_{n-1}}E\left(Z_1\right|X_{n-1}\right)\right)\\
+&amp;=E\left(X_{n-1}E(Z_1)\right)=E\left(X_{n-1}\mu\right)=\mu E(X_{n-1}).
+\end{align*}\]</span> Utilizando o fato de que <span class="math inline">\(X_0=1\)</span>, temos que <span class="math inline">\(E(X_1)=\mu E(X_0)=\mu\)</span> e que <span class="math inline">\(E(X_2)=\mu E(X_1)=\mu^2\)</span>. Uma simples indução sobre <span class="math inline">\(n\)</span> mostra que <span class="math inline">\(E(X_n)=\mu^n\)</span>.</p>
+<p>Considere a amostra de estados <span class="math inline">\(X_0,X_1,\ldots,X_n\)</span>. Assuma que a cadeia possui um número <span class="math inline">\(k+1\)</span>(finito) de estados e seja</p>
+<p><span class="math display">\[{\bf P}=\left(\begin{array}{ccc}
+      \theta_{00} &amp; \cdots &amp; \theta_{0k} \\
+      \vdots &amp; \vdots &amp; \vdots \\
+      \theta_{k0} &amp; \cdots &amp; \theta_{kk}\\
+      \end{array}      
+      \ \right),\]</span></p>
+<p>sua matriz de transição. Vamos estimar <span class="math inline">\(\theta_{ij}\)</span> via o método da máxima verossimilhança. A função de verossimilhança será dada por <span class="math display">\[\begin{align}
+L({\bf P})&amp;= P(X_0=x_0|{\bf P})\prod_{l=1}^{k}P(X_l=x_l|X_{l-1}=x_{l-1},{\bf P})\\ &amp;=P(X_0=x_0|{\bf P})\prod_{i=0}^k\prod_{j=0}^{k}\theta_{ij}^{n_{ij}},
+\end{align}\]</span> onde <span class="math inline">\(n_{ij}\)</span> é o número de vezes que o processo realizou uma transição do estado <span class="math inline">\(i\)</span> para o estado <span class="math inline">\(j\)</span>. Aplicando o logaritmo na equação acima teremos <span class="math display">\[\begin{align}
+l({\bf P})&amp;=\log L({\bf P})=\log P(X_0=x_0|{\bf P}) + \sum_{i=0}^{k}\sum_{j=0}^{k}n_{ij}\log \theta_{ij}\\
+&amp;\approx \sum_{i=0}^{k}\sum_{j=0}^{k}n_{ij}\log \theta_{ij}
+\end{align}\]</span><br>
+onde o termo <span class="math inline">\(\log P(X_1=x_1|{\bf P})\)</span> pode ser negligenciado, desde que o tamanho da amostra seja razoavelmente grande. Lembrando que <span class="math inline">\(\sum_{j=0}^{k}\theta_{ij}=1\)</span>, façamos <span class="math inline">\(\theta_{ik}=1-\theta_{i0}-\cdots \theta_{i,k-1}\)</span>. Notando que, para <span class="math inline">\(j=0,\ldots,k-1\)</span>, <span class="math display">\[\begin{align}
+\frac{\partial}{\partial\theta_{ij}}l({\bf P})=0\Rightarrow \frac{n_{ij}}{\theta_{ij}} -\frac{n_{ik}}{1-\sum_{l=0}^{k-1}\theta_{il}}=0,
+\end{align}\]</span> teremos que <span class="math display">\[\begin{align*}
+\frac{n_{ij}}{\theta_{ij}}=\frac{n_{ik}}{1-\sum_{l=0}^{k-1}\theta_{il}} &amp;\Rightarrow n_{ij}(1-\sum_{l=0}^{k-1}\theta_{il})=n_{ik}\theta_{ij}\\
+&amp;\Rightarrow \sum_{j=0}^{k}n_{ij}(1-\sum_{l=0}^{k-1}\theta_{il})=n_{ik}\sum_{j=0}^{k}\theta_{ij}\\
+&amp;\Rightarrow 1-\sum_{l=0}^{k-1}=\frac{n_{ik}}{n_i},
+\end{align*}\]</span> onde <span class="math inline">\(n_i = \sum_{j=0}^{k}n_{ij}\)</span> é o número de vezes que o estado <span class="math inline">\(i\)</span> apareceu na amostra.</p>
+<!-- Assim, $\hat{\theta}_{ij} = $ -->
+</section>
+<section id="cadeias-de-ordens-maiores" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="cadeias-de-ordens-maiores"><span class="header-section-number">4.8</span> Cadeias de Ordens Maiores</h2>
+<section id="transformação-para-uma-cmtd-de-ordem-1" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="transformação-para-uma-cmtd-de-ordem-1"><span class="header-section-number">4.8.1</span> Transformação para uma CMTD de ordem 1</h3>
+</section>
+<section id="o-modelo-de-rafttery" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="o-modelo-de-rafttery"><span class="header-section-number">4.8.2</span> O Modelo de Rafttery</h3>
+</section>
+</section>
+<section id="exercícios" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="exercícios"><span class="header-section-number">4.9</span> Exercícios</h2>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.1 </strong></span>Suponha que a moeda 1 tem probabilidade 0,7 de dar cara e a moeda 2 tem 0,6. Se a moeda lançada hoje der cara, amanhã jogaremos a moeda 1. Em caso contrário jogaremos a moeda 2. Se a moeda lançada inicialmente tem a mesma chance de ser a 1 ou a 2, qual a probabilidade da moeda lançada no terceiro dia ser a 1?</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.2 </strong></span>Três bolas brancas e três bolas pretas são distribuídas em duas urnas de modo que cada uma contenha três bolas. Dizemos que o sistema está em <span class="math inline">\(i\)</span> se a primeira urna contém <span class="math inline">\(i\)</span> bolas brancas. A cada passo retiramos uma bola de cada urna. A bola retirada da primeira urna é recolocada na segunda e a que foi retirada da segunda é recolocada na primeira. Seja <span class="math inline">\(X_n\)</span> o estado do sistema em <span class="math inline">\(n\)</span> passos. Explique porque <span class="math inline">\(\{ X_n, n = 0,1,2,\ldots\}\)</span> é uma cadeia de Markov e encontre a sua matriz de transição.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.3 </strong></span>Determine a matriz de transição <span class="math inline">\({\bf P}\)</span> para as seguintes cadeias:</p>
+<ol type="a">
+<li><p>Considere uma sequência de lançamentos de uma moeda com probabilidade <span class="math inline">\(p\)</span> de sair cara. Após <span class="math inline">\(n\)</span> lançamentos o estado do processo é o número de caras em <span class="math inline">\(n\)</span> lançamentos menos o número de coroas.</p></li>
+<li><p><span class="math inline">\(N\)</span> bolas pretas e <span class="math inline">\(N\)</span> bolas brancas são colocadas em duas urnas, cada uma com <span class="math inline">\(N\)</span> bolas. A cada passo uma bola e selecionada de cada urna e trocada de lugar. O estado do sistema é o número de bolas brancas na primeira urna.</p></li>
+<li><p>Um rato branco é colocado no labirinto abaixo. O rato se move através dos compartimentos ao acaso, ou seja, se existem <span class="math inline">\(k\)</span> compartimentos vzsinhos ao que ele está, então ele irá para qualquer um deles com probabilidade <span class="math inline">\(1/k\)</span>. Em cada instante de tempo ele muda de compartimento. O estado do sistema é o número do compartimento em que o rato está.</p></li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4_22.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.4 </strong></span></p>
+<ol type="a">
+<li><p>Considere duas urnas <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> contendo <span class="math inline">\(N\)</span> bolas no total. Um experimento é realizado no qual um bola é selecionada ao acaso no tempo <span class="math inline">\(n (n=1,2,3,\ldots)\)</span> entre as <span class="math inline">\(N\)</span> bolas. Então uma urna é selecionada aleatoriamente (a probabilidade de escolher a urna <span class="math inline">\(A\)</span> é <span class="math inline">\(p\)</span>) e a bola selecionada é colocada nesta urna. O estado do sistema em cada instante de tempo é o número de bolas na urna <span class="math inline">\(A\)</span>. Determine a matriz de transição desta CM.</p></li>
+<li><p>Assuma que no tempo <span class="math inline">\(t\)</span> existem exatamente <span class="math inline">\(k\)</span> bolas em <span class="math inline">\(A\)</span>. No tempo <span class="math inline">\(t+1\)</span> uma urna é selecionada com probabilidade igual á proporção de seu conteúdo (por exemplo, a urna <span class="math inline">\(A\)</span> é selecionada com probabilidade <span class="math inline">\(k/N\)</span>). Então uma bola é selecionada de <span class="math inline">\(A\)</span> com probabilidade <span class="math inline">\(p\)</span> ou de <span class="math inline">\(B\)</span> com probabilidade <span class="math inline">\(1-p\)</span> e colocada na urna selecionada anteriormente. Determine a matriz de transição desta CM.</p></li>
+<li><p>Agora assuma que no tempo <span class="math inline">\(t+1\)</span> uma bola e uma urna são selecionados com probabilidade proporcional ao conteúdo da urna (uma bola da urna <span class="math inline">\(A\)</span> é selecionada com probabilidade <span class="math inline">\(k/N\)</span> e a urna <span class="math inline">\(A\)</span> é selecionada com probabilidade <span class="math inline">\(k/n\)</span>). Determine a matriz de transição da CM com estados representados pelo conteúdo de <span class="math inline">\(A\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.5" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.5 </strong></span>Encontre a distribuição estacionária da cadeia de Markov com a seguinte matriz de transição: <span class="math display">\[\begin{align*}
+   \left(\begin{array}{cc} p &amp; 1-p \\ 1-p &amp; p \\\end{array}\right).
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.6" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.6 </strong></span>Seja <span class="math inline">\(\{X_n,n=0,1,2,\ldots\}\)</span> uma cadeia de Markov com espaço dos estados <span class="math inline">\(\{0,1\}\)</span>, <span class="math inline">\(P(X_n=0|X_{n-1}=0)=0,3=P(X_n=1|X_{n-1}=1)\)</span>. Se <span class="math inline">\(X_n=1\)</span>, um jogador ganha um real. Em caso contrário, o jogador ganha dois reais. Seja <span class="math inline">\(Y_n\)</span> a quantidade de dinheiro que o jogador ganhou {} <span class="math inline">\(n\)</span> (ou seja, um ou dois reais). Para <span class="math inline">\(n\)</span> suficientemente grande, calcule <span class="math inline">\(E(Y_n)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.7" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.7 </strong></span>Mostre que uma cadeia irredutível finita com <span class="math inline">\(p_{ii}&gt;0\)</span> possui distribuição estacionária.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.8" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.8 </strong></span>Certo evento ocorre segundo um processo de Poisson com taxa um por hora. Em cada hora, verificamos se ocorreu pelo menos um evento deste tipo e, em caso afirmativo, colocamos uma bola dentro de uma urna. Seja <span class="math inline">\(Y_n\)</span> o número de bolas na urna na <span class="math inline">\(n\)</span>-ésima hora. Mostre que <span class="math inline">\(Y_n\)</span> é uma cadeia de Markov e construa a sua matriz de transição. Encontre suas classes e classifique-as. Existe distribuição estacionária para esta cadeia? Se existir, encontre-a. Se não existir, justifique.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.9" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.9 </strong></span>Determine as classes e a periodicidade dos estados das CM com as seguintes matrizes de transição:</p>
+<ol type="a">
+<li></li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}\left(
+  \begin{array}{cccc}
+    0 &amp; 0 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 0 &amp; 0 \\
+    1/2&amp;1/2&amp;0 &amp; 0 \\
+    1/3&amp;1/3&amp;1/3&amp;0
+  \end{array}\right)\end{align*}\]</span></p>
+<ol start="2" type="a">
+<li></li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}\left(
+  \begin{array}{cccc}
+    0 &amp; 1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 0 \\
+    1/3&amp;0 &amp;2/3&amp;0
+\end{array}\right)\end{align*}  
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.10" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.10 </strong></span>Adapte o exemplo da fila discreta para o caso em que <span class="math inline">\(2\)</span> clientes são atendidos ao mesmo tempo.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.11" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.11 </strong></span>Encontre as classes a seguinte CMTD, classifique-as como recorrentes ou transientes e encontre seus períodos.</p>
+<p><span class="math display">\[
+\left(\begin{array}{ccccccc}
+0 &amp; 1/3 &amp; 2/3 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp;  0  &amp; 0   &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp;  0  &amp; 4/5   &amp; 1/5 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp;  0  &amp; 1/6   &amp; 0   &amp; 2/6 &amp; 3/6 &amp; 0 \\
+0 &amp;  0  &amp; 0   &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp;  0  &amp; 0   &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp;  0  &amp; 0   &amp; 0 &amp; 1/2 &amp; 0 &amp; 1/2 \\
+\end{array}\right)
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.12" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.12 </strong></span>Uma matriz estocástica (quadrada) é uma matriz <span class="math inline">\({\bf A}=\{a_{ij}\}\)</span>, onde <span class="math inline">\(\sum_{j}a_{ij}=1\)</span> e <span class="math inline">\(0,\leq a_{ij}\leq 1\)</span>. Qualquer matriz estocástica é uma matriz de transição. Entretanto, não necessariamente uma matriz estocástica será uma matriz de transição em dois passos. Em particular, mostre que uma matriz estocástica <span class="math inline">\(2\times 2\)</span> será uma matriz de transição em dois passos se e somente se a soma dos elementos se sua diagonal principal for maior ou igual a 1.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.13" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.13 </strong></span>Considere uma CM com <span class="math inline">\(r\)</span> estados. Prove que:</p>
+<ol type="a">
+<li>Se um estado <span class="math inline">\(k\)</span> é acessível a partir de <span class="math inline">\(j\)</span>, então ele pode ser atingido em <span class="math inline">\(r-1\)</span> passos ou menos.</li>
+<li>Se <span class="math inline">\(j\)</span> é um estado recorrente, então existe <span class="math inline">\(\alpha\in(0,1)\)</span> tal que para <span class="math inline">\(nr\)</span> a probabilidade de que o primeiro retorno ao estado <span class="math inline">\(j\)</span> ocorra após <span class="math inline">\(n\)</span> transições é <span class="math inline">\(\leq \alpha^n\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.14" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.14 </strong></span>Seja <span class="math display">\[\begin{align*}
+{\bf P}=\left(\begin{array}{cc} 1-a &amp; a \\ b &amp; 1-b\end{array}\right),\quad a&gt;0,\quad b&lt;1.
+\end{align*}\]</span> Prove que <span class="math display">\[\begin{align*}
+{\bf P}^n=\frac{1}{a+b}\left(\begin{array}{cc} b &amp; a \\ b &amp; a\end{array}\right)+
+\frac{(1-a-b)^n}{a+b}\left(\begin{array}{cc} a &amp; -a \\ -b &amp; b\end{array}\right)
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.15" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.15 </strong></span>Uma pessoa com uma doença contagiosa entra em uma população. Durante cada instante de tempo, ou ele infecta outra pessoa com probabilidade <span class="math inline">\(p\)</span>, ou seus sintomas aparecem e ele é descoberto pela vigilância sanitária com probabilidade <span class="math inline">\(1-p\)</span>. Encontre a distribuição de probabilidade do número de pessoas infectadas e sem sintomas na população após a descoberta do primeiro portador. Assuma que a doença se comporta da mesma forma em todas as pessoas.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.16" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.16 </strong></span>Uma CM possui a seguinte matriz de transição: <span class="math display">\[\begin{align*}
+{\bf P}=\left(
+\begin{array}{ccc}0,7 &amp; 0,2 &amp; 0,1 \\ 0 &amp; 0,6 &amp; 0,4 \\ 0,5 &amp; 0 &amp; 0,5 \end{array}\right).
+\end{align*}\]</span> Determine as distribuições limites.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.17" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.17 </strong></span>Uma CM, com estados <span class="math inline">\(\{0,1,2\}\)</span>, possui a seguinte matriz de transição: <span class="math display">\[\begin{align*}
+{\bf P}=\left(
+\begin{array}{ccc}0,1 &amp; 0,1 &amp; 0,8 \\ 0,2 &amp; 0,2 &amp; 0,6 \\ 0,3 &amp; 0,3 &amp; 0,4 \end{array}\right).
+\end{align*}\]</span> Assintoticamente, qual a proporção do tempo que o processo gasta no estado 1?</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.18" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.18 </strong></span>Uma CM, com estados <span class="math inline">\(\{0,1,2\}\)</span>, possui a seguinte matriz de transição: <span class="math display">\[\begin{align*}
+{\bf P}=\left(
+\begin{array}{ccc}0,3 &amp; 0,2 &amp; 0,5 \\ 0,5 &amp; 0,1 &amp; 0,4 \\ 0,5 &amp; 0,2 &amp; 0,3 \end{array}\right).
+\end{align*}\]</span></p>
+<p>Cada tempo que o processo gasta no estado um gera um custo de <span class="math inline">\(R 2\)</span>. Cada tempo que o processo gasta no estado dois gera um custo de <span class="math inline">\(R 5\)</span>. Cada tempo que o processo gasta no estado três gera um custo de <span class="math inline">\(R 3\)</span>. Assintoticamente, qual o custo esperado por essa CM?</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.19" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.19 </strong></span>Um ônibus opera em uma rota contínua com paradas intermediárias. A chegada do ônibus em uma parada é classificada em uma das três classes:</p>
+<ol type="1">
+<li>Adiantado</li>
+<li>Pontual</li>
+<li>Atrasado</li>
+</ol>
+<p>Suponha que a sucessão desses estados é proveniente de uma CM com matriz de transição: <span class="math display">\[\begin{align*}
+{\bf P}=\left(
+\begin{array}{ccc}0,5 &amp; 0,4 &amp; 0,1 \\ 0,2 &amp; 0,5 &amp; 0,3 \\ 0,1 &amp; 0,2 &amp; 0,7 \end{array}\right).
+\end{align*}\]</span> Encontre a distribuição estacionária desta cadeia. Qual é a probabilidade de que, em longo prazo, o ônibus esteja atrasado?</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.20" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.20 </strong></span>Considere duas bolas brancas e duas pretas. Essas quatro bolas estão distribuídas em duas urnas. Cada urna contém duas bolas e, a cada minuto, uma bola é retirada da urna 1, outra da urna 2. Em seguida, a bola retirada da urna <span class="math inline">\(i\)</span> é colocada na urna <span class="math inline">\(j\)</span>, com <span class="math inline">\(i,j=\{1,2\}\)</span>. Seja <span class="math inline">\(\{X_{n},n=0,1,\ldots\}\)</span> o número de bolas brancas na urna 1 no <span class="math inline">\(n\)</span>-ésimo minuto.</p>
+<ol type="a">
+<li>Discuta porquê o processo <span class="math inline">\(\{X_n,n=0,1,\ldots\}\)</span> é uma CMTD.</li>
+<li>Encontre as classes desta cadeia e classifique-as como recorrentes e transientes.</li>
+<li>Verifique se existe distribuição estacionária para esta CMTD. Em caso afirmativo, encontre-a.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4.21" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 4.21 </strong></span>O consumo energético de uma casa pode ser classificado como A, B ou C. Foi constatado que a classificação mensal desta casa é uma CMTD com a seguinte matriz de transição</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">1/3</td>
+<td style="text-align: center;">2/3</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1/3</td>
+<td style="text-align: center;">1/3</td>
+<td style="text-align: center;">1/3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">1/3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2/3</td>
+</tr>
+</tbody>
+</table>
+<p>Mostre que esta cadeia satisfaz as condições necessárias para a existência da distribuição estacionária e calcule-a.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>O plural se deve ao fato de que existe uma equação para cada tripla <span class="math inline">\((i,j,m)\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap_3_renovacao.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap_5_cmtc.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Contínuo</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">UFAM | Processos Estocásticos: Um Curso de Graduação</div>   
+    <div class="nav-footer-right">Prof.&nbsp;James Dean</div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,44 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Processos Estocásticos: Um Curso de Graduação"
+  subtitle: "Versão 4.3"
+  author: 
+    - "James Dean Oliveira dos Santos Jr."
+    - "Ariane Hayana Thomé de Farias"
+  sidebar:
+    style: docked
+    background: light
+  search: true
+  reader-mode: true
+  page-footer: 
+    left: "UFAM | Processos Estocásticos: Um Curso de Graduação" 
+    right: "Prof. James Dean"
+  date: "02/28/2023"
+  chapters:
+    - index.qmd
+    - cap_1_pe.qmd
+    - cap_2_poisson.qmd
+    - cap_3_renovacao.qmd
+    - cap_4_cmtd.qmd
+    - cap_5_cmtc.qmd
+    - cap_6_notas.qmd
+    
+comments:
+  hypothesis: true
+
+bibliography: references.bib
+
+lang: pt
+
+format:
+
+  html:
+    theme: [united,theme.scss]
+    cover-image: logo.jpg
+
+
+editor: visual
+

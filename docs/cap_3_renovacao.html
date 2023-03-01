@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.207">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Processos Estocásticos: Um Curso de Graduação - 3&nbsp; Processos de Renovação</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap_4_cmtd.html" rel="next">
+<link href="./cap_2_poisson.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Processos Estocásticos: Um Curso de Graduação</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Apresentação</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_1_pe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_2_poisson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_3_renovacao.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_4_cmtd.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_5_cmtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Contínuo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_6_notas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Notas</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#definição-e-propriedades" id="toc-definição-e-propriedades" class="nav-link active" data-scroll-target="#definição-e-propriedades"><span class="toc-section-number">3.1</span>  Definição e Propriedades</a></li>
+  <li><a href="#a-distribuição-de-nt" id="toc-a-distribuição-de-nt" class="nav-link" data-scroll-target="#a-distribuição-de-nt"><span class="toc-section-number">3.2</span>  A Distribuição de <span class="math inline">\(N(t)\)</span></a></li>
+  <li><a href="#algumas-definições-e-resultados" id="toc-algumas-definições-e-resultados" class="nav-link" data-scroll-target="#algumas-definições-e-resultados"><span class="toc-section-number">3.3</span>  Algumas definições e resultados</a></li>
+  <li><a href="#resultados-assintóticos" id="toc-resultados-assintóticos" class="nav-link" data-scroll-target="#resultados-assintóticos"><span class="toc-section-number">3.4</span>  Resultados assintóticos</a></li>
+  <li><a href="#políticas-de-trocas-por-idade" id="toc-políticas-de-trocas-por-idade" class="nav-link" data-scroll-target="#políticas-de-trocas-por-idade"><span class="toc-section-number">3.5</span>  Políticas de trocas por idade</a></li>
+  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios"><span class="toc-section-number">3.6</span>  Exercícios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-renovacao" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="definição-e-propriedades" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="definição-e-propriedades"><span class="header-section-number">3.1</span> Definição e Propriedades</h2>
+<p>No <a href="cap_2_poisson.html"><span>Capítulo&nbsp;2</span></a> vimos o processo de Poisson como um caso particular dentre os processos de contagem. Neste capítulo estenderemos a discussão para outras distribuições.</p>
+<p>Considere o processo de contagem <span class="math inline">\(\{N(t),t\in \mathcal{T}\}\)</span> e sejam <span class="math inline">\(T_1,\ldots,T_n\)</span> variáveis aleatórias independentes e identicamente distribuídas com função de distribuição <span class="math inline">\(F\)</span> com <span class="math inline">\(E(T_1)=\mu\)</span>.</p>
+<p>Dizemos que <span class="math inline">\(T_i\)</span> é o <span class="math inline">\(i\)</span>-ésimo tempo de chegada se ele representa o tempo decorrido entre a <span class="math inline">\((i-1)\)</span> e a <span class="math inline">\(i\)</span>-ésima ocorrência do evento de interesse.</p>
+<p>De modo análogo, definimos <span class="math inline">\(S_n=T_1+\cdots+T_n\)</span> como o <span class="math inline">\(n\)</span>-ésimo tempo de espera, ou seja, o tempo transcorrido desde de o começo do processo até a ocorrência o <span class="math inline">\(n\)</span>-ésimo evento.</p>
+<p>Denotaremos a função de distribuição de <span class="math inline">\(S_n\)</span> por <span class="math inline">\(F^{(n)}\)</span>. Naturalmente, <span class="math inline">\(E(S_n)=n\mu\)</span>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-3.1" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 3.1 </strong></span>Um processo de contagem com tempos entre chegadas independentes e identicamente distribuídos é denominado Processo de Renovação (PR).</p>
+</div>
+</div>
+</div>
+<p>O termo <code>renovação</code> está relacionado com o fato de que os tempos entre as chegadas são independentes e identicamente distribuídos. Talvez seja interessante ter o seguinte exemplo em mente.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.1 </strong></span>Um processo de renovação pode ser ilustrado pela ideia de se ter que trocar uma lâmpada sempre que esta queima. Supondo que a troca é instantânea e que o tempo de vida das lâmpadas é identicamente distribuído pode-se imaginar que o processo se renova cada vez que uma nova lâmpada é instalada. Neste caso, o processo <span class="math inline">\(N(t)\)</span> estaria contando o número de lâmpadas queimadas até o tempo <span class="math inline">\(t\)</span> (ou o número de renovações de lâmpadas).</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.2 </strong></span>O PP possui tempos de chegada independentes com distribuição Exponencial(<span class="math inline">\(\lambda\)</span>) sendo, portanto, um processo de renovação.</p>
+</div>
+</div>
+</div>
+<p>Diferente do PP, o conjunto de índices de um PR não precisa ser contínuo.</p>
+</section>
+<section id="a-distribuição-de-nt" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="a-distribuição-de-nt"><span class="header-section-number">3.2</span> A Distribuição de <span class="math inline">\(N(t)\)</span></h2>
+<p>Nesta seção, mostraremos que existe uma correspondência biunívoca entre os tempos de chegada e seu respectivo processo de contagem.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-3.1" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 3.1 </strong></span>Não podem ocorrer infinitos eventos em um tempo finito.</p>
+<p><code>Demonstração:</code></p>
+<p>Suponha que infinitos eventos podem ocorrer em um tempo finito. Isto pode ser escrito da seguinte forma: existe <span class="math inline">\(t&lt;\infty\)</span> tal que <span class="math inline">\(S_n\leq t\)</span> para todo <span class="math inline">\(n=0,1,2,\ldots\)</span>. Se isto fosse verdade, então <span class="math display">\[0\leq S_n&lt; t \Rightarrow 0\leq \frac{S_n}{n}&lt;\frac{t}{n}.\]</span> Fazendo <span class="math inline">\(n\rightarrow \infty\)</span>, teríamos que <span class="math inline">\(0\leq S_n/n\rightarrow 0\)</span>. Mas isso é absurdo, pois, pela Lei Forte dos Grandes Números <span class="math display">\[\frac{S_n}{n}=\frac{T_1+\cdots +T_n}{n}\rightarrow E(T_1)=\mu&gt;0.\]</span> Portanto, provamos por absurdo que infinitos eventos não podem ocorrer em um tempo finito.</p>
+</div>
+</div>
+</div>
+<p>A proposição acima tem uma importante implicação: deve existir um valor <span class="math inline">\(n_0\)</span> tal que <span class="math inline">\(S_{n_0}&gt;t\)</span>. Ora, se o tempo de espera do <span class="math inline">\(n_0\)</span>-ésimo evento é maior que <span class="math inline">\(t\)</span>, então <span class="math inline">\(S_n&gt;t\)</span> para qualquer <span class="math inline">\(n&gt;n_0\)</span>. Com isto, podemos enunciar o seguinte corolário.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-3.1" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 3.1 </strong></span>Para um PR qualquer, é verdade que <span class="math inline">\(N(t)= \max\{n:S_n\leq t\}\)</span>.</p>
+<p><code>Demonstração:</code></p>
+<p>Da proposição anterior sabemos que <span class="math inline">\(N(t)\)</span> não pode ser infinito. Assim, existe o maior valor de <span class="math inline">\(n\)</span> que satisfaz <span class="math inline">\(S_n\leq t\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Podemos então estabelecer a seguinte relação entre <span class="math inline">\(N(t)\)</span> e <span class="math inline">\(S_n\)</span>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Corolário
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="cor-3.1" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 3.2 </strong></span>Para qualquer processo de renovação, <span class="math inline">\(S_n \leq t \Leftrightarrow N(t)\geq n\)</span></p>
+<p><code>Demonstração</code>: Se <span class="math inline">\(S_n\leq t\)</span>, então o tempo de espera do <span class="math inline">\(n\)</span>-ésimo evento é maior ou igual a <span class="math inline">\(t\)</span>, o que implica que até o tempo <span class="math inline">\(t\)</span> podem ter ocorrido no máximo <span class="math inline">\(n\)</span> eventos. Portanto <span class="math inline">\(S_n \leq t \Rightarrow N(t)\geq n\)</span>. A outra implicação é análoga, sendo deixada como exercício ao leitor interessado.</p>
+<p>Em outras palavras, temos que <span class="math inline">\(F^{(n)}(t)=P(N(t)\geq n)\)</span>. Assim, a função de distribuição de <span class="math inline">\(N(t)\)</span> pode ser obtida via <span class="math inline">\(S_n\)</span> e vice-e-versa. Além disso, notemos que <span class="math display">\[\begin{align*}
+P(N(t)=n)&amp;= P(n\leq N(t)&lt; n+1) = P(N(t)&lt; n+1) - P(N(t)&lt; n)\\
+&amp;=\left(1-P(N(t)\geq n+1)\right) - \left(1-P(N(t)\geq )\right)\\
+&amp;=P(S_n\leq t) -P(S_{n+1}\leq t)=F^{(n)}(t)-F^{(n+1)}(t)
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.3 </strong></span>Considere um PR com <span class="math inline">\(T_i\sim\hbox{Gama}(\mu,1)\)</span>. Então, <span class="math display">\[S_n=\sum_{i=1}^nT_i\sim\hbox{Gama}(n\mu,1)\]</span> e <span class="math display">\[\begin{align*}
+    P(N(t)=n)&amp;=P(S_n \leq t) -P(S_{n+1}\leq t)\\
+    &amp;=\int_0^t \left( \frac{1}{\Gamma(n\mu)}-\frac{s^\mu}{\Gamma(n\mu+\mu)}\right)s^{n\mu-1}e^{-s}ds
+    \end{align*}\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="algumas-definições-e-resultados" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="algumas-definições-e-resultados"><span class="header-section-number">3.3</span> Algumas definições e resultados</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-3.2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 3.2 </strong></span>O número esperado de renovações no intervalo <span class="math inline">\((0,t]\)</span> é dado por <span class="math display">\[\begin{equation}
+m(t)=E(N(t)).
+\end{equation}\]</span> e é denominado função de renovação.</p>
+</div>
+</div>
+</div>
+<p>Pela relação <span class="math inline">\(N(t)\geq n\Leftrightarrow S_n\leq t\)</span>, teremos que</p>
+<span class="math display">\[\begin{equation}
+m(t)=E(N(t))=\sum_{n=1}^\infty P(N(t)\geq n)=\sum_{n=1}^\infty P(S_n\leq t).
+\end{equation}\]</span>
+<p>Podemos também avaliar o tempo médio de espera para <span class="math inline">\(S_{N(t)+1}\)</span>, conforme a proposição abaixo.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição: Equação de Wald
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-3.2" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 3.2 </strong></span>Para qualquer PR, <span class="math display">\[E(S_{N(t)+1})=\mu\left(m(t)+1\right).\]</span></p>
+<p><code>Demonstração:</code></p>
+<p>Vamos utilizar o fato de que <span class="math display">\[N(t)\geq j-1 \Leftrightarrow S_{j-1}\leq t.\]</span> Isto é o mesmo que escrever <span class="math display">\[\textbf{I}(N(t)\geq j-1)=\textbf{I}(S_{j-1}\leq t),\]</span> onde <span class="math inline">\(\textbf{I}(.)\)</span> é a função indicadora. Note que <span class="math inline">\(T_j\)</span> é independente de <span class="math inline">\(S_{j-1}\)</span>. Portanto,</p>
+<p><span class="math display">\[E\left(T_j\textbf{I}(S_{j-1}\leq t)\right)=E(T_j)E(\textbf{I}(S_{j-1}\leq t))=\mu P(S_{j-1}\leq t)=\mu\]</span></p>
+<p>Assim,</p>
+<span class="math display">\[\begin{align*}
+E(S_{N(t)+1})&amp;=E(T_1)+E\left(\sum_{j=2}^{N(t)+1}T_j\right)=E(T_1)+E\left(\sum_{j=2}^{\infty}T_j\textbf{I}(N(t)+1\geq j)\right)\\
+&amp;=E(T_1)+E\left(\sum_{j=2}^{\infty}T_j\textbf{I}(S_{j-1}\leq t)\right)=
+E(T_1)+\sum_{j=2}^{\infty}E\left(T_j\textbf{I}(S_{j-1}\leq t)\right)\\
+&amp;=E(T_1)+E(T_1)\sum_{j=2}^\infty P(S_{j-1}\leq t)=E(T_1)\left(1+\sum_{j=1}^\infty P(S_{j}\leq t)\right)\\
+&amp;=\mu\left(1+m(t)\right)
+\end{align*}\]</span>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-3.3" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 3.3 </strong></span>As variáveis aleatórias <span class="math display">\[\begin{align}
+\gamma_t &amp;= S_{N(t)+1}-t,\\
+\delta_t &amp;= t- S_{N(t)},\\
+\beta_t  &amp;= \gamma_t + \delta_t,
+\end{align}\]</span> são denominadas, excesso de vida (ou tempo de vida residual), vida (ou idade) corrente e vida total, respectivamente.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="resultados-assintóticos" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="resultados-assintóticos"><span class="header-section-number">3.4</span> Resultados assintóticos</h2>
+<p>O PP é o único processo de renovação no qual <span class="math inline">\(m(t)\)</span> é uma função linear. Entretanto, para <span class="math inline">\(t\)</span> suficientemente grande, teremos que <span class="math inline">\(m(t)\)</span> é aproximadamente linear para qualquer PR. Este resultado é conhecido como <em>Teorema Elementar dos Processos de Renovação</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema: Teorema Elementar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-3.1" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 3.1 </strong></span></p>
+<center>
+<span class="math inline">\(m(t)/t\rightarrow 1/\mu\)</span> quando <span class="math inline">\(t\rightarrow\infty\)</span>
+</center>
+<p><code>Demonstração:</code></p>
+<p>Primeiro, pela Equação de Wald, temos que <span class="math display">\[E(S_{N(t)+1})=\mu[m(t)+1].\]</span> Uma vez que <span class="math inline">\(E(S_{N(t)+1})\)</span> deve ser maior ou igual a <span class="math inline">\(t\)</span>, teremos que <span class="math display">\[\mu[m(t)+1]\geq t\Rightarrow \frac{m(t)}{t}\geq \frac{1}{\mu}-\frac{1}{t}.\]</span></p>
+<p>Por outro lado, para qualquer <span class="math inline">\(a&gt;0\)</span> podemos definir um novo processo com os seguintes tempos <strong>entre chegadas</strong>: <span class="math display">\[Z_{n}=\left\{\begin{array}{ll}
+    T_n,&amp;\hbox{ se }T_n\leq a,\\
+    a,&amp;\hbox{ caso contrário }.
+    \end{array}\right.\]</span></p>
+<p>Neste caso, existe um processo de contagem <span class="math inline">\(N_a(t)\)</span> e uma função de renovação <span class="math inline">\(m_a(t)\)</span> associados aos tempos de chegada <span class="math inline">\(Z_{n}\)</span>, e, pela Equação de Wald, <span class="math display">\[E(S_{N_a(t)+1,a})=\mu_a[m_a(t)+1],\]</span> onde <span class="math inline">\(\mu_a\)</span> é a média dos tempos entre chegadas do processo <span class="math inline">\(\{N_a(t),t\geq 0\}\)</span>. Note que, necessariamente, <span class="math display">\[E(Z_{N_a(t)+1})&lt; a+t\Rightarrow \mu_a[m_a(t)+1]&lt;a+t\Rightarrow \frac{m_a(t)}{t}&lt; \frac{a}{t\mu_a}+\frac{1}{\mu_a}-\frac{1}{t}.\]</span> Além disso, como os tempos de espera do processo <span class="math inline">\(\{N_a(t)\}\)</span> são menores ou iguais aos do processo <span class="math inline">\(\{N(t)\}\)</span>, teremos <span class="math display">\[\frac{m(t)}{t}\leq \frac{m_a(t)}{t} &lt; \frac{a}{t\mu_a}+\frac{1}{\mu_a}-\frac{1}{t}.\]</span> Portanto, temos as seguintes desigualdades, <span class="math display">\[\frac{1}{\mu}-\frac{1}{t}\leq \frac{m(t)}{t}\leq\frac{a}{t\mu_a}+\frac{1}{\mu_a}-\frac{1}{t}\]</span> e fazendo <span class="math inline">\(t\rightarrow\infty,\)</span> teremos que <span class="math display">\[\frac{1}{\mu}\leq \frac{m(t)}{t}\leq \frac{1}{\mu_a}\]</span> e, como <span class="math inline">\(\mu_a\rightarrow\mu\)</span> quando <span class="math inline">\(a\rightarrow\infty,\)</span> teremos que <span class="math display">\[\frac{m(t)}{t}\rightarrow   \frac{1}{\mu},\]</span> quando <span class="math inline">\(t\rightarrow\infty\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.4 </strong></span>Considere um PR com tempos entre chegadas com distribuição Gama<span class="math inline">\((2,1)\)</span>. Então <span class="math inline">\(\mu = 2\)</span> e <span class="math inline">\(S_n\sim\hbox{Gama}(2n,1)\)</span>. Teremos que <span class="math display">\[\begin{align*}
+    m(t)&amp;=\sum_{n=1}^\infty P(S_n\leq t)=
+    \sum_{n=1}^\infty \int_0^t  \frac{1}{(2n-1)!}s^{2n-1}e^{-s}ds\\
+    &amp;= \int_0^t  \sum_{n=1}^\infty\frac{1}{(2n-1)!}s^{2n-1}e^{-s}ds, \;\;\left( \hbox{fazendo $n=k+1$,}\right)\\
+    &amp;= \int_0^t  \sum_{k=0}^\infty\frac{1}{(2k+1)!}s^{2k+1}e^{-s}ds\\
+    &amp;=\int_0^t \frac{1}{2}(1-e^{-2s})ds=\frac{t}{2}-\frac{1}{4}+\frac{e^{-2t}}{4},
+    \end{align*}\]</span> e, conforme o esperado, <span class="math inline">\(m(t)\)</span> não é linear em <span class="math inline">\(t\)</span>. Entretanto, <span class="math display">\[\frac{m(t)}{t}=\frac{1}{2}-\frac{1}{4t}+\frac{e^{-2t}}{4t}\rightarrow \frac{1}{2}=\frac{1}{\mu},\]</span> quando <span class="math inline">\(t\rightarrow\infty\)</span>. Portanto, <span class="math display">\[m(t)\approx \frac{t}{2},\]</span> para <span class="math inline">\(t\)</span> suficientemente grande.</p>
+</div>
+</div>
+</div>
+<p>Seja <span class="math inline">\(\sigma^2\)</span> a variância dos tempos entre chegadas. Então, se <span class="math inline">\(\sigma&lt;\infty\)</span>, pode-se mostrar que</p>
+<p><span class="math display">\[\begin{equation}
+\frac{N(t)-t/\mu}{\sqrt{t \sigma^2/\mu^3}}\rightarrow Normal(0,1),
+\end{equation}\]</span> quando <span class="math inline">\(t\rightarrow\infty\)</span>. Deste modo, podemos ao menos ter uma distribuição aproximada para o processo de contagem.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.5" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.5 </strong></span>Considere um PR cujo os tempos entre chegadas possuem distribuição Gama(2,1). Então, <span class="math display">\[E(T)=2,\;\;Var(T)=2.\]</span> Assim, para <span class="math inline">\(t\)</span> suficientemente grande <span class="math display">\[N(t)\approx Normal\left( \frac{t}{2},\frac{t}{4}\right).\]</span></p>
+<p>Note que a distribuição de <span class="math inline">\(N(t)\)</span> foi obtida no Exemplo 3.3, sendo dada por <span class="math display">\[P(N(t)=n)=
+\int_0^t \left( \frac{1}{\Gamma(2n)}-\frac{s^2}{\Gamma(2n+2)}\right)s^{2n-1}e^{-s}ds\]</span></p>
+<p>O código abaixo mostra a implementação dessa função de probabilidade no <code>R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>PNt <span class="ot">&lt;-</span> <span class="cf">function</span>(n,t){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">gamma</span>(n<span class="sc">*</span><span class="dv">2</span>) <span class="sc">-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">gamma</span>(n<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span>)) <span class="sc">*</span> x<span class="sc">^</span>(<span class="dv">2</span><span class="sc">*</span>n<span class="dv">-1</span>) <span class="sc">*</span> <span class="fu">exp</span>( <span class="sc">-</span> x)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(aux,<span class="dv">0</span>,t)[[<span class="dv">1</span>]]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A Figura 3.1 mostra <span class="math inline">\(P(N(t)=n)\)</span> e a respectiva aproximação para alguns valores de <span class="math inline">\(t\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-12.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="políticas-de-trocas-por-idade" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="políticas-de-trocas-por-idade"><span class="header-section-number">3.5</span> Políticas de trocas por idade</h2>
+<p>Sejam <span class="math inline">\(T_1,T_2,\ldots\)</span> os tempos de vida de itens (como lâmpadas) que são sucessivamente substituídos. Sabemos pelo Teorema Elementar da Renovação que os itens vão falhar com taxa <span class="math inline">\(1/\mu\)</span> por unidade de tempo.</p>
+<p>Contudo, pode existir um custo em esperar que o item falhe. Nestes casos, adota-se uma <em>política de trocas por idade</em>, que consiste em trocar o item se ele falhar ou se atingir a idade <span class="math inline">\(k\)</span>.</p>
+<p>Em uma política de trocas por idade os tempos entre renovações tem distribuição</p>
+<p><span class="math display">\[F_k(t)=\left\{\begin{array}{ll}
+F(x),&amp;\;\;se\;\;x&lt; k,\\
+1,&amp;\;\;\hbox{caso contrário.}
+\end{array}\right.\]</span></p>
+<p>Neste caso, a média dos tempos entre renovações com a política será<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><span class="math display">\[\mu_k=\int_0^\infty [1-F_k(x)]dx=\int_0^k [1-F(x)]dx&lt;\mu\]</span></p>
+<p>Considerando um processo com política de trocas, sejam <span class="math inline">\(Y_1,Y_2,\ldots,\)</span> o tempo decorridos entre falhas. Fazendo <span class="math inline">\(Z\)</span> ser o número de vezes que houveram trocas por idade antes de uma falha e <span class="math inline">\(U_i\)</span> o tempo de falha que ocorre antes de <span class="math inline">\(k\)</span>, teremos que <span class="math inline">\(Y_i = Zk + U_i\)</span>. Como <span class="math display">\[\begin{align*}
+P(Z=z)&amp;=P(\{\hbox{z substituições por idade antes de uma falha}\})\\
+&amp;=P(T_1\leq z)P(T_1&gt;k)^z,\;\;z=0,1,2,\ldots,
+\end{align*}\]</span> e <span class="math display">\[\begin{align*}
+F_U(u)=P(U_i\leq u)=\left\{\begin{array}{ll}\frac{F(u)}{F(k)},&amp;\hbox{ se $0&lt;u&lt;k,$},\\
+0,&amp;\hbox{ caso contrário}
+\end{array}\right.
+\end{align*}\]</span> teremos que <span class="math display">\[\begin{align*}
+E(Y_i)&amp;=E(kZ + U_i)=k\frac{P(T_1&gt;k)}{F(k)} +E(U_i)
+=k\frac{P(T_1&gt;k)}{F(k)} + \int_0^k 1-F_U(u)du\\
+&amp;=k\frac{P(T_1&gt;k)}{F(k)}+\int_0^k 1-\frac{F(u)}{F(k)}du=\frac{1}{F(k)}\left[kP(T_1&gt;k)+\int_0^k F(k)-F(u)du\right]\\
+&amp;=\frac{1}{F(k)}\left[kP(T_1&gt;k)+\int_0^k (F(k)-1)+1-F(u)du\right]\\
+&amp;=\frac{1}{F(k)}\left[kP(T_1&gt;k)-kP(T_1&lt;k)+\int_0^k 1-F(u)du\right]=\frac{\mu_k}{F(k)}.
+\end{align*}\]</span> Portanto, os itens são substituídos por falha a uma taxa de <span class="math inline">\(F(k)/\mu_k\)</span> por unidade de tempo.</p>
+<p>Agora, suponha que o custo de substituir um item por idade é <span class="math inline">\(c_1\)</span> e o custo para substituir um item que falhou é <span class="math inline">\(c_2\)</span> (em geral, <span class="math inline">\(c_2&gt;c_1\)</span>). Então, o custo médio total pode ser escrito como</p>
+<p><span class="math display">\[C(k)=\frac{c_1}{\mu_k}+\frac{c_2F(k)}{\mu_k}=\frac{c_1+c_2F(k)}{\mu_k}.\]</span></p>
+<p>Deste modo, podemos encontrar qual é a idade <span class="math inline">\(k\)</span> necessária para que a política de troca por idade tenha custo médio mínimo.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-3.6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3.6 </strong></span>Considere um PR com os tempos de falha com distribuição Uniforme(0,1). Considere ainda que o custo de se trocar o item ainda funcionando é de $1 e de trocar após uma falha é $2. Vamos determinar o tempo ótimo para realizar a troca. A função de custo médio será</p>
+<p><span class="math display">\[C(k)=\frac{1+2k}{\int_0^k (1-x)dx}=2\frac{1+2k}{k-k^2}.\]</span></p>
+<p>Derivando a função acima em <span class="math inline">\(k\)</span>, podemos mostrar que <span class="math inline">\(k=1/3\)</span> é um ponto de mínimo global. Portanto, o custo médio é minimizado utilizando a política de trocar se o item queimar ou se seu tempo de vida passar de 1/3.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercícios" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="exercícios"><span class="header-section-number">3.6</span> Exercícios</h2>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.1 </strong></span>Considere um PR com tempos entre chegadas com distribuição <span class="math display">\[P(T_i=t)=\theta^t(1-\theta)^{1-t},\]</span> com <span class="math inline">\(t=0,1\)</span> e <span class="math inline">\(\theta\in(0,1)\)</span>. \begin{enumerate}[a)] a. Encontre <span class="math inline">\(P(S_n=s)\)</span> e mostre que <span class="math display">\[P(N(t)=n)=\sum_{s=0}^tP(S_n=s)\left[\frac{(n+1)\theta -s}{n+1-s}\right]\]</span>. b. Mostre que <span class="math inline">\(m(t)=(t+1)\theta^{-1}\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.2 </strong></span>Verifique a seguinte equivalência: <span class="math display">\[\gamma_t&gt;x\Leftrightarrow N(t+x)-N(t)=0.\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.3 </strong></span>Considere um PR onde <span class="math inline">\(T_i\)</span> é uma variável aleatória contínua. Mostre que <span class="math display">\[P(N(t)=n)=\int_0^t P(T_{n+2}&gt;t-s)f_{S_n}(s)ds,\]</span> onde <span class="math inline">\(f_{S_n}\)</span> é a função densidade de <span class="math inline">\(S_n\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.4 </strong></span>Prove que a média do excesso de vida é dada por <span class="math display">\[E(\gamma_t)=\mu(1+m(t))-t.\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.5" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.5 </strong></span>Prove que <span class="math display">\[P(\delta_t\leq x,\gamma_t&gt;y)=P(N(y+t)=N(t-x))=1-F(x+y)\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.6" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.6 </strong></span>Considere um PR com tempos entre renovações dado por <span class="math inline">\(f(x)=2x,\)</span> com <span class="math inline">\(x\in(0,1)\)</span>. Encontre uma distribuição aproximada para <span class="math inline">\(N(t)\)</span> quando <span class="math inline">\(t\rightarrow\infty\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3.7" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 3.7 </strong></span>O tempo de vida de certo aparelho é dado por <span class="math inline">\(f(x)=2x,\)</span> com <span class="math inline">\(x\in(0,1)\)</span> (tempo em anos). O custo para substituir o aparelho ainda funcionando por um novo é de R$500,00. Entretanto, o custo para substituir um aparelho com defeito por é de R$1.000. Encontre uma política de troca por idade que minimize o custo médio das renovações.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Em inglês, o termo é <em>elementary renewal theorem</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Convém lembrar que, se <span class="math inline">\(X\)</span> é uma variável aleatória maior que zero com média finita, então $$E(X)=\int_0^\infty[1-F(x)]dx,$$ onde <span class="math inline">\(F(.)\)</span> é a função distribuição de <span class="math inline">\(X\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap_2_poisson.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap_4_cmtd.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">UFAM | Processos Estocásticos: Um Curso de Graduação</div>   
+    <div class="nav-footer-right">Prof.&nbsp;James Dean</div>
+  </div>
+</footer>
+
+
+
+</body></html>

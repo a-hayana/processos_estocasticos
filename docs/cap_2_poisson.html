@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.207">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Processos Estocásticos: Um Curso de Graduação - 2&nbsp; Processo de Poisson</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap_3_renovacao.html" rel="next">
+<link href="./cap_1_pe.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.23/datatables.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Processos Estocásticos: Um Curso de Graduação</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Apresentação</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_1_pe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_2_poisson.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_3_renovacao.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_4_cmtd.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_5_cmtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Contínuo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_6_notas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Notas</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="toc-section-number">2.1</span>  Introdução</a></li>
+  <li><a href="#tempos-de-chegada-e-de-espera" id="toc-tempos-de-chegada-e-de-espera" class="nav-link" data-scroll-target="#tempos-de-chegada-e-de-espera"><span class="toc-section-number">2.2</span>  Tempos de Chegada e de Espera</a>
+  <ul class="collapse">
+  <li><a href="#definições-e-propriedades" id="toc-definições-e-propriedades" class="nav-link" data-scroll-target="#definições-e-propriedades"><span class="toc-section-number">2.2.1</span>  Definições e propriedades</a></li>
+  <li><a href="#distribuição-condicional-dos-tempos-de-chegada" id="toc-distribuição-condicional-dos-tempos-de-chegada" class="nav-link" data-scroll-target="#distribuição-condicional-dos-tempos-de-chegada"><span class="toc-section-number">2.2.2</span>  Distribuição condicional dos tempos de chegada</a></li>
+  </ul></li>
+  <li><a href="#soma-de-processos-de-poisson" id="toc-soma-de-processos-de-poisson" class="nav-link" data-scroll-target="#soma-de-processos-de-poisson"><span class="toc-section-number">2.3</span>  Soma de Processos de Poisson</a></li>
+  <li><a href="#inferência-para-o-processo-de-poisson" id="toc-inferência-para-o-processo-de-poisson" class="nav-link" data-scroll-target="#inferência-para-o-processo-de-poisson"><span class="toc-section-number">2.4</span>  Inferência para o Processo de Poisson</a>
+  <ul class="collapse">
+  <li><a href="#inferência-para-incremento" id="toc-inferência-para-incremento" class="nav-link" data-scroll-target="#inferência-para-incremento"><span class="toc-section-number">2.4.1</span>  Inferência para incremento</a></li>
+  <li><a href="#suicídios-no-mit" id="toc-suicídios-no-mit" class="nav-link" data-scroll-target="#suicídios-no-mit"><span class="toc-section-number">2.4.2</span>  Suicídios no MIT</a></li>
+  </ul></li>
+  <li><a href="#o-processo-de-poisson-composto" id="toc-o-processo-de-poisson-composto" class="nav-link" data-scroll-target="#o-processo-de-poisson-composto"><span class="toc-section-number">2.5</span>  O Processo de Poisson Composto</a></li>
+  <li><a href="#generalizações-do-processo-de-poisson" id="toc-generalizações-do-processo-de-poisson" class="nav-link" data-scroll-target="#generalizações-do-processo-de-poisson"><span class="toc-section-number">2.6</span>  Generalizações do Processo de Poisson</a>
+  <ul class="collapse">
+  <li><a href="#o-processo-de-poisson-não-homogêneo" id="toc-o-processo-de-poisson-não-homogêneo" class="nav-link" data-scroll-target="#o-processo-de-poisson-não-homogêneo"><span class="toc-section-number">2.6.1</span>  O Processo de Poisson Não-Homogêneo</a></li>
+  </ul></li>
+  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios"><span class="toc-section-number">2.7</span>  Exercícios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-poisson" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">2.1</span> Introdução</h2>
+<p>O número de acidentes aéreos por mês, de suicídios por ano e de novos casos de hanseníase possuem uma característica comum: todos são processos de contagem. Neste capítulo é apresentado um processo de contagem, denominado Processo de Poisson, definido formalmente a seguir.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Processo de Poisson
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-2.1" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 2.1 </strong></span>Um processo de contagem <span class="math inline">\(\{ N(t),t\geq 0 \}\)</span> é um processo de Poisson (PP) se:</p>
+<ol type="1">
+<li><span class="math inline">\(N(0)=0\)</span></li>
+<li>O processo possui incrementos independentes e estacionários.</li>
+<li>Para qualquer intervalo de comprimento <span class="math inline">\(t\)</span>, teremos</li>
+</ol>
+<span class="math display">\[\begin{equation}
+P(N(t)=n)=\frac{e^{-\lambda t}(\lambda t)^n}{n!}
+\end{equation}\]</span>
+<p>O parâmetro <span class="math inline">\(\lambda\)</span> é denominado <em>taxa do processo</em>.</p>
+</div>
+</div>
+</div>
+<p>Portanto, o PP é um processo de contagem com incrementos independentes e estacionários, cuja distribuição é Poisson com taxa proporcional ao tempo <span class="math inline">\(t\)</span>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Terremotos no Estreito de Messina
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.1 </strong></span>O gráfico abaixo apresenta a sequência histórica de terremotos em uma região ao redor do Estreito de Messina, que divide a ilha da Sicília, na Itália continental. A tabela está limitada aos terremotos de magnitude 4,5 ou superior, durante o período de 1700-1980. Os dados estão em frações de ano (ou seja, a parte fracionária vezes 365 dá o dia da ocorrência dentro do ano).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-4.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Seja <span class="math inline">\(n(t)\)</span> o número de terremotos <strong>observados</strong> até o tempo <span class="math inline">\(t\)</span>. O gráfico acima mostra os pares <span class="math inline">\((t, n(t))\)</span>. Note o comportamento aproximadamente linear. Lembremos que em um PP, <span class="math inline">\(E(N(t))=\lambda t\)</span>. Portanto, em média, existe uma relação linear entre <span class="math inline">\(N(t)\)</span> e <span class="math inline">\(t\)</span>. Voltaremos neste exemplo posteriormente para verificar se ele pode ser modelado por um PP.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tempos-de-chegada-e-de-espera" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="tempos-de-chegada-e-de-espera"><span class="header-section-number">2.2</span> Tempos de Chegada e de Espera</h2>
+<section id="definições-e-propriedades" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="definições-e-propriedades"><span class="header-section-number">2.2.1</span> Definições e propriedades</h3>
+<p>O <em>tempo de chegada</em>, denotado por <span class="math inline">\(T_{n}\)</span>, é o tempo transcorrido entre a chegada da <span class="math inline">\((n-1)\)</span>-ésima e da <span class="math inline">\(n\)</span>-ésima ocorrência. Seu comportamento pode revelar características importantes sobre o processo. Em especial, se <span class="math inline">\(\{N(t),t&gt;0\}\)</span> é um PP, temos a seguinte proposição.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-2.1" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 2.1 </strong></span>Consideremos um processo de Poisson e sejam <span class="math inline">\(T_1,T_2,T_3,\ldots\)</span> os tempos de chegada dos eventos 1, 2, 3<span class="math inline">\(\ldots\)</span>. Então:</p>
+<ol type="1">
+<li><p>Os tempos de chegada são identicamente distribuídos, com <span class="math inline">\(T_i\sim\hbox{Exponencial}(\lambda)\)</span>, i.é, <span class="math display">\[f_{T_i}(t)=\lambda e^{-\lambda t},\lambda&gt;0,t&gt;0.\]</span> onde <span class="math inline">\(\lambda\)</span> é a taxa do processo de Poisson.</p></li>
+<li><p>Os tempos de chegada são independentes.</p></li>
+</ol>
+<p><code>Demonstração:</code> Temos:</p>
+<ol type="1">
+<li>Comecemos com o primeiro tempo de chegada. Notemos que <span class="math inline">\(T_1&gt;t\)</span> implica que a primeira chegada só ocorreu após o tempo <span class="math inline">\(t\)</span>. Isto quer dizer que não ocorreram chegadas antes de <span class="math inline">\(t\)</span>. Disto, <span class="math display">\[\begin{align*}
+P(T_1&gt;t)&amp;=P(N(t)=0)=e^{-\lambda t}.
+\end{align*}\]</span> Como <span class="math display">\[F_{T_1}(t)= 1-P(T_1&gt;t)=1-e^{-\lambda t},\]</span> temos que <span class="math display">\[f_{T_1}(t)=\frac{d}{dt}F_{T_1}(t)=\lambda e ^{-\lambda t}.\]</span> Portanto, <span class="math inline">\(T_1\sim\hbox{Exponencial}(\lambda)\)</span>.</li>
+</ol>
+<p>Agora, suponha que <span class="math inline">\(T_{n-1}\sim \hbox{Exponencial}(\lambda)\)</span> (o que é verdade para <span class="math inline">\(n=1\)</span>). Observe a figura abaixo.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-5.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Considere que o tempo de chegada da <span class="math inline">\(n\)</span>-ésima observação é maior que <span class="math inline">\(t\)</span> unidades de tempo. Se sabemos que o tempo da <span class="math inline">\((n-1)\)</span>-ésima ocorrência foi <span class="math inline">\(s\)</span>, sabemos também que a <span class="math inline">\(n\)</span>-ésima ocorrência ocorreu depois do tempo <span class="math inline">\(t+s\)</span>. Logo, não houveram ocorrências no intervalo <span class="math inline">\((s,t+s]\)</span>, fazendo com que <span class="math inline">\(N(t+s)-N(s)=0\)</span>. Mas, como o processo possui incrementos estacionários, temos que <span class="math inline">\(N(t+s)-N(s)\sim N(t)-N(0)\equiv N(t)\)</span>. Assim,</p>
+<span class="math display">\[\begin{align*}
+P(T_n &gt; t)&amp;=\int_0^{\infty}P(T_{n}&gt;t| T_{n-1}=s)f_{T_1}(s)ds\\
+&amp;=\int_0^{\infty}P(T_{n}&gt;t| T_{n-1}=s)\lambda e^{-\lambda s}ds\\
+&amp;=\int_{0}^{\infty}P(N(t+s)-N(s)=0)\lambda e^{-\lambda s}ds, \left(\hbox{ incrementos estacionários}\right)\\
+&amp;=\int_0^{\infty}P(N(t)=0)\lambda e^{-\lambda s}ds \\
+&amp;=\int_0^{\infty}e^{-\lambda t}\lambda e^{-\lambda s}ds=e^{-\lambda t}\underbrace{\int_0^{\infty}\lambda e^{-\lambda s}ds}_{1}=e^{-\lambda t}
+\end{align*}\]</span>
+<p>logo, por indução teremos que <span class="math inline">\(T_n\sim\hbox{Exponencial}(\lambda)\)</span> para todo <span class="math inline">\(n\leq 1\)</span>.</p>
+<ol start="2" type="1">
+<li>Como os incrementos são independentes, os tempos entre as ocorrências também devem ser independentes. Por exemplo, considere o evento <span class="math inline">\(\{T_1&gt;t_1\}\cap \{T_2&gt;t_2\}\)</span>, esquematizado abaixo:</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-6.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Então, <span class="math display">\[\begin{align*}
+P(T_1&gt;t_1,T_2&gt;t_2)&amp;=P(N(t_1)=0,N(t_1 + t_2)- N(t_))
+\end{align*}\]</span></p>
+<p>Podemos também definir o tempo transcorrido até a <span class="math inline">\(n\)</span>-ésima chegada.</p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Tempo de Espera
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-2.2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 2.2 </strong></span>Para um processo de Poisson, seja <span class="math display">\[S_n=\sum_{i=1}^{n}T_i.\]</span> Denominamos <span class="math inline">\(S_n\)</span> como o tempo de espera até o <span class="math inline">\(n\)</span>-ésimo evento.</p>
+<p>Para motivar a definição, se <span class="math inline">\(S_n&gt;t\)</span>, então o <span class="math inline">\(n\)</span>-ésimo evento não ocorreu até o tempo <span class="math inline">\(t\)</span>. A diferença entre <span class="math inline">\(T_n\)</span> e <span class="math inline">\(S_n\)</span> deve ficar clara: <span class="math inline">\(T_n\)</span> é o tempo transcorrido entre as observações <span class="math inline">\(n\)</span> e <span class="math inline">\(n-1\)</span>, enquanto que <span class="math inline">\(S_n\)</span> é o tempo transcorrido, desde o começo do processo, até a ocorrência do <span class="math inline">\(n\)</span>-ésimo evento.</p>
+<p>Como <span class="math inline">\(T_i\sim\hbox{Exponencial}(\lambda)\)</span>, e <span class="math inline">\(T_i\)</span> e <span class="math inline">\(T_j\)</span> são independentes para todo <span class="math inline">\(i\neq j\)</span>, teremos que <span class="math inline">\(S_n\sim\hbox{Gama}(n,\lambda)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Imigrantes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.2 </strong></span>Suponha que pessoas imigram para determinada área segundo um processo de Poisson com taxa uma por dia.</p>
+<ol type="1">
+<li>Qual o tempo esperado até a chegada do 10º imigrante?</li>
+<li>Qual a probabilidade de que o tempo gasto entre a chegada do 10º e do 11º imigrante exceda dois dias?</li>
+</ol>
+<hr>
+<p><strong>Solução:</strong></p>
+<ol type="1">
+<li><p>O tempo esperado até a décima chegada é a esperança do 10º tempo de espera, ou seja <span class="math display">\[E(S_{10})=\frac{10}{\lambda}=10\]</span></p></li>
+<li><p>O tempo entre chegadas possui distribuição exponencial com média 1. Assim <span class="math display">\[P(T_{11}&gt;2)=e^{-2\times 1}\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Terremotos no Estreito de Messina - continuação
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.3 </strong></span>A figura abaixo (lado esquerdo) mostra os tempos de espera dos terremotos com magnitude maior que 5. Já o lado esquerdo mostra a distribuição acumulada (linha verde) dos respectivos tempos entre chegadas, com a função de distribuição exponencial ajustada (linha marrom).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-7.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Para ajustar a exponencial acima, utilizamos o estimador de máxima verossimilhança para <span class="math inline">\(\lambda\)</span>, dado por <span class="math display">\[\hat{\lambda}=\frac{n-1}{\sum_{i=1}^{n}t_i}=0,072.\]</span></p>
+<p>De modo análogo, estimamos que <span class="math inline">\(N(t)\sim\hbox{Poisson}(0,072 t)\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="distribuição-condicional-dos-tempos-de-chegada" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="distribuição-condicional-dos-tempos-de-chegada"><span class="header-section-number">2.2.2</span> Distribuição condicional dos tempos de chegada</h3>
+<p>Inicialmente, considere que apenas um evento ocorreu no intervalo <span class="math inline">\((0,t]\)</span>. Gostaríamos de saber qual a probabilidade deste evento ter ocorrido no tempo <span class="math inline">\(s\)</span>, com <span class="math inline">\(s&lt;t\)</span>.</p>
+<p>Notemos que o evento <span class="math inline">\(\{S_1&lt;s,N(t)=1\}\)</span> é equivalente ao evento no qual ocorre uma chegada no intervalo <span class="math inline">\((0,s]\)</span> e nenhuma chegada no intervalo <span class="math inline">\((s,t]\)</span>, conforme ilustra a figura abaixo, na qual <span class="math inline">\(\mathbf{\times}\)</span> indica o primeiro tempo de espera:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-8.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Disto, teremos</p>
+<span class="math display">\[\begin{align*}
+P(S_1&lt;s|N(t)=1)&amp;=\frac{P(S_1&lt;s,N(t)=1)}{P(N(t)=1)}=\frac{P(N(s)=1,N(t)-N(s)=0)}{P(N(t)=1)}\\
+&amp;=\frac{P(N(s)=1)P(N(t)-N(s)=0)}{P(N(t)=1)}\\
+&amp;=\left. \frac{e^{-\lambda s}(\lambda s)^1}{1!} \times
+    \frac{e^{-\lambda (t-s)}(\lambda (t-s))^0}{0!} \right/
+    \frac{e^{-\lambda t}(\lambda t)^1}{1!} \\
+&amp;\frac{e^{\lambda s}(\lambda s)e^{-\lambda(t-s)}}{e^{-\lambda t}\lambda t}=\frac{s}{t}.
+\end{align*}\]</span>
+<p>Assim, <span class="math display">\[f_{S_1|N(t)=1}(s)=\frac{d}{ds}P(S_1&lt;s|N(t)=1)=\frac{d}{ds}\left(\frac{s}{t}\right)=\frac{1}{t},\]</span> e <span class="math inline">\((S_1|N(t)=1)\sim \hbox{Uniforme}(0,t)\)</span>. Intuitivamente, se sabemos que houve apenas uma ocorrência no intervalo <span class="math inline">\((0,t)\)</span>, devido aos incrementos estacionários e independentes esta chegada seria um ponto escolhido ao acaso dentro deste intervalo.</p>
+<p>Agora discutiremos a distribuição dos tempos de espera <span class="math inline">\(\mathbf{S} =\{S_1,\ldots,S_n\}\)</span> condicionadas ao evento <span class="math inline">\(N(t)=n\)</span>. Seja <span class="math inline">\(h_i\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span> um valor positivo pequeno o suficiente para garantir que <span class="math inline">\(s_{i-1}&lt;s_{i}-h_i&lt; S_i &lt;s_i\)</span>. Neste caso, para garantir que <span class="math inline">\(N(t)=n\)</span>, cada intervalo <span class="math inline">\((s_i-h_i,s_i]\)</span> terá exatamente uma ocorrência e os intervalos <span class="math inline">\((0,s_1-h_1]\)</span>, <span class="math inline">\((s_n,t]\)</span> e <span class="math inline">\((s_{i-1},s_{i}-h_{i}]\)</span> para <span class="math inline">\(i=,2\ldots,n\)</span> não terão ocorrências. Portanto, dado <span class="math inline">\(N(t)\)</span>:</p>
+<ul>
+<li>Probabilidade de exatamente uma ocorrência em cada intervalo <span class="math inline">\((s_i-h_i,s_i]\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+     p_1&amp;=P(N(s_i)-N(s_i-h_i)=1,i=1,\ldots,n)\\
+         &amp;=P(N(h_i)=1,i=1,\ldots,n)\\&amp;=\prod_{i=1}^ne^{-\lambda h_i}(\lambda h_i)\\
+     &amp;=\prod_{i=1}^ne^{-\lambda h_i}(\lambda h_i)\\
+     &amp;= \lambda^n e^{-\lambda \sum_{i=1}^{n}h_i} \prod_{i=1}^{n}h_i
+\end{align*}
+\]</span></p>
+<ul>
+<li>Probabilidade de nenhuma ocorrência nos demais intervalos:</li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+      p_2&amp;= P\left(N(s_1-h_1)=0, N(t)-N(s_n)=0,\left\{N(s_i-h_i)-N(s_{i-1})=0,i=2,\ldots,n\right\}\right)\\
+      &amp;= e^{-\lambda (s_1-h) }\times e^{-\lambda (t-s_n)}\times\prod_{i=2}^n e^{-\lambda (s_i-s_{i-1}-h_i)}\\
+      &amp;= e^{-\lambda (s_1-h_1) }\times e^{-\lambda (t-s_n)}\times e^{-\lambda (s_n-s_1 -\sum_{i=2}^n h_i)}\\
+      &amp;=e^{-\lambda t}e^{\lambda \sum_{i=1}^n h_i}
+\end{align*}
+\]</span></p>
+<p>Logo,</p>
+<span class="math display">\[\begin{align*}
+P( s_i-h_i&lt;S_i&lt; s_i, i=1,\ldots,n|N(t)=n)&amp;=\frac{p_1p_2}{P(N(t)=n)}\\
+&amp;=\left. \lambda^n e^{-\lambda t} \prod_{i=1}^n h_i \right/ \frac{e^{-\lambda t}(\lambda t)^n}{n!}\\
+&amp;=\frac{t^n}{n!}\prod_{i=1}^n h_i.
+\end{align*}\]</span>
+<p>Como a densidade de <span class="math inline">\(f(s_1,\ldots,s_n|N(t)=n)\)</span> pode ser obtida derivando a função de distribuição, e como</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac{\partial^n}{\partial \mathbf{s}}F(s_1,\ldots,s_n|N(t)=n)&amp;=\lim_{\mathbf{h}\rightarrow\mathbf{0}}\frac{P( s_i-h_i&lt;S_i&lt; s_i, i=1,\ldots,n|N(t)=n)}{\prod_{i=1}^nh_i}\\
+&amp;=\lim_{\mathbf{h}\rightarrow\mathbf{0}}\left.\frac{t^n}{n!}\prod_{i=1}^n h_i\right/\prod_{i=1}^{n}h_i=\frac{t^n}{n!}
+\end{align*}
+\]</span></p>
+<p>teremos que <span class="math display">\[f(s_1,\ldots,s_n|N(t)=n)=\frac{t^n}{n!},\quad 0&lt;s_1&lt;\cdots&lt;s_n\leq t,\]</span> ou seja, <span class="math inline">\(\mathbf{S}|N(t)=n\)</span> tem a mesma distribuição que as estatísticas de ordem de uma amostra de variáveis aleatórias independentes com distribuição Uniforme<span class="math inline">\((0,t)\)</span> de tamanho <span class="math inline">\(n\)</span> <span class="math display">\[f(s_1,\ldots,s_n|N(t)=n)=\frac{t^n}{n!},\quad 0&lt;s_1&lt;\cdots&lt;s_n&lt;t.\]</span></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Número de indivíduos no sistema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.5" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.4 </strong></span>Indivíduos entram em um sistema segundo um PP com taxa <span class="math inline">\(\lambda\)</span>. Seja <span class="math inline">\(Y_i\)</span> tempo que o indivíduo <span class="math inline">\(i\)</span> permanece no sistema. Considere que os tempos <span class="math inline">\(Y_1,Y_2\ldots,\)</span> são variáveis aleatórias independentes e identicamente distribuídas e que são independentes dos tempos de chegada.</p>
+<p>Seja <span class="math inline">\(N(t)\)</span> o número de indivíduos que entraram no sistema até o tempo <span class="math inline">\(t\)</span>. Considerando que <span class="math inline">\(S_i\)</span> é o tempo de espera do <span class="math inline">\(i\)</span>-ésimo indivíduo. Este indivíduo abandona o sistema no tempo <span class="math inline">\(S_i+Y_i\)</span>.</p>
+<p>Seja <span class="math inline">\(X(t)\)</span> o número de indivíduos que estão no sistema no tempo <span class="math inline">\(t\)</span>. Podemos criar a variável <span class="math display">\[Z_i(t)=\left\{\begin{array}{ll}
+     1,&amp;S_i+Y_i\geq t \\
+     0,&amp; S_i+Y_i&lt;t\end{array} \right.\]</span> Note que <span class="math inline">\(Z_i(t)=1\)</span> é equivalente a dizer que o <span class="math inline">\(i\)</span>-ésimo indivíduo ainda está no sistema no tempo <span class="math inline">\(t\)</span>. No diagrama abaixo temos 5 chegadas. As linhas horizontais mais grossas mostram o tempo que cada indivíduo permaneceu no sistema (<span class="math inline">\(S_i+Y_i\)</span>). Neste diagrama, apenas 3 indivíduos estavam no sistema no tempo <span class="math inline">\(t\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-9.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note que <span class="math display">\[X(t)=\sum_{i=1}^{N(t)}Z_i.\]</span> Portanto,</p>
+<p><span class="math display">\[
+\begin{align*}
+     P(X(t)=x)&amp;=\sum_{n=0}^\infty P(X(t)=x|N(t)=n)P(N(t)=n)\\
+     &amp;=\sum_{n=0}^\infty P\left(\sum_{i=1}^{N(t)}Z_i=x|N(t)=n\right)P(N(t)=n)\\
+         &amp;=\sum_{n=0}^\infty P\left(\sum_{i=1}^{n}Z_i=x|N(t)=n\right)P(N(t)=n).
+\end{align*}
+\]</span></p>
+<p>Devemos então descobrir a distribuição de <span class="math inline">\(Z_i|N(t)\)</span>. Seja <span class="math inline">\(U_1,\ldots,U_n\)</span> uma amostra de variáveis independentes com distribuição Uniforme<span class="math inline">\((0,t)\)</span> e sejam <span class="math inline">\(U_{(1)},\ldots,U_{(n)}\)</span> as respectivas estatísticas de ordem. Então,</p>
+<p><span class="math display">\[\begin{align}
+     P\left(\sum_{i=1}^{N(t)}Z_i=z|N(t)=n\right) &amp;=
+     P\left(\sum_{i=1}^{N(t)}I(S_i+Y_i\geq t)=z|N(t)=n\right)\\
+     &amp;=
+     P\left(\sum_{i=1}^{n}I(S_i+Y_i\geq t)=z|N(t)=n\right)\\
+     &amp;= P\left(\sum_{i=1}^{n}I(U_{(i)}+Y_i\geq t)=z\right),
+\end{align}\]</span></p>
+<p>mas, como <span class="math inline">\(\sum_{i=1}^{n}U_{(i)}=\sum_{i=1}^{n}U_{i}\)</span>, teremos</p>
+<p><span class="math display">\[\begin{align*}
+     P\left(\sum_{i=1}^{N(t)}Z_i=z|N(t)=n\right)  
+     &amp;= P\left(\sum_{i=1}^{n}I(U_{i}+Y_i\geq t)=z\right).
+     \end{align*}\]</span> Ora, é imediato que <span class="math display">\[I(U_{i} + Y_i \geq t)\sim\hbox{Bernoulli}( p(t) ),\]</span></p>
+<p>onde</p>
+<p><span class="math display">\[\begin{align}
+     p(t)&amp;=P\left( I(U_{i}+Y_i\geq t)=1\right)=
+     P\left( U_{i}+Y_i\geq t\right)\\
+     &amp;=\int_0^t P\left( U_{i}+Y_i\geq t\right|U_i=y)f_U(u)du\\
+     &amp;=\int_0^t P\left( u+Y_i\geq t\right|U_i=u)f_U(u)du,
+     
+\end{align}\]</span></p>
+<p>e, como <span class="math inline">\(U_i\)</span> é independente de <span class="math inline">\(Y_i\)</span>,</p>
+<p><span class="math display">\[\begin{align}
+     p(t)&amp;=\int_0^t P\left( u+Y_{i}\geq t\right)f_U(u)du\\
+     &amp;=\int_0^t P\left( Y_{i}\geq t-u\right)f_U(u)du\\
+     &amp;=\int_0^t P\left( Y_{i}\geq t-u\right)\frac{1}{t}du\\
+     &amp;=\int_0^t P\left( Y_{i}\geq y\right)\frac{1}{t}dy\\
+     &amp;=\int_0^t [1-F_Y(y)]\frac{1}{t}dy\\    
+     
+\end{align}\]</span></p>
+<p>Como as variáveis <span class="math inline">\(U_i\)</span> e <span class="math inline">\(Y_i\)</span> são independentes e identicamente distribuídas, temos que</p>
+<p><span class="math display">\[\sum_{i=1}^{N(t)}Z_i|N(t)\sim\hbox{Binomial}\left(N(t),p(t)\right).\]</span></p>
+<p>Podemos finalmente concluir a distribuição de <span class="math inline">\(X(t)\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+         P(X(t)=x)&amp;=\sum_{n=0}^\infty P\left(\sum_{i=1}^{n}Z_i=x|N(t)=n\right)P(N(t)=n)\\
+         &amp;=\sum_{n=x}^\infty P\left(\sum_{i=1}^{n}Z_i=x|N(t)=n\right)P(N(t)=n)\\
+         &amp;=\sum_{n=x}^\infty {n \choose x} p(t)^x \left[1-p(t)\right]^{n-x}\frac{e^{-\lambda t}(\lambda t)^n}{n!}\\
+         &amp;=\sum_{n=x}^\infty \frac{n!}{x!(n-x)!} p(t)^x \left[1-p(t)\right]^{n-x}\frac{e^{-\lambda t}(\lambda t)^n}{n!}\\
+         &amp;=\frac{e^{-\lambda t}p(t)^x}{(1-p(t))^xx!}\sum_{n=x}^\infty \frac{\left(\lambda t [1-p(t)]\right)^n}{(n-x)!}\\
+         &amp;=\frac{e^{-\lambda t}p(t)^x}{(1-p(t))^xx!}\sum_{w=0}^\infty \frac{\left(\lambda t [1-p(t)]\right)^{w+x}}{w!}\\
+         &amp;=\frac{e^{-\lambda t}p(t)^x}{(1-p(t))^xx!}[\lambda t(1-p(t))]^x\sum_{w=0}^\infty \frac{\left(\lambda t(1-p(t))\right)^{w}}{w!}\\
+         &amp;=\frac{e^{-\lambda t}p(t)^x}{x!}(\lambda t)^x\sum_{w=0}^\infty \frac{\left(\lambda t(1-p(t))\right)^{w}}{w!}\\
+                 &amp;=\frac{e^{-\lambda t}p(t)^x}{x!}(\lambda t)^xe^{\lambda t(1-p(t))}\\
+         &amp;=\frac{e^{-\lambda tp(t)}[\lambda t p(t)]^x}{x!}           
+\end{align*}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.5 </strong></span>Pessoas chegam a um grande supermercado segundo um PP com taxa 40 por hora. O tempo que elas permanecem no supermercado possui distribuição Exponencial com média 0,75 horas. Considerando que o supermercado abre as 8h, qual é o número esperado de clientes às 12h?</p>
+<p><strong>Solução:</strong> Seja <span class="math inline">\(N(t)\)</span> o número de clientes que entraram no supermercado até o tempo <span class="math inline">\(t\)</span>. Então,</p>
+<p><span class="math display">\[N(t)\sim\hbox{Poisson}(\lambda t).\]</span></p>
+<p>Seja <span class="math inline">\(Y_i\)</span> o tempo que o <span class="math inline">\(i\)</span>-ésimo cliente leva para deixar o supermercado. Como</p>
+<p><span class="math display">\[E(Y_i)=\frac{1}{\alpha}=0,75,\]</span></p>
+<p>teremos que <span class="math inline">\(Y_i\sim\hbox{Exponencial}(1/0,75)\equiv\hbox{Exponencial}(4/3)\)</span>. Como</p>
+<p><span class="math display">\[F_Y(y)=1-e^{-\alpha y}=1-e^{-\frac{4}{3}t},\]</span></p>
+<p>teremos que</p>
+<p><span class="math display">\[
+\begin{align*}
+p(t)&amp;=\frac{1}{t}\int_0^t[1-F_Y(y)]dy=\frac{1}{t}\int_0^t e^{-\frac{4}{3}y}dy\\
+&amp;=\frac{3}{4t}[1-e^{-\frac{4}{3}t}].
+\end{align*}
+\]</span></p>
+<p>Deste modo, o número de cliente no supermercado para qualquer tempo é</p>
+<p><span class="math display">\[X(t)\sim\hbox{Poisson}\left( \lambda t p(t)\right)\equiv
+\hbox{Poisson}\left( 30[1-e^{-\frac{4}{3}t}]\right).\]</span></p>
+<p>Considerando que o tempo <span class="math inline">\(t=0\)</span> é equivalente as 8h, teremos que 12h é equivalente a <span class="math inline">\(t=4\)</span>. Assim,</p>
+<p><span class="math display">\[E(X(4))=30[1-e^{-\frac{4}{3}4}]=29,85516.\]</span></p>
+<p>Portanto, são esperados aproximadamente 30 clientes as 12h dentro do supermercado.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="soma-de-processos-de-poisson" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="soma-de-processos-de-poisson"><span class="header-section-number">2.3</span> Soma de Processos de Poisson</h2>
+<p>Desejamos estudar o comportamento da ocorrência de óbitos por tuberculose no Amazonas. Comecemos considerando apenas os dois processos de contagem a seguir:</p>
+<ul>
+<li><span class="math inline">\(N_1(t):\)</span> número de óbitos por tuberculose respiratória com confirmação até tempo <span class="math inline">\(t\)</span>;</li>
+<li><span class="math inline">\(N_2(t):\)</span> número de outros tipos de óbitos por tuberculose até tempo <span class="math inline">\(t\)</span>;</li>
+</ul>
+<p>Após observar os dados, poderíamos verificar se cada um destes processos pode ser modelado como um PP. Entretanto, existe outro processo de contagem envolvido: o total de óbitos por tuberculose até o tempo <span class="math inline">\(t\)</span>. Denotando este processo por <span class="math inline">\(N(t)\)</span>, podemos caracterizá-lo a partir das seguintes proposições.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-2.2" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 2.2 </strong></span>Considere que os existem dois tipos de eventos, 1 e 2, que ocorrem independentemente e sejam <span class="math inline">\(p\)</span> e <span class="math inline">\(1-p\)</span> suas respectivas probabilidades de ocorrência. Sejam <span class="math inline">\(N_1(t)\)</span> e <span class="math inline">\(N_2(t)\)</span> seus respectivos processos de contagem. Então, se <span class="math inline">\(N(t)=N_1(t) + N_2(t)\)</span> for um PP com taxa <span class="math inline">\(\lambda\)</span>, teremos:</p>
+<ol type="1">
+<li><span class="math inline">\(N_1(t)\)</span> e <span class="math inline">\(N_2(t)\)</span> também serão um PP com taxas <span class="math inline">\(\lambda p\)</span> e <span class="math inline">\(\lambda(1-p)\)</span> respectivamente, onde <span class="math inline">\(p\)</span> é a probabilidade de uma ocorrência ser do tipo 1.</li>
+<li><span class="math inline">\(N_1(t)\)</span> e <span class="math inline">\(N_2(t)\)</span> são independentes.</li>
+</ol>
+<p><code>Demonstração:</code> Para quaisquer variáveis aleatórias discretas <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, temos que <span class="math display">\[P(X=x)=\sum_{y=-\infty}^{\infty} P(X=x|Y=y)P(Y=y),\]</span> e o resultado continua verdadeiro se <span class="math inline">\(X\)</span> for um vetor de variáveis aleatórias discretas. Fazendo, na expressão acima, <span class="math inline">\(X=(N_1(t),N_2(t))\)</span> e <span class="math inline">\(Y=N(t)\)</span>, teremos <span class="math display">\[\begin{align*}
+  &amp;P(N_1(t)=n,N_2(t)=m)= \sum_{k=0}^{\infty}P(N_1(t)=n,N_2(t)=m|N(t)=k)P(N(t)=k),  
+\end{align*}\]</span></p>
+<p>onde a soma começa em zero porque a probabilidade de <span class="math inline">\(N(t)&lt;0\)</span> é nula. Embora a soma seja feita para todo <span class="math inline">\(k\)</span>, as probabilidades só serão diferentes de zero se <span class="math inline">\(N(t)=n+m\)</span>, uma vez que <span class="math inline">\(N_1(t)=n\)</span> e <span class="math inline">\(N_2(t)=m\)</span>. Portanto,</p>
+<p><span class="math display">\[
+\begin{align*}
+   P(N_1(t)=n,N_2(t)=m)&amp;= P(N_1(t)=n,N_2(t)=m|N(t)=n+m)\\
+   &amp;\times P(N(t)=n+m) \\
+  &amp;= P(N_1(t)=n,N(t)-N_1(t)=m|N(t)=n+m)\\
+  &amp;\times P(N(t)=n+m)
+\end{align*}
+\]</span></p>
+<p>Dado que <span class="math inline">\(N(t)=n+m\)</span>, os eventos <span class="math inline">\(\{N_1(t)=n, N(t)-N_1(t)=m\}\)</span> e <span class="math inline">\(\{N_1(t)=n\}\)</span> são equivalentes. Deste modo <span class="math display">\[P(N_1(t)=n,N_2(t)=m|N(t)=n+m)=P(N_1(t)=n|N(t)=n+m).\]</span></p>
+<p>A segunda probabilidade acima está relacionada com o número de ocorrências do evento do tipo 1 até o tempo <span class="math inline">\(t\)</span>, considerando que o número total de ocorrências (sem descriminar os eventos) é conhecido. Considerando que a probabilidade de ocorrência dos eventos do tipo 1 é <span class="math inline">\(p\)</span> e que as ocorrências são independentes, teremos que <span class="math display">\[N_1(t)|N(t)\sim\hbox{Binomial}\left(N(t),p\right).\]</span> Assim, <span class="math display">\[\begin{align}
+  P(N_1(t)=n,N_2(t)=m)&amp;= P(N_1(t)=n|N(t)=n+m)P(N(t)=n+m)\notag \\
+  &amp;={n+m\choose n}p^{n}(1-p)^{m}\frac{e^{-\lambda t}(\lambda t)^{n+m}}{(n+m)!}\notag \\
+  &amp;=\frac{e^{-\lambda pt}(\lambda pt)^n}{n!}\times  \frac{e^{-\lambda (1-p)t}(\lambda (1-p)t)^m}{m!}\label{eq::prova_soma_contagem_2}
+  \end{align}\]</span> Como a distribuição fatorou em duas distribuições Poisson, temos que <span class="math inline">\(N_1(t)\sim\hbox{Poisson}(\lambda p t)\)</span>, <span class="math inline">\(N_2(t)\sim\hbox{Poisson}(\lambda (1-p) t)\)</span> e os processos são independentes.</p>
+</div>
+</div>
+</div>
+<p>Portanto, podemos verificar se o total dos eventos possui distribuição Poisson. Se isto for verdadeiro, será imediado que cada um dos dois processos de contagem também serão PP.</p>
+<p>A proposição acima pode ser generalizada:</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Proposição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="prp-2.3" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposição 2.3 </strong></span>Consideremos <span class="math inline">\(k\)</span> eventos distintos e sejam <span class="math inline">\(N_{1}(t),\ldots,N_k(t)\)</span> seus respectivos processos de contagem. Então, se <span class="math inline">\(N(t)=N_1(t)+\cdots +N_k(t)\)</span> for um PP, teremos que <span class="math inline">\(N_i(t),i=1,\ldots, k\)</span> também será um PP com taxa <span class="math inline">\(\lambda p_i\)</span>, com <span class="math inline">\(p_i&gt;0\)</span> e <span class="math inline">\(\sum_{i=1}^{k}p_i=1\)</span>. Temos que <span class="math inline">\(p_i\)</span> será a probabilidade de que o evento do tipo <span class="math inline">\(i\)</span> aconteça. Além disso, teremos que os processos <span class="math inline">\(N_i(t)\)</span> serão independentes.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Casos de Hanseníase em Manaus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.6 </strong></span>A abaixo mostra o número de casos de hanseníase registrados em 2007 e 2008 na cidade de Manaus por região. Podemos definir <span class="math inline">\(N_N(t),N_S(t),N_L(t)\)</span> e <span class="math inline">\(N_O(t)\)</span> como sendo o número de casos de hanseníase observados até o instante <span class="math inline">\(t\)</span> nas regiões norte, sul, leste e oeste, respectivamente. Seja <span class="math inline">\(N(t)\)</span> o total de casos de hanseníase registrados em Manaus entre 2007 e 2008. Realizamos um teste de Kolmogorov-Smirnov para testar se os incrementos do processo <span class="math inline">\(N(t)\)</span>, dados na coluna Total, possuem distribuição Poisson. O p-valor deste teste foi igual a 0,507, o que nos trás evidências de que <span class="math inline">\(N(t)\sim\hbox{Poisson}(7,375)\)</span>. Assumindo que esta hipótese é verdadeira, teremos pela Proposição 2.5 que os processos <span class="math inline">\(N_N(t),N_S(t),N_L(t)\)</span> e <span class="math inline">\(N_O(t)\)</span> também são processos de Poisson, com as seguintes taxas estimadas: 2(norte), 0,625(sul), 2,083(leste) e 2,667(oeste). Assim, a probabilidade de que um caso de hanseníase tomado ao acaso ocorra em determinada região é: 0,271(norte), 0,084(sul), 0,282(leste) e 0,361(oeste).</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="htmlwidget-f360363474e040ec7cf2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f360363474e040ec7cf2">{"x":{"filter":"none","vertical":false,"data":[["01/2007","02/2007","03/2007","04/2007","05/2007","06/2007","07/2007","08/2007","09/2007","10/2007","11/2007","12/2007","01/2008","02/2008","03/2008","04/2008","05/2008","06/2008","07/2008","08/2008","09/2008","10/2008","11/2008","12/2008","Total"],[0,1,6,0,3,0,2,1,3,6,8,5,1,1,4,1,3,0,0,0,0,0,3,0,48],[1,1,1,2,1,0,1,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,0,15],[1,2,3,0,1,1,2,4,4,2,4,1,2,2,3,5,4,1,3,1,0,2,0,2,50],[3,2,2,5,4,1,2,0,3,2,2,1,2,0,1,3,5,5,4,2,2,4,3,6,64],[5,6,12,7,9,2,7,6,11,11,14,7,5,4,8,9,12,7,8,4,2,7,6,8,177]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mês<\/th>\n      <th>Norte<\/th>\n      <th>Sul<\/th>\n      <th>Leste<\/th>\n      <th>Oeste<\/th>\n      <th>Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":40,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,25,40,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<center>
+Tabela 2.1: Nº de casos mensais de hanseníase por região de Manaus em 2007 e 2008
+</center>
+</div>
+</div>
+</div>
+</section>
+<section id="inferência-para-o-processo-de-poisson" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="inferência-para-o-processo-de-poisson"><span class="header-section-number">2.4</span> Inferência para o Processo de Poisson</h2>
+<p>Habitualmente, os dados de um PP são apresentados de duas formas: através do registro dos incrementos, contados em intervalos disjuntos e geralmente de comprimentos iguais, ou através do registro dos tempos de chegada e/ou espera.</p>
+<section id="inferência-para-incremento" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="inferência-para-incremento"><span class="header-section-number">2.4.1</span> Inferência para incremento</h3>
+<p>Em um estudo realizado em <mark>XXX</mark>, os autores levantaram evidencias de que as morte por paradas cardíacas seguem um processo de Poisson. Para verificar se esse comportamento também é válido para o estado do Amazonas, coletamos as informações sobre os óbitos no estado. A seguinte tabela mostra o número de óbitos por parada cardíaca em cada mês dos anos de 2009 e 2010.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="htmlwidget-f0a39ae89e02a3b730b9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f0a39ae89e02a3b730b9">{"x":{"filter":"none","vertical":false,"data":[["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],[147,127,132,153,131,167,159,141,143,134,129,142],[158,153,141,152,141,131,186,153,141,154,141,214]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Mês/Ano<\/th>\n      <th>2009<\/th>\n      <th>2010<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","pageLength":40,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,25,40,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br></p>
+<p>Na tabela acima, o número de observações em cada mês é um incremento do processo de contagem <span class="math inline">\(\{N(t),t&gt;0\}\)</span>, onde <span class="math inline">\(N(t)\)</span> é o número de óbitos por parada cardíaca registrados até o tempo <span class="math inline">\(t\)</span>.</p>
+<p><br></p>
+<section id="estimação-para-lambda" class="level4" data-number="2.4.1.1">
+<h4 data-number="2.4.1.1" class="anchored" data-anchor-id="estimação-para-lambda"><span class="header-section-number">2.4.1.1</span> Estimação para <span class="math inline">\(\lambda\)</span></h4>
+<p>Seja <span class="math inline">\(X(s,t)\)</span> o número de ocorrências no intervalo <span class="math inline">\((s,t]\)</span>. É comum que os dados estejam representados em um tabela, identificando o intervalo e o número de ocorrências de cada intervalo. Também é usual que estes intervalos sejam disjuntos e contíguos. Com essas considerações, sejam <span class="math inline">\((s_i,t_i]\)</span> uma sequência de intervalos disjuntos de comprimento <span class="math inline">\(h_i=h\)</span>, com <span class="math inline">\(i=1,\ldots,n\)</span>. Consideremos então que, nos tempos <span class="math inline">\(t_1,\ldots,t_k\)</span>, foram registrados os valores <span class="math inline">\(N(t_1),\ldots,N(t_k)\)</span>. Assim, temos a amostra de incrementos <span class="math inline">\(Y_i=X(t_i,t_{i-1}),\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span>, onde <span class="math inline">\(t_0=0\)</span>. Agora, seja <span class="math inline">\(y_i\)</span> o valor observado do <span class="math inline">\(i\)</span>-ésimo incremento. Como os incrementos são independentes, teremos que <span class="math display">\[P(N(t)=k)=P(Y_1=y_1,\ldots,Y_n=y_n)=\prod_{i=1}^{n}\frac{e^{-\lambda h}(\lambda h)^{y_i}}{y_i!}.\]</span> A verossimilhança deste processo é <span class="math display">\[\begin{align*}
+L(\lambda)\propto e^{-nh\lambda}\lambda^{\sum_{i=1}^{n}y_i}.
+\end{align*}\]</span> Encontraremos o EMV para <span class="math inline">\(\lambda\)</span>. O logaritmo da função de verossimilhança será <span class="math display">\[\begin{equation}
+l(\lambda)=-nh\lambda +\log(\lambda)\sum_{i=1}^{n}y_i,
+\end{equation}\]</span> e <span class="math display">\[\begin{align*}
+\frac{d}{d\lambda}l(\lambda) &amp;= -nh +\frac{1}{\lambda}\sum_{i=1}^{n}y_i \\
+\frac{d^2}{d\lambda^2}l(\lambda)&amp;= -\frac{1}{\lambda^2}\sum_{i=1}^{n}y_i.
+\end{align*}\]</span> Fazendo a primeira derivada de <span class="math inline">\(l(\lambda)\)</span> igual a zero, teremos <span class="math inline">\(\hat{\lambda}=\sum_{i=1}^{n}Y_i/nh=\bar{Y}/h\)</span>. A derivada segunda aplicada em <span class="math inline">\(\lambda=\hat{\lambda}\)</span> é negativa, mostrando que <span class="math inline">\(\hat{\lambda}\)</span> é ponto de máximo. Portanto, o estimador de máxima verossimilhança para <span class="math inline">\(\lambda\)</span> é <span class="math inline">\(\hat{\lambda}\)</span>. Teremos que <span class="math display">\[\begin{align*}
+E(\hat{\lambda})&amp;=\frac{1}{h}E(Y_1)=\lambda
+\end{align*}\]</span> logo, <span class="math inline">\(\hat{\lambda}\)</span> é não viesado. Além disso, <span class="math display">\[\begin{align}
+Var(\hat{\lambda})&amp;=\frac{1}{h^2}Var(\bar{Y})=\frac{\lambda}{nh},
+\end{align}\]</span> logo, o estimador é consistente e seu erro padrão pode ser estimado por <span class="math display">\[\begin{equation}
+\hat{EP}(\hat{\lambda})=\sqrt{\frac{\hat{\lambda}}{nh}}.
+\end{equation}\]</span> Existem diversas estratégias para construir intervalos de confiança para <span class="math inline">\(\lambda\)</span>. Uma delas, seria utilizar a aproximação normal <span class="math display">\[\sqrt{nh}\frac{\hat{\lambda}-\lambda}{\sqrt{\hat{\lambda}}}\approx \hbox{Normal}(0,1)\]</span> (decorrente do TCL). Com isso, um intervalo com confiança aproximada de <span class="math inline">\((1-\alpha)\)</span> para <span class="math inline">\(\lambda\)</span> é dado por <span class="math display">\[\left(\hat{\lambda}-z_{1-\alpha/2}\sqrt{\frac{\hat{\lambda}}{nh}};\hat{\lambda}-z_{\alpha/2}\sqrt{\frac{\hat{\lambda}}{nh}}\right).\]</span> Via de regra, a aproximação acima é válida para <span class="math inline">\(\hat{\lambda}&gt;20\)</span>.</p>
+<p>No exemplo do número de óbitos por ataque cardíaco, temos que todos os incrementos tem o mesmo comprimento (<span class="math inline">\(h=1\)</span> mês). O valor estimado para <span class="math inline">\(\lambda\)</span> é, <span class="math display">\[\hat{\lambda}=148,75.\]</span> com um erro-padrão estimado de <span class="math inline">\(2,489\)</span>. Um intervalo aproximado com confiança <span class="math inline">\(95\%\)</span> para <span class="math inline">\(\lambda\)</span> é <span class="math display">\[[144,66;152,85].\]</span></p>
+</section>
+<section id="verificando-se-os-dados-seguem-um-processo-de-poisson" class="level4" data-number="2.4.1.2">
+<h4 data-number="2.4.1.2" class="anchored" data-anchor-id="verificando-se-os-dados-seguem-um-processo-de-poisson"><span class="header-section-number">2.4.1.2</span> Verificando se os dados seguem um processo de Poisson</h4>
+<p>Lembremos que um processo de Poisson possui incrementos independentes e estacionários, e que <span class="math inline">\(E[N(t)]=\lambda t\)</span>. Abaixo, seguem quatro gráficos que podem nos auxiliar a verificar se estas condições estão satisfeitas.</p>
+<ul>
+<li>Um diagrama de dispersão entre <span class="math inline">\(Y_1,Y_2,\ldots,Y_{n-1}\)</span> e <span class="math inline">\(Y_2,Y_3,\ldots,Y_{n}\)</span>: se houver qualquer tendência entre <span class="math inline">\(Y_i\)</span> e <span class="math inline">\(Y_{i-1}\)</span> existem evidências para suspeitarmos da hipótese de independência.</li>
+<li>Um diagrama de dispersão entre os índices <span class="math inline">\(1,2,\ldots,n\)</span> e <span class="math inline">\(Y_1,Y_2\ldots,Y_n\)</span>: dados dispersos em torno de <span class="math inline">\(\hat{\lambda}\)</span> dão evidências de estacionaridade.</li>
+<li>Um diagrama de dispersão entre os índices <span class="math inline">\(1,2,\ldots,n\)</span> e <span class="math inline">\(N(t_1),N(t_2)\ldots,N(t_n)\)</span>: um comportamento linear dá indícios de que <span class="math inline">\(E[N(t)]=\lambda t\)</span>.</li>
+<li>Um envelope de confiança para a função de distribuição em conjunto com a função de distribuição de uma Poisson com taxa <span class="math inline">\(\hat{\lambda}\)</span>: se a distribuição da Poisson estiver dentro do envelope, existem evidências de os incrementos seguem uma distribuição Poisson com taxa <span class="math inline">\(\hat{\lambda}\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-10.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="testes-de-hipóteses" class="level5" data-number="2.4.1.2.1">
+<h5 data-number="2.4.1.2.1" class="anchored" data-anchor-id="testes-de-hipóteses"><span class="header-section-number">2.4.1.2.1</span> Testes de hipóteses</h5>
+<p>Se os incrementos <span class="math inline">\(Y_1,\ldots,Y_n\)</span> são provenientes de um processo de Poisson, então eles devem ser independentes e estacionários.</p>
+</section>
+</section>
+<section id="inferências-para-t" class="level4" data-number="2.4.1.3">
+<h4 data-number="2.4.1.3" class="anchored" data-anchor-id="inferências-para-t"><span class="header-section-number">2.4.1.3</span> Inferências para <span class="math inline">\(T\)</span></h4>
+<p>Sejam <span class="math inline">\(T_1,\ldots,T_n\)</span> uma amostra dos tempos de chegadas de um processo de Poisson com taxa <span class="math inline">\(\lambda\)</span>. A função de verossimilhança para <span class="math inline">\(\lambda\)</span> é dada por</p>
+<p><span class="math display">\[
+\begin{align*}
+L(\lambda)&amp;=\prod_{i=1}^{n}f(t_i|\lambda)=\lambda^{n}e^{-\lambda\sum_{i=1}^{n}t_i}\\
+&amp;=\lambda^{n}e^{-\lambda S_n}
+\end{align*}
+\]</span></p>
+<p>O logaritmo da verossimilhança será <span class="math display">\[\begin{equation*}l(\lambda)=n\log(\lambda) -\lambda S_n
+\end{equation*}\]</span> e sua primeira e segunda derivada é:</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac{d}{d\lambda}&amp;=\frac{n}{\lambda} -S_n \\
+\frac{d^2}{d\lambda^2}&amp;=-\frac{n}{\lambda^2}.
+\end{align*}
+\]</span></p>
+<p>Analisando as duas derivadas, vemos que <span class="math inline">\(\hat{\lambda}=n/S_n\)</span> é ponto de máximo e portanto é EMV.</p>
+<p>Pelo Exercício Exercício 6.17, sabemos que <span class="math inline">\(Z=\lambda\hat{\lambda}\sim\hbox{GI}(n,n)\)</span>. Assim, podemos calcular <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> tais que <span class="math inline">\(P(a&lt;Z&lt;b)=1-\alpha\)</span> e criar o intervalo de confiança <span class="math display">\[\begin{equation*}
+\left( \frac{a}{\hat{\lambda}}, \frac{b}{\hat{\lambda}}\right).
+\end{equation*}\]</span></p>
+</section>
+</section>
+<section id="suicídios-no-mit" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="suicídios-no-mit"><span class="header-section-number">2.4.2</span> Suicídios no MIT</h3>
+<p>Quando ocorre um suicídio no MIT - Massachusetts Institute of Technology - diversas áreas da comunidade pedem uma açao da administração. Se os suicídios foram provenientes de um processo aleatório, tais ações não deveriam ser da competência da administração, apesar de que programas para reduzir a taxa global de suicídios no MIT devem sempre ser insentivados.<br>
+Em (CHEW, et al.), os autores gostariam de saber se os suicídios ocorridos no MIT poderiam ser modelados segundo um processo de Poisson. Apesar do MIT não manter estatísticas sobre a saúde de seus estudantes e pessoal em geral, suicídios são casos excepcionais e dados sobre estes puderam ser obtidos no Office of the Dean for Students Affairs. Os autores pesquisaram os suicídios ocorridos entre os anos de 1964 e 1991. Alguns dados estavam incompletos, uma vez que apenas o ano e o mês do suicídio foram registrados. Para estes dados, os autores assumiram que o suicídio ocorreu no dia 15. As datas do histórico se suicídios são mostradas na Tabela a seguir:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Data</th>
+<th><span class="math inline">\(T_i\)</span></th>
+<th>Data</th>
+<th><span class="math inline">\(T_i\)</span></th>
+<th>Data</th>
+<th><span class="math inline">\(T_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10/06/1964</td>
+<td>-</td>
+<td>26/07/1974</td>
+<td>428</td>
+<td>20/10/1986</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>15/11/1964</td>
+<td>158</td>
+<td>27/07/1975</td>
+<td>366</td>
+<td>02/10/1987</td>
+<td>347</td>
+</tr>
+<tr class="odd">
+<td>17/10/1965</td>
+<td>336</td>
+<td>12/12/1975</td>
+<td>138</td>
+<td>03/10/1987</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>17/03/1966</td>
+<td>151</td>
+<td>02/02/1976</td>
+<td>52</td>
+<td>22/10/1987</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td>04/06/1967</td>
+<td>444</td>
+<td>16/10/1977</td>
+<td>622</td>
+<td>08/04/1988</td>
+<td>169</td>
+</tr>
+<tr class="even">
+<td>19/10/1969</td>
+<td>868</td>
+<td>03/04/1978</td>
+<td>169</td>
+<td>15/04/1988</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>15/07/1970</td>
+<td>269</td>
+<td>08/02/1983</td>
+<td>1772</td>
+<td>15/06/1988</td>
+<td>61</td>
+</tr>
+<tr class="even">
+<td>19/03/1973</td>
+<td>978</td>
+<td>30/11/1983</td>
+<td>295</td>
+<td>15/06/1988</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>15/04/1973</td>
+<td>27</td>
+<td>21/06/1984</td>
+<td>204</td>
+<td>15/10/1990</td>
+<td>852</td>
+</tr>
+<tr class="even">
+<td>15/05/1973</td>
+<td>30</td>
+<td>18/05/1986</td>
+<td>696</td>
+<td>15/06/1991</td>
+<td>243</td>
+</tr>
+<tr class="odd">
+<td>24/05/1973</td>
+<td>9</td>
+<td>04/10/1986</td>
+<td>139</td>
+<td>15/06/1991</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<center>
+Data do suicídio e o tempo transcorrido, em dias, entre os suicídios.
+</center>
+<hr>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-11.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="o-processo-de-poisson-composto" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="o-processo-de-poisson-composto"><span class="header-section-number">2.5</span> O Processo de Poisson Composto</h2>
+<p>Clientes chegam em uma loja de conveniências segundo um processo de Poisson com taxa <span class="math inline">\(\lambda\)</span>. Cada cliente gasta uma quantidade <span class="math inline">\(D_i\)</span> de dinheiro, independente dos demais. Neste caso, podemos estar interessados em estudar a quantidade de dinheiro ganho pelo loja ao longo do tempo, ou seja, na variável <span class="math inline">\(Y(t)=\sum_{i=1}^{N(t)}D_i\)</span>. Este é um típico exemplo de um <em>processo de Poisson composto</em>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-2.3" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 2.3 </strong></span>Seja <span class="math inline">\(Y(t)=\sum_{i=1}^{N(t)}D_i\)</span>, onde as variáveis aleatórias <span class="math inline">\(D_i\)</span>s são independentes e identicamente distribuídas e seja <span class="math inline">\(\{N(t),t\geq 0\}\)</span> um processo de Poisson. Então, processo estocástico <span class="math inline">\(\{Y(t),t&gt;0\}\)</span> é denominado processo de Poisson composto.</p>
+</div>
+</div>
+</div>
+<p>Um modo de analisar o processo <span class="math inline">\(\{Y(t),t\geq 0\}\)</span> seria encontrar a expressão analítica de sua distribuição, ou seja</p>
+<p><span class="math display">\[
+\begin{align}
+F(y(t))&amp;=\sum_{n=0}^{\infty}P(Y(t)\leq y(t)|N(t)=n)P(N(t)=n)\\&amp;=\sum_{n=0}^{\infty}P(Y(t)\leq y(t)|N(t)=n)\frac{e^{-\lambda t}(\lambda t)^n}{n!}.
+\end{align}
+\]</span></p>
+<p>Em geral, esta distribuição não possui forma analítica e métodos computacionais são necessários para estimar a distribuição. Entretanto, apenas o conhecimento dos momentos de <span class="math inline">\(Y(t)\)</span> podem ser úteis para realizar inferências sobre média, variância, assimetria e curtose. Podemos encontrar a função geratriz de momentos de <span class="math inline">\(Y(t)\)</span>, desde que exista a função geratriz de momentos de <span class="math inline">\(D\)</span>. De fato, seja <span class="math inline">\(M_D(r)\)</span> a função geratriz de momentos de <span class="math inline">\(D\)</span>. Então</p>
+<p><span class="math display">\[
+\begin{align*}
+M_{Y(t)}(r)&amp;=E(e^{Y(t)r})=E[E(e^{Y(t)r}|N(t))]=
+E[E(e^{r\sum_{i=1}^{N(t)}D_i}|N(t))]\\
+&amp;=E[\prod_{i=1}^{N(t)}E(e^{rD_i}|N(t))]=E[\prod_{i=1}^{N(t)}M_{D_i}(r)]=
+E[(M_{D}(r))^{N(t)}]\\
+&amp;=\sum_{n=0}^{\infty}(M_{D_i}(r))^n\frac{e^{-\lambda t}(\lambda t)^n}{n!}
+=e^{-\lambda t}\sum_{n=0}^{\infty} \frac{(M_D(r)\lambda t)^n}{n!}\\
+&amp;=e^{\lambda t( M_D(r) -1)}.
+\end{align*}
+\]</span></p>
+<p>Como usual, o <span class="math inline">\(k\)</span>-ésimo momento é obtido calculando <span class="math inline">\((d^k/d r^k)M_{y(t)}(r)|_{r=0}\)</span>. Por exemplo, o primeiro momento é calculando fazendo</p>
+<p><span class="math display">\[
+\begin{align*}
+E(Y(t))&amp;=\left.\frac{d}{dr}M_{Y(t)}(r)\right|_{r=0}= \lambda t e^{\lambda t( M_D(r) -1)}\left.\frac{d}{dr}M_{D}(r)\right|_{r=0}=\lambda t E(D),
+\end{align*}
+\]</span></p>
+<p>e o segundo momento será, <span class="math display">\[\begin{align*}
+
+E(Y(t)^2)&amp;=\left.\frac{d^2}{dr^2}M_{Y(t)}(r)\right|_{r=0}\\&amp;=  e^{\lambda t( M_D(r) -1)}\left(\lambda t\frac{d}{dr}M_{D}(r)\right)^2 +\lambda te^{\lambda(M_D(r)-1)} \left.\frac{d^2}{dr^2}M_D(r)\right|_{r=0}\\
+&amp;=(\lambda t E(D))^2 + \lambda t E(D^2).
+\end{align*}\]</span></p>
+<p>Assim, a variância será</p>
+<p><span class="math display">\[
+\begin{align*}
+Var(Y(t))&amp;= \lambda t E(D^2)
+\end{align*}
+\]</span></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Número de vítimas fatais em acidentes aéreos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.7" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.7 </strong></span>Consideremos os dados sobre o número de acidentes aéreos no Brasil em 2008. Suponha que que este é um processo de Poisson. Sua taxa está estimada em 12,83. Seja <span class="math inline">\(D_i\)</span> o numero de vítimas fatais no <span class="math inline">\(i\)</span>-ésimo acidente. A distribuição de frequências do número de acidentes fatais por acidente é dado na Tabela a seguir:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Nº de vítimas fatais</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Frequência observada</td>
+<td>127</td>
+<td>9</td>
+<td>12</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<center>
+Distribuição de Frequências do número de vítimas fatais por acidente.
+</center>
+<p><br></p>
+<p>Os valores estimados para <span class="math inline">\(E(D)\)</span> e <span class="math inline">\(Var(D)\)</span> são, respectivamente, 0,38 e 1,136. Assim, teremos que <span class="math display">\[\hat{E}(Y(t))=\hat{\lambda}\hat{E}(D)t = 4,916t\]</span></p>
+<center>
+e
+</center>
+<p><span class="math display">\[\hat{Var}(Y(t))=\hat{\lambda}\hat{E}(D^2)t=14,583t.\]</span> Além disso, fazendo <span class="math inline">\(\mu(t)=E(Y(t))\)</span> e <span class="math inline">\(\sigma^2(t)=Var(Y(t))\)</span>, temos que um intervalo (aproximado) com <span class="math inline">\((1-\alpha)\%\)</span> de confiança aproximado para <span class="math inline">\(\mu(t)\)</span> é dado por <span class="math display">\[(Y(t)\pm z_{1-\alpha/2}\hat{\sigma}(t))=(Y(t)\pm 3,818z_{1-\alpha/2}\sqrt{t})\]</span> e, em particular, para o período em estudo, temos que <span class="math inline">\(Y(12)=59\)</span> e um intervalo com 95% de confiança para <span class="math inline">\(\mu(t)\)</span> é <span class="math inline">\((33,07;84,92)\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="generalizações-do-processo-de-poisson" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="generalizações-do-processo-de-poisson"><span class="header-section-number">2.6</span> Generalizações do Processo de Poisson</h2>
+<p>Podemos generalizar um PP relaxando alguma de suas hipóteses. Se assumimos que <span class="math inline">\(E(N(t))=\lambda(t)\)</span>, onde a função <span class="math inline">\(\lambda(.)\)</span> não é linear, teremos um {}. Se os incrementos do processo forem estacionários, mas não forem independentes, teremos um <em>processo de ponto estacionário</em>. <strong>Neste curso, apresentaremos apenas a primeira destas generalizações.</strong></p>
+<section id="o-processo-de-poisson-não-homogêneo" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="o-processo-de-poisson-não-homogêneo"><span class="header-section-number">2.6.1</span> O Processo de Poisson Não-Homogêneo</h3>
+<p>O processo de Poisson visto até agora possui taxa constante ao longo do tempo. Isto pode não ser verdade para todo processo de Poisson. Por exemplo, clientes podem chegar em um supermercado com intensidades diferentes em relação ao horário, como por exemplo em horário comercial, ou em épocas como começo/fim de mês. Nestes casos, quando permitimos que a taxa seja função de <span class="math inline">\(t\)</span>, temos um <em>processo de Poisson não-homogêneo</em>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-2.7" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 2.4 </strong></span>O processo estocástico <span class="math inline">\(\{N(t),t\leq 0\}\)</span> será um processo de Poisson não-homogêneo se:</p>
+<ol type="1">
+<li><span class="math inline">\(N(0)=0\)</span></li>
+<li><span class="math inline">\(\{N(t),t\geq 0\}\)</span> possui incrementos independentes</li>
+<li>A taxa do processo é dada por <span class="math inline">\(\lambda(t)\)</span> e <span class="math inline">\(N(t)\sim\hbox{Poisson}(m(t))\)</span>, onde <span class="math display">\[m(t)=\int_0^t \lambda(s)ds,\]</span> é denominada função do valor médio do processo.</li>
+</ol>
+<p>Notemos que esse processo é uma generalização do processo de Poisson, com o processo homogêneo sendo um caso particular, quando <span class="math inline">\(\lambda(t)=\lambda\;\forall t&gt;\geq 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-2.8" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2.8 </strong></span>Considere um restaurante que só abre a noite. Clientes chegam segundo um processo de Poisson não-homogêneo com taxas (por hora) <span class="math display">\[\begin{align*}
+\lambda(t)=\left\{\begin{array}{l}10,\quad 18\leq t &lt; 19\\
+15,\quad 19\leq t &lt; 21 \\
+12\quad 21\leq t&lt; 22\end{array}\right.
+\end{align*}\]</span></p>
+<p>Pergunta-se:</p>
+<ol type="1">
+<li>Qual o número esperado de clientes em uma noite?</li>
+<li>Qual a probabilidade de que nenhum cliente vá ao restaurante entre 18h e 18:30h?</li>
+<li>Qual a probabilidade de que nenhum cliente vá ao restaurante entre as 18:30h e 19:30h?</li>
+</ol>
+<p><strong>Resolução:</strong></p>
+<p>Seja <span class="math inline">\(N(t)\)</span> o número de clientes que entraram no restaurante até o tempo <span class="math inline">\(t\)</span>. Sem perda de generalidade, notemos que os seguintes horários são equivalentes:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Horário Normal</th>
+<th>18h</th>
+<th>19h</th>
+<th>21h</th>
+<th>22h</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tempo após a abertura</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Não importa qual tipo de horário você vai escolher, uma vez que a distribuição não vai se alterar. A segunda opção, que considera <span class="math inline">\(t=0\)</span> como o instante no qual o restaurante abre, é uma escolha usual e iremos adotá-la. Notemos que a taxa do processo será reescrita como</p>
+<p><span class="math display">\[\begin{align}
+\lambda(t)=\left\{\begin{array}{l}10,\quad 0\leq t &lt; 1\\
+15,\quad 1\leq t &lt; 3 \\
+12\quad 3\leq t&lt; 4\end{array}\right.
+
+\end{align}\]</span></p>
+<ol type="1">
+<li>O período de uma noite de trabalho corresponde ao intervalo entre <span class="math inline">\((0,4)\)</span> horas de funcionamento do estabelecimento. Logo, queremos calcular <span class="math inline">\(E(N(4))\)</span>. Teremos que <span class="math display">\[\begin{align*}
+E(N(4))&amp;=\int_0^4 \lambda(t)dt =\int_0^1 \lambda(t)dt+\int_1^3 \lambda(t)dt+\int_3^4 \lambda(t)dt \\
+&amp;=10 +30 + 12 =52.
+\end{align*}\]</span></li>
+<li>O intervalo entre 18h e 18:30h corresponde ao intervalo da primeira meia hora, isto é, entre 0 e 0,5 no segunda escala. Assim, a probabilidade de não chegarem clientes neste intervalo é <span class="math display">\[\begin{align*}
+P(N(1/2)=0)=e^{-10/2}
+\end{align*}\]</span></li>
+<li>Neste caso, o intervalo entre 18:30h e 19:30h corresponde ao intervalo <span class="math inline">\((0,5;1,5)\)</span>. Notemos que queremos o evento <span class="math inline">\(\{N(3/2)-N(1/2)=0\}\)</span>. Como <span class="math display">\[\begin{align*} m(3/2)-m(1/2)&amp;=\int_{1/2}^{3/2}\lambda(t)dt=\left. 10t\right|_{1/2}^{1} + \left. 15t\right|_{1}^{3/2}\\
+&amp;= \frac{10}{2}+\frac{15}{2}=\frac{25}{2}=12,5,
+\end{align*}\]</span> logo, <span class="math display">\[\begin{align*} P(N(3/2)-N(1/2)=0)=e^{-12,5}
+\end{align*}\]</span></li>
+</ol>
+</div>
+</div>
+</div>
+<!-- ### O Processo de Ponto Estacionário -->
+</section>
+</section>
+<section id="exercícios" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exercícios"><span class="header-section-number">2.7</span> Exercícios</h2>
+<blockquote class="blockquote">
+<p><strong>Seção 2.1</strong></p>
+</blockquote>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.1 </strong></span></p>
+<ul>
+<li>Eventos ocorrem segundo um processo de Poisson com taxa 2 por hora.</li>
+</ul>
+<ol type="1">
+<li>Qual a probabilidade de que nenhum evento ocorra entre 20h e 21h?</li>
+<li>Começando ao meio-dia, qual o tempo esperado para o quarto evento ocorrer?</li>
+<li>Qual a probabilidade de que dois ou mais eventos ocorram entre as 18h e às 20h?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.2 </strong></span>Carros atravessam certa rodovia de acordo com um processo de Poisson com taxa <span class="math inline">\(3\)</span> por minuto. Érica demora 2 minutos para atravessar esta rodovia. Se ela atravessar a rodovia sem olhar para os lados, então qual a probabilidade de que ela se envolva em um acidente? (considere que se ela estiver na rodovia quando um carro passar, então ela sofrerá um acidente).</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.3 </strong></span>Clientes chegam a um banco segundo um processo de Poisson com taxa <span class="math inline">\(\lambda\)</span>. Suponha que dois clientes chegaram durante a primeira hora. Qual é a probabilidade de que</p>
+<ol type="1">
+<li>Ambos tenham chegado durante os primeiros 20 minutos?</li>
+<li>Pelo menos um chegou durante os primeiros 20 minutos?</li>
+</ol>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Seção 2.3</strong></p>
+</blockquote>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.4 </strong></span>Potenciais clientes solicitam uma linha telefônica segundo um processo de Poisson com taxa 70 pedidos por dia. Entretanto, um pedido só é aceito se o propenso cliente não tiver na lista do SPC/SERASA. A experiência diz que de cada 100 clientes 30 deles estão com o nome nesta lista.</p>
+<ol type="1">
+<li>Qual é o valor esperado de solicitações aceitas em um mês (de 30 dias)?</li>
+<li>Em um dia foram registradas 50 solicitações. Qual a probabilidade de que metade delas seja aceita?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.5" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.5 </strong></span>Pulsos chegam a um contador Geiger de acordo com um processo de Poisson com taxa de três por minuto. Cada partícula tem uma probabilidade 2/3 de ser contabilizada. Seja <span class="math inline">\(N(t)\)</span> o número de pulsos registrados até o tempo t (em minutos).</p>
+<ol type="1">
+<li><span class="math inline">\(P(N(t)=0)=?\)</span></li>
+<li><span class="math inline">\(E(N(t))=?\)</span></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.6" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.6 </strong></span>Carros passam por uma rodovia segundo um processo de Poisson com taxa um por minuto. Se 5% dos carros são vans, então</p>
+<ol type="1">
+<li>Qual a probabilidade de que pelo menos um van passe durante uma hora?</li>
+<li>Dado que dez vans passaram em uma hora, qual o número esperado de carros que passam pela rodovia naquela hora?</li>
+<li>Se 50 carros passaram em uma hora, qual é a probabilidade de que cinco deles sejam vans?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.7" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.7 </strong></span>Suponha que o número de erros tipográficos em um novo texto tem distribuição Poisson com média <span class="math inline">\(\lambda\)</span>. Dois revisadores lêem o texto independentemente. Suponha que cada erro é encontrado pelo revisador <span class="math inline">\(i\)</span> com probabilidade <span class="math inline">\(p_i\)</span>, <span class="math inline">\(i=1,2\)</span>. Seja <span class="math inline">\(X_1\)</span> o número de erros que foram encontrados pelo revisor 1, mas que não o foram pelo revisor 2. Seja <span class="math inline">\(X_2\)</span> o número de erros encontrados pelo revisor 2 que não foram notados pelo revisor 1. Seja <span class="math inline">\(X_3\)</span> o número de erros encontrados por ambos os revisadores e <span class="math inline">\(X_4\)</span> o número de erros que não foram encontrados por nenhum deles.</p>
+<ol type="1">
+<li>Encontre a distribuição conjunta de <span class="math inline">\(X_1,X_2,X_3,X_4\)</span>.<br>
+</li>
+<li>Mostre que <span class="math display">\[\frac{\mathbb{E}(X_1)}{\textcolor{blue}{\mathbb{E}(X_3)}}=\frac{1-p_2}{p_2}\hbox{ e }\frac{\mathbb{E}(X_2)}{\mathbb{E}(X_3)}=\frac{1-p_1}{p_1}\]</span></li>
+</ol>
+<p>Suponha que <span class="math inline">\(\lambda,p_1\)</span> e <span class="math inline">\(p_2\)</span> são ambos desconhecidos.</p>
+<ol start="3" type="1">
+<li>Usando <span class="math inline">\(X_i\)</span> como estimador para <span class="math inline">\(\mathbb{E}(X_i)\)</span>, apresente os estimadores para <span class="math inline">\(\lambda,p_1\)</span> e <span class="math inline">\(p_2\)</span>.</li>
+<li>Encontre um estimador para <span class="math inline">\(X_4\)</span>, o número de erros não encontrado nenhum dos revisadores.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.8" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.8 </strong></span>Homens e mulheres entram em um supermercado segundo processos de Poisson com taxas 3 e 4 respectivamente. Começando num dado momento <span class="math inline">\(s\)</span>, seja <span class="math inline">\(t\)</span> o momento da chegada do segundo homem. Calcule a probabilidade de que o número de mulheres que chegaram no intervalo <span class="math inline">\((s,t]\)</span> seja menor que 3.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.9" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.9 </strong></span>Uma empresa tem dois tipos de clientes. Clientes chegam de acordo com um processo de Poisson com taxa <span class="math inline">\(\lambda\)</span>. Num dado momento <span class="math inline">\(t\)</span>, a probabilidade do cliente ser do tipo I é <span class="math inline">\(P_1(t)=e^{-t}\)</span> e a probabilidade dele ser do tipo II é <span class="math inline">\(P_2(t)=1-e^{-t}\)</span>. Seja <span class="math inline">\(N_1(t)\)</span> o número de clientes do tipo I que chegaram no intervalo <span class="math inline">\((0,t]\)</span>. Calcule a distribuição de <span class="math inline">\(N_1(t)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.10" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.10 </strong></span>José está pescando no lago. Ele pega peixes de acordo com um processo de Poisson com taxa 3 (peixes por hora) e os classifica como grandes e pequenos. A probabilidade de que um peixe seja grande é <span class="math inline">\(1/3\)</span>. Calcule a probabilidade de que:</p>
+<ol type="1">
+<li>Em 2 horas ele vai pegar 3 peixes grandes e pelo menos um pequeno;</li>
+<li>Em algum momento ele vai ter exatamente <span class="math inline">\(i\)</span> peixes grandes e <span class="math inline">\(j\)</span> pequenos.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.11" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.11 </strong></span>Numa região, os furacões ocorrem de acordo com um processo de Poisson com taxa 3 por unidade de tempo nos anos <strong>“bons”</strong> e com taxa 5 nos anos <strong>“ruins”</strong>. Suponha que o próximo ano vai ser bom com probabilidade 0,3. Seja <span class="math inline">\(N(t)\)</span> o número de furacões nas primeiras <span class="math inline">\(t\)</span> unidades de tempo do próximo ano.</p>
+<ol type="1">
+<li>Calcule <span class="math inline">\(\mathbb{P}(N(t)=n)\)</span>.</li>
+<li><span class="math inline">\(\{N(t),t\geq 0\}\)</span> um processo de Poisson?</li>
+<li>Se o próximo ano começar com 3 furacões até o tempo <span class="math inline">\(t\)</span> , calcule a probabilidade condicional de que o ano é <strong>“bom”</strong>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.12" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.12 </strong></span>ejam <span class="math inline">\(N_1(t)\)</span> e $N_2(t) $dois processo de Poisson independentes com respectivas taxas <span class="math inline">\(\lambda_1\)</span> e <span class="math inline">\(\lambda_2\)</span>. Seja <span class="math inline">\(N(t)=N_1(t)+N_2(t)\)</span>. Mostre que <span class="math inline">\(N(t)\)</span> é um processo de Poisson com taxa <span class="math inline">\(\lambda_1 +\lambda_2\)</span> e calcule a probabilidade do primeiro evento do processo <span class="math inline">\(N(t)\)</span> ser do processo <span class="math inline">\(N_1(t)\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.13" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.13 </strong></span>Em uma cidade fictícia, chamadas telefônicas solicitando um policial chegam a uma central segundo um processo de Poisson com taxa 10 por hora.</p>
+<ol type="a">
+<li>Destas chamadas, 8% são trotes. Encontre a média e a variância do número de trotes recebidos pela central em 10 horas de trabalho.</li>
+<li>Qual é o tempo esperado entre duas ligações quaisquer? E qual é o tempo esperado entre dois trotes?</li>
+<li>Qual é a probabilidade de que a próxima ligação seja um trote?</li>
+<li>Ocorreu um trote as 14h. Qual a probabilidade de que o segundo trote ocorra as 14:30h?</li>
+<li>A probabilidade de que exista um policial disponível para cada ligação é <span class="math inline">\(p\)</span>. Se houver um policial disponível, ele irá até o local solicitado. Caso contrário, a solicitação não será atendida. Qual é o número esperado de solicitações não atendidas em 10 horas?</li>
+<li>Em 10 horas, qual é o número esperado de vezes que polícia perde tempo atendendo solicitações provenientes de trotes?</li>
+<li>Em um dia foram recebidas 100 ligações. Qual é a probabilidade de que tenha ocorrido 50 trotes (basta escrever a expressão, não é necessário fazer toda a conta).</li>
+</ol>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Seção 2.6</strong></p>
+</blockquote>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.14" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.14 </strong></span>A cada trimestre uma rede de lojas classifica seus clientes em duas categorias: A e B. Os clientes do tipo A são aqueles que gastaram, em média, mais de R$ 1.000,00 em compras naquele trimestre e os clientes do tipo B são os que gastaram, em média, menos que R$ 1.000,00. Mário visita uma das lojas da rede segundo um processo de Poisson com taxa 2 vezes por semana. A cada visita, ele gasta um valor normalmente distribuído com média R$ 40,00 e desvio padrão R$ 5,00. Suponha que o dinheiro gasto em cada visita é independente das visitas anteriores (suponha também que cada mês possui quatro semanas).</p>
+<ol type="1">
+<li>Em geral, qual é a classificação esperada de Mário?</li>
+<li>Dado que no primeiro trimestre Mário foi 25 vezes à loja, qual a distribuição do dinheiro gasto por Mário na loja naquele período? Qual a probabilidade dele ter sido classificado como cliente do tipo A?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.15" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.15 </strong></span>Um sistema tem um número aleatório de falhas que iremos supor ter distribuição Poisson com média <span class="math inline">\(c\)</span>. Cada uma dessas falhas irá, independentemente, causar a falha do sistema em um tempo aleatório com distribuição <span class="math inline">\(G\)</span>. Quando uma falha do sistema ocorre, suponha que o sistema é imediatamente reparado.</p>
+<ol type="1">
+<li>Qual é a distribuição do número de falhas até o tempo <span class="math inline">\(t\)</span>?</li>
+<li>Qual é a distribuição do número de falhas que ainda estão no sistema até o tempo <span class="math inline">\(t\)</span>?</li>
+<li>As variáveis aleatórias em (1) e (2) são dependentes ou independentes? Justifique.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.16" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.16 </strong></span>Eventos ocorrem segundo um processo de Poisson não homogêneo cuja função de valor médio é dada por <span class="math display">\[m(t)=t^2 +2t,\quad   t\geq 0.\]</span> Qual é a probabilidade de que <span class="math inline">\(n\)</span> eventos ocorram entre os tempos <span class="math inline">\(t=4\)</span> e <span class="math inline">\(t=5\)</span>?</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.17" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.17 </strong></span>Uma loja abre às 8. De 8h às 10h os clientes chegam segundo um processo de Poisson com taxa 4 por hora. Entre 10h e 12h eles chegam segundo um processo de Poisson com taxa 8 por hora. De 12h às 14h eles chegam segundo uma taxa crescente de oito por hora às 12h até dez por hora às 14h. Das 14h às 17h a taxa cai de dez por horas às 14h até quatro por hora as 17h. Determine a distribuição de probabilidade do número de clientes que entram na loja em um determinado dia.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.18" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.18 </strong></span>Uma companhia de seguro paga apólices de seguro de vida segundo um processo de Poisson com taxa 5 por semana. Se a quantidade de dinheiro paga por cada apólice tem distribuição exponencial com média R$ 2.000 qual é a média e a variância da quantidade de dinheiro paga pela agencia de seguro após 4 semanas? Faça as suposições necessárias.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.19" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.19 </strong></span>Um restaurante universitário (RU) funciona das 11:30h até 14:30h. Alunos chegam ao RU segundo um processo de Poisson não-homogêneo com taxa:</p>
+<ul>
+<li>constante, igual a 50 alunos/hora, das 11:30 as 12h;</li>
+<li>linearmente crescente, sendo igual a 50 alunos/hora as 12h e chegando a 150 alunos/hora as 13h;</li>
+<li>linearmente decrescente, sendo igual a 150 alunos/hora as 13h e chegando a 40 alunos/hora as 14h;</li>
+<li>constante, igual a 40 alunos/hora, das 14h as 14:30h.</li>
+</ul>
+<p>Encontre o número médio de alunos que frequentam o RU.</p>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercício 2.20
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.20" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.20 </strong></span>Passageiros embarcam no aeroporto Eduardo Gomes segundo um processo de Poisson com taxa 100 por hora. Seja <span class="math inline">\(B_i\)</span> o peso (em quilos) da bagagem do <span class="math inline">\(i\)</span>-ésimo passageiro, assumindo <span class="math inline">\(B_1,B_2,\ldots,\)</span> independentes com <span class="math inline">\(B_i\sim \hbox{Uniforme}(10,30)\)</span>.</p>
+<ol type="a">
+<li><p>Seja <span class="math inline">\(Z\)</span> peso total da bagagem embarcada em 2 horas no aeroporto. Encontre <span class="math inline">\(E(Z)\)</span> e <span class="math inline">\(Var(Z)\)</span>.</p></li>
+<li><p>O passageiro pagará excesso de bagagem se <span class="math inline">\(B&gt;22Kg\)</span>. Mostre que o número de passageiros que pagam excesso é um processo de Poisson (basta explicar) e calcule a sua taxa.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.21" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.21 </strong></span>Um restaurante funciona das 19h as 23h. Clientes chegam segundo um processo de Poisson não homogêneo com as seguintes taxas:</p>
+<ul>
+<li>Entre as 19h e 20h, a taxa permanece constante em 10 clientes.</li>
+<li>Entre as 20h e 22h, a taxa é <span class="math inline">\(\lambda(t)=-t^2+42t -430.\)</span>.</li>
+<li>As 22h a taxa é de 10 clientes, decrescendo linearmente até a taxa de 5 clientes as 23h.</li>
+</ul>
+<p>Com base no que foi enunciado, responda:</p>
+<ol type="1">
+<li>Qual o número esperado de clientes neste restaurante em um dia de funcionamento?</li>
+<li>Qual a probabilidade de que o restaurante não tenha clientes entre as 19h e 20h?</li>
+<li>Qual o número médio de clientes entre as 19h e 20h30min?</li>
+<li>A média e a variância do gasto de cada cliente são 20 reais e 500 reais<span class="math inline">\(^2\)</span>, respectivamente. Encontre a média e a variância do ganho esperado do restaurante em um dia de trabalho.</li>
+</ol>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Exercícios Computacionais</strong></p>
+</blockquote>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.22" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.22 </strong></span>A abaixo mostra o número de homicídios dolosos ocorridos em Manaus nos anos de 2008 e 2009.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Mês/Ano</th>
+<th>2008</th>
+<th>2009</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Janeiro</td>
+<td>44</td>
+<td>62</td>
+</tr>
+<tr class="even">
+<td>Fevereiro</td>
+<td>41</td>
+<td>46</td>
+</tr>
+<tr class="odd">
+<td>Março</td>
+<td>53</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td>Abril</td>
+<td>37</td>
+<td>51</td>
+</tr>
+<tr class="odd">
+<td>Maio</td>
+<td>40</td>
+<td>59</td>
+</tr>
+<tr class="even">
+<td>Junho</td>
+<td>43</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>Julho</td>
+<td>49</td>
+<td>57</td>
+</tr>
+<tr class="even">
+<td>Agosto</td>
+<td>51</td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td>Setembro</td>
+<td>45</td>
+<td>55</td>
+</tr>
+<tr class="even">
+<td>Outubro</td>
+<td>57</td>
+<td>64</td>
+</tr>
+<tr class="odd">
+<td>Novembro</td>
+<td>55</td>
+<td>59</td>
+</tr>
+<tr class="even">
+<td>Dezembro</td>
+<td>54</td>
+<td>45</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>569</td>
+<td>657</td>
+</tr>
+</tbody>
+</table>
+<center>
+Fonte: Secretaria de Segurança Pública do Amazonas
+</center>
+<p><br></p>
+<ol type="a">
+<li>Mostre que existem evidências para supor que o número de homicídios dolosos mensais é um processo de Poisson.</li>
+<li>Construa um intervalo de confiança assintótico, com 95% de confiança, para estes dados.</li>
+<li>Construa um estudo de simulação, mostrando que esse intervalo de confiança é apropriado para esta situação.</li>
+</ol>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Miscelânea</strong></p>
+</blockquote>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2.23" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 2.23 </strong></span>Clientes chegam em uma loja 24h segundo um processo de Poisson com taxa <span class="math inline">\(10\)</span> clientes por hora. A probabilidade de que algum destes clientes compre algo é de <span class="math inline">\(4/5\)</span>.</p>
+<ol type="a">
+<li>Qual o número esperado de clientes em um dia? Em média, quantos clientes não compraram nada durante um dia?</li>
+<li>Qual é a distribuição do número de clientes que realmente gastam?</li>
+<li>Dois clientes entraram na loja durante a primeira hora. Qual é a probabilidade de que nenhum cliente entre na loja na próxima hora?</li>
+<li>Dez clientes entraram na loja. Qual é a probabilidade de que nenhum deles realize uma compra?</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cap_1_pe.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap_3_renovacao.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">UFAM | Processos Estocásticos: Um Curso de Graduação</div>   
+    <div class="nav-footer-right">Prof.&nbsp;James Dean</div>
+  </div>
+</footer>
+
+
+
+</body></html>

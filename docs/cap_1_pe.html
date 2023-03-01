@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.207">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Processos Estocásticos: Um Curso de Graduação - 1&nbsp; Processos Estocásticos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cap_2_poisson.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Processos Estocásticos: Um Curso de Graduação</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Apresentação</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_1_pe.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_2_poisson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_3_renovacao.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Processos de Renovação</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_4_cmtd.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Discreto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_5_cmtc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Cadeias de Markov a Tempo Contínuo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cap_6_notas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Notas</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="toc-section-number">1.1</span>  Introdução</a></li>
+  <li><a href="#processos-estacionários" id="toc-processos-estacionários" class="nav-link" data-scroll-target="#processos-estacionários"><span class="toc-section-number">1.2</span>  Processos Estacionários</a></li>
+  <li><a href="#processos-de-contagem" id="toc-processos-de-contagem" class="nav-link" data-scroll-target="#processos-de-contagem"><span class="toc-section-number">1.3</span>  Processos de contagem</a>
+  <ul class="collapse">
+  <li><a href="#incrementos-independentes" id="toc-incrementos-independentes" class="nav-link" data-scroll-target="#incrementos-independentes"><span class="toc-section-number">1.3.1</span>  Incrementos independentes</a></li>
+  <li><a href="#incrementos-estacionários" id="toc-incrementos-estacionários" class="nav-link" data-scroll-target="#incrementos-estacionários"><span class="toc-section-number">1.3.2</span>  Incrementos estacionários</a></li>
+  </ul></li>
+  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios"><span class="toc-section-number">1.4</span>  Exercícios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-estocasticos" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Processos Estocásticos</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1.1</span> Introdução</h2>
+<p>Uma coleção de variáveis aleatórias é denominada <strong>processo estocástico</strong>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-1.1" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 1.1 </strong></span>O conjunto <span class="math inline">\(\{X(t),t\in \mathcal{T}\}\)</span>, onde <span class="math inline">\(X(t)\)</span> é uma variável aleatória para cada <span class="math inline">\(t \in \mathcal{T}\subset \mathbb{R}\)</span>, é um processo estocástico.</p>
+</div>
+</div>
+</div>
+<p>O conjunto dos possíveis valores de <span class="math inline">\(X(t)\)</span> é denominado <em>espaço dos estados</em> e o conjunto <span class="math inline">\(\mathcal{T}\)</span> é denominado <em>espaço do tempo</em> ou <em>conjunto de índices</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Se <span class="math inline">\(\mathcal{T}\)</span> for um conjunto contínuo, diremos que <span class="math inline">\(\{X(t),t\in\mathcal{T}\}\)</span> é um processo a tempo contínuo e será mantida a notação <span class="math inline">\(X(t)\)</span>. Se <span class="math inline">\(\mathcal{T}\)</span> for discreto, diremos que <span class="math inline">\(\{X_t,t\in\mathcal{T}\}\)</span> é um processo a tempo discreto (neste caso, a notação <span class="math inline">\(X_t\)</span> é mais conveniente).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Amostra iid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.1" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.1 </strong></span>Sejam <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span>, variáveis aleatórias independentes e identicamente distribuídas com <span class="math inline">\(X_i\in D\subseteq \mathbb{R}\)</span>. Neste caso, temos que <span class="math inline">\(\{X_i: i=1,2,\ldots,n\}\)</span> é um processo estocástico a tempo discreto, com espaço dos estados igual a <span class="math inline">\(D\)</span>.</p>
+</div>
+</div>
+</div>
+<p>No exemplo acima, os índices não possuem influência. De fato, como as variáveis são iid, para qualquer permutação <span class="math inline">\(\{t_1,\ldots,t_n\}\)</span> dos índices em <span class="math inline">\(\mathcal{T}\)</span>, tem-se que <span class="math inline">\(\{X_1,X_2,\ldots,X_n\}\sim\{X_{t_1},X_{t_2},\ldots,X_{t_n}\}\)</span>. Os próximos exemplos ilustram casos nos quais os índices desempenham um papel fundamental.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Reposição de estoque - caso simples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.2" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.2 </strong></span>Um funcionário de uma loja deve verificar o estoque de certo produto no fim de cada dia. Seja <span class="math inline">\(X_i\)</span> o número de itens deste produto no <span class="math inline">\(i\)</span>-ésimo dia. Temos então o processo estocástico <span class="math inline">\(\{X_i:i=0,1,2,\ldots\}\)</span>, onde <span class="math inline">\(X_0\)</span> é o estoque no momento inicial. Claramente, enquanto não houver reposição de estoque, o <span class="math inline">\(X_i\leq X_{i-1}\)</span> para todo <span class="math inline">\(i=1,2,\ldots\)</span>. Neste caso, as variáveis <span class="math inline">\(X_i\)</span> e <span class="math inline">\(X_{i-1}\)</span> são dependentes e não possuem a mesma distribuição. Considere o seguinte caso particular:</p>
+<ul>
+<li>O estoque suporta no máximo três itens.</li>
+<li>No instante inicial, o estoque está cheio (<span class="math inline">\(X_0=3\)</span>).</li>
+<li>Em cada dia, o número de itens que é retirado do estoque tem distribuição <span class="math inline">\(Bernoulli(p)\)</span>.</li>
+<li>Quando o estoque chega a zero ao final do dia, a reposição é feita de noite, de modo que haverão 3 itens em estoque no dia seguinte.</li>
+</ul>
+<p>Seja <span class="math inline">\(Z_i\sim\hbox{Benoulli}(p)\)</span>, onde <span class="math inline">\(Z_i\)</span> é independente de <span class="math inline">\(Z_j\)</span> para todo <span class="math inline">\(i\neq j\)</span> (esta variável representa o que foi subtraído do estoque no dia <span class="math inline">\(i\)</span>). Então, se <span class="math inline">\(X_i\neq 0\)</span>, tem-se que <span class="math display">\[X_{i+1}=X_i-Z_i\]</span> e quando <span class="math inline">\(X_i=0\)</span> (o estoque no dia <span class="math inline">\(i\)</span> está vazio) tem-se que <span class="math display">\[X_{i+1}=3.\]</span> Este processo estocástico pode ser resumido pelo seguinte grafo, onde cada vértice representa um dos possíveis valores da variável <span class="math inline">\(X_i\)</span> e cada aresta mostra a probabilidade de <span class="math inline">\(P(X_{n+1}=j|X_{n}=i)\)</span>, onde <span class="math inline">\(i\)</span> é o vértice de origem e <span class="math inline">\(j\)</span> o de destino.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Visualizações de Os Simpsons
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.3" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.3 </strong></span>O gráfico abaixo mostra o número de visualizações, em milhões nos EUA, dos episódios de Os Simpsons, para as dez primeiras temporadas. Pode-se definir um processo estocástico onde <span class="math inline">\(X_i\)</span> é o número de visualizações do <span class="math inline">\(i\)</span>-ésimo episódio.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/simpsons.jpg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note que, na medida que o número de episódios aumenta, há uma tendência de queda nos valores observados do processo.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="processos-estacionários" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="processos-estacionários"><span class="header-section-number">1.2</span> Processos Estacionários</h2>
+<p>Um processo estocástico <span class="math inline">\(\{X(t),t\in\mathcal{T}\}\)</span> é dito ser estacionário se <span class="math inline">\(P(X(t)&lt;x)=P(X(t+k)&lt;x)\)</span> para todo <span class="math inline">\(k\)</span>. Isto quer dizer que a distribuição permanece inalterada com a mudança do índice.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Amostra iid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.4" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.4 </strong></span>Se <span class="math inline">\(X_1,X_2\ldots,\)</span> é um processo formado por variáveis independentes e identicamente distribuídas, então, <span class="math display">\[P(X_{t}&lt;x)=P(X_{t+k}&lt;x)=P(X_1&lt;x)\]</span> para todo <span class="math inline">\(k=0,1,2,\ldots\)</span>. Portanto, uma amostra de vaiid é um processo estacionário.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Estoque simples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.5" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.5 </strong></span>Considere o processo estocástico dado no <a href="#exm-1.2">Exemplo&nbsp;<span>1.2</span></a>, onde</p>
+<p><span class="math display">\[X_i=\left\{ \begin{array}{ll}X_{i-1}-Z, &amp; \hbox{se  }X_{i-1}&gt;0 \\ 3, &amp; \hbox{se  } X_{i-1}=0 \end{array}\right.\]</span></p>
+<p>com <span class="math inline">\(Z_i\sim\hbox{Bernoulli}(p)\)</span> independente de <span class="math inline">\(Z_j\)</span> para todo <span class="math inline">\(i\neq j\)</span>. Note que</p>
+<p><span class="math display">\[\begin{align*}
+P(X_1\leq 2) &amp;= P(Z_1=1) = p\\
+P(X_2\leq 2) &amp;= P(Z_1=1,Z_2=1) +P(Z_1=0,Z_2=1)+P(Z_1=1,Z_2=0)\\
+&amp;= p^2 + 2p(1-p)
+\end{align*}\]</span> Como <span class="math inline">\(P(X_1\leq 2)\neq P(X_2\leq 2)\)</span>, este processo não é estacionário.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Visualizações de Os Simpsons
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.6" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.6 </strong></span>Considere novamente o processo estocástico <span class="math inline">\(X_i\)</span>, onde <span class="math inline">\(i\)</span>-é é a visualização registrada no dia da exibição do <span class="math inline">\(i\)</span>-ésimo episódio desta série. Note que conhecemos o processo estocástico, mas apenas temos uma amostra observada deste. Contudo, existem evidências de que este processo não é estacionário. Por exemplo, podemos notar que existe uma tendência de queda, algo que seria esperado se o processo fosse estacionário.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="processos-de-contagem" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="processos-de-contagem"><span class="header-section-number">1.3</span> Processos de contagem</h2>
+<p>Um processo <span class="math inline">\(\{N(t),t&gt;0\}\)</span> com espaço dos estados igual a <span class="math inline">\(\{0,1,2,\ldots\}\)</span> é denominado <em>processo de contagem</em> se, para qualquer <span class="math inline">\(t\)</span>, a variável aleatória <span class="math inline">\(N(t)\)</span> representar o total de eventos que ocorreram durante o intervalo de tempo <span class="math inline">\([0,t]\)</span>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-1.2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 1.2 </strong></span>O processo estocástico <span class="math inline">\(\{N(t),t\geq 0\}\)</span> é um processo de contagem (PC) se <span class="math inline">\(N(t)\)</span> representa o total de eventos ocorridos até o tempo <span class="math inline">\(t\)</span>. Um processo de contagem deve satisfazer:</p>
+<ol type="1">
+<li><span class="math inline">\(N(t)\geq 0\)</span>;</li>
+<li><span class="math inline">\(N(t)\)</span> é <em>inteiro positivo</em>;</li>
+<li>Se <span class="math inline">\(s&lt;t\)</span>, então <span class="math inline">\(N(s)\leq N(t)\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+<p>A diferença <span class="math inline">\(N(r)-N(s)\)</span>, com <span class="math inline">\(r&gt;s\)</span>, é denominada <em>incremento</em> e representa o número de ocorrências no intervalo <span class="math inline">\((s,r]\)</span>. A figura abaixo ilustra um processo de contagem. Nesta, o tempo de ocorrência do evento é representado no eixo Tempo através de um círculo. Acima do eixo do tempo estão registrados os valores do processo <span class="math inline">\(N(t)\)</span> para os tempo <span class="math inline">\(t=2,6,8,13\)</span>. Abaixo do eixo estão registrados o número de ocorrências entre estes tempos.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-2.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Volume de vendas simples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.7" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.7 </strong></span>Suponha que o número de vendas diárias de certo estabelecimento tem distribuição Poisson, sendo que as vendas são independentes. Defina o processo <span class="math inline">\(\{N(t),t\geq 0\}\)</span> como <span class="math display">\[N(t)=\sum_{j=1}^{\lfloor t\rfloor} X_j,\]</span> onde <span class="math inline">\(\lfloor t\rfloor\)</span> é a parte inteira de <span class="math inline">\(t\)</span> e <span class="math inline">\(X_t\sim\hbox{Poisson}(\lambda)\)</span>. Defina <span class="math inline">\(N(0)=0\)</span>. Note que este processo representa o volume de vendas até o tempo <span class="math inline">\(t\)</span>. Vamos mostrar que <span class="math inline">\(\{N(t)\}\)</span> é um processo de contagem provando as seguintes proposições:</p>
+<blockquote class="blockquote">
+<ul>
+<li><strong>Proposição 1:</strong> <span class="math inline">\(N(t)\geq 0\)</span>.<br><strong>Prova:</strong> Para <span class="math inline">\(t=0,1,2,\ldots\)</span>, temos que <span class="math inline">\(X_t\geq 0\)</span>.Então <span class="math inline">\(N(t)\)</span> é a soma de número não negativos e, portanto, maior que zero.</li>
+</ul>
+</blockquote>
+<blockquote class="blockquote">
+<ul>
+<li><strong>Proposição 2:</strong> <span class="math inline">\(N(t)\)</span> é inteiro positivo.<br><strong>Prova:</strong> segue pelo fato de que <span class="math inline">\(N(t)\)</span> é soma de números naturais.</li>
+</ul>
+</blockquote>
+<blockquote class="blockquote">
+<ul>
+<li><strong>Proposição 3:</strong> Se <span class="math inline">\(s&lt;t\)</span>, então <span class="math inline">\(N(s)\leq N(t)\)</span> <br> <strong>Prova:</strong> Para <span class="math inline">\(s&lt;t\)</span>, teremos que <span class="math display">\[N(t)-N(s)=X_{\lfloor s\rfloor+1}+\cdots +X_{\lfloor t\rfloor}\geq 0,\]</span> pois <span class="math inline">\(X_t\geq0\)</span> para <span class="math inline">\(t\in\mathbb{N}\)</span>.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+<section id="incrementos-independentes" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="incrementos-independentes"><span class="header-section-number">1.3.1</span> Incrementos independentes</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Incrementos Independentes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-1.3" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 1.3 </strong></span>Dizemos que um PC possui incrementos independentes se, para quaisquer dois intervalos disjuntos <span class="math inline">\((s_1,r_1]\)</span> e <span class="math inline">\((s_2,r_2]\)</span> teremos que os incrementos <span class="math inline">\(N(r_1)-N(s_1)\)</span> e <span class="math inline">\(N(r_2)-N(s_2)\)</span> são independentes. Em outras palavras, os incrementos do PC em intervalos disjuntos são independentes.</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Volume de vendas simples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.8" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.8 </strong></span>Voltando ao nosso exemplo, vamos provar que <span class="math inline">\(\{N(t),t\geq 0\}\)</span> tem incrementos independentes. Considere os intervalos arbitrários da Definição 1.3. Teremos:</p>
+<span class="math display">\[\begin{align*}
+    &amp;P(N(r_1)-N(s_1)=n,N(r_2)-N(s_2)=m)=\\ \\
+    &amp;P\left(\sum_{i=\lfloor s_1 \rfloor +1}^{\lfloor r_1 \rfloor}
+    X_i=n,\sum_{j=\lfloor s_2 \rfloor +1}^{\lfloor r_2\rfloor }
+    X_j=m\right)=\\ \\
+    &amp;P\left(\sum_{i=\lfloor s_1 \rfloor+1}^{\lfloor r_1 \rfloor}
+    X_i=n\right)P\left(\sum_{j=\lfloor s_2 \rfloor +1}^{\lfloor r_2 \rfloor}
+    X_j=m\right)=\\ \\
+    &amp;P(N(r_1)-N(s_1)=n)P(N(r_2)-N(s_2)=m)
+\end{align*}\]</span>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Artigos na <em>Wikipedia</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.9" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.9 </strong></span>A figura abaixo mostra o número de artigos publicados (em lingua inglesa) na <em>Wikipedia</em>, contados em cada 1 de Janeiro, entre 2002 e 2018. Você pode acessar os dados aqui.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imagens/img-3.jpeg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Considere <span class="math inline">\(N(t)\)</span> o número de artigos <strong>publicados até</strong> o ano <span class="math inline">\(t\)</span> (neste caso, <span class="math inline">\(t=0\)</span> representa o ano de 2001, <span class="math inline">\(t=1\)</span> o de 2002, e assim por diante). A figura acima ilustra o <span class="math inline">\(N(t)\)</span> observado.</p>
+<p>Evidenciar que o processo <span class="math inline">\(\{N(t),t\geq0\}\)</span> não tem incrementos indepndentes é uma tarefa simples. Por exemplo, considere o incremento <span class="math inline">\(P_{t}=X(t,t-1)\)</span>, que representa o número de artigos <strong>publicados no ano</strong> <span class="math inline">\(t\)</span> e considere a autocorrelação <span class="math display">\[r =
+\frac{\sum_{t=2}^{n}(P_t -
+\bar{P})(P_{t-1}-\bar{P})}{(n-1)S_p^2},\]</span> onde <span class="math inline">\(n\)</span> <span class="math inline">\((=15)\)</span> é o número de incrementos, <span class="math inline">\(\bar{P}\)</span> e <span class="math inline">\(S_p^2\)</span> são a média e variância amostrais de <span class="math inline">\(P_t\)</span>. Se os incrementos forem independentes, <span class="math inline">\(r\)</span> deveria está próximo de zero. Entretanto, temos que <span class="math display">\[r = 0,697,\]</span> com um erro padrão<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> estimado em <span class="math inline">\(0,10\)</span>. Portanto, um intervalo com confiança aproximadamente igual a 95% é dado por <span class="math inline">\((0,48\;\;,\;\;0,91)\)</span>. Como este intervalo está afastado de zero, temos evidências de que os incrementos deste processo não são independentes.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="incrementos-estacionários" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="incrementos-estacionários"><span class="header-section-number">1.3.2</span> Incrementos estacionários</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definição: Incrementos Estacionários
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-1.4" class="theorem definition">
+<p><span class="theorem-title"><strong>Definição 1.4 </strong></span>Dizemos que um PC possui incrementos estacionários se, para um intervalo <span class="math inline">\((s,s+h]\)</span> a distribuição de <span class="math inline">\(N(s+h)-N(s)\)</span> depende apenas de <span class="math inline">\(h\)</span> (mas não de <span class="math inline">\(s\)</span>).</p>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exemplo: Volume de vendas simples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exm-1.10" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1.10 </strong></span>Voltando ao nosso exemplo, para quaisquer <span class="math inline">\(s,h&gt;0\)</span>, teremos que <span class="math display">\[\begin{align*}
+    N(s+h)-N(s) = \sum_{j=\lfloor s \rfloor+1 }^{\lfloor s+h \rfloor}X_j.
+    \end{align*}\]</span><br>
+Como o lado direito da igualdade acima é descrito como a soma de variáveis aleatórias independentes com distribuição Poisson<span class="math inline">\((\lambda)\)</span>, teremos que <span class="math display">\[N(s+h)-N(s) \sim\hbox{Poisson}\left( \sum_{j=\lfloor s \rfloor+1 }^{\lfloor s+h \rfloor}\lambda\right)\]</span> Utilizando o fato de que, para quaisquer <span class="math inline">\(a,b\)</span> <span class="math display">\[\lfloor a+b \rfloor - \lfloor a \rfloor =b,\]</span> teremos que <span class="math display">\[\sum_{j=\lfloor s \rfloor+1 }^{\lfloor s+h \rfloor}\lambda=\lambda\left\{[ \lfloor s+h \rfloor -(\lfloor s \rfloor+1 )+1 \right\}\lambda h.\]</span> Portanto, <span class="math inline">\(N(s+h)-N(s)\sim\hbox{Poisson}(\lambda h)\)</span> e, como esta distribuição depende apenas de <span class="math inline">\(h\)</span>, teremos que os incrementos do processo são estacionários.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercícios" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="exercícios"><span class="header-section-number">1.4</span> Exercícios</h2>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 1.1 </strong></span></p>
+<ul>
+<li>Seja <span class="math inline">\(\{X(t),t&gt;0\}\)</span>, com <span class="math inline">\(X(t)\in\{0,1\}\)</span> a classificação de uma pessoa como sadia (<span class="math inline">\(X(t)=0\)</span>) ou doente <span class="math inline">\((X(t)=1)\)</span>. Identifique o espaço dos estados, o conjunto de índices e classifique este processo como a tempo discreto ou contínuo.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 1.2 </strong></span></p>
+<ul>
+<li>Seja <span class="math inline">\(\{X_i,i=1,2,\ldots,\}\)</span> um processo estocástico onde <span class="math display">\[\begin{align*}
+  X_0 &amp;= \mu \\
+  X_{t+1} &amp;= X_{t} + \varepsilon_{t+1},
+\end{align*}\]</span><br>
+onde <span class="math inline">\(\mu\)</span> é uma constante arbitrária, <span class="math inline">\(\varepsilon_t\sim\hbox{Normal}(0,1)\)</span> e <span class="math inline">\(\varepsilon_i\)</span> é independente de <span class="math inline">\(\varepsilon_j\)</span> para todo <span class="math inline">\(i\neq j\)</span>.</li>
+</ul>
+<ol type="a">
+<li><p>Determine o espaço dos estados e o conjunto de índices deste processo.</p></li>
+<li><p>Mostre que <span class="math inline">\(\{X_t,t=0,1,\ldots\}\)</span> não é um processo de contagem.</p></li>
+<li><p>Mostre que <span class="math display">\[X_t = \mu + \sum_{j=1}^{t}\varepsilon_j,\]</span><br>
+e determine a distribuição de <span class="math inline">\(X_t\)</span>. Conclua que este processo não é estacionário.</p></li>
+<li><p>Prove que o processo <span class="math inline">\(\{X_{t+1}-X_t,t=1,2,\ldots\}\)</span> é estacionário.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 1.3 </strong></span></p>
+<ul>
+<li>Seja <span class="math inline">\(\{X_t, t=0,1,\ldots,\}\)</span> um processo estocástico onde <span class="math display">\[\begin{align*}
+  X_0 &amp;= 0 \\
+  X_{t+1} &amp;= X_{t}+ Z_{t+1}
+\end{align*}\]</span> onde <span class="math inline">\(Z_t\sim\hbox{Bernoulli}(1/2)\)</span> e <span class="math inline">\(Z_i\)</span> é independente de <span class="math inline">\(Z_j\)</span> para qualquer <span class="math inline">\(i\neq j\)</span>.</li>
+</ul>
+<ol type="a">
+<li>Identifique o espaço dos estados e o conjunto de índices deste processo.</li>
+<li>Mostre que <span class="math inline">\(\{X_t,t=0,1\ldots,\}\)</span> é um processo de contagem.</li>
+<li>Mostre que <span class="math inline">\(X_t=Z_1+\cdots +Z_t\)</span>. Qual é a distribuição de <span class="math inline">\(X_t\)</span>?</li>
+<li>O processo tem incrementos independentes?</li>
+<li>O processo tem incrementos estacionários?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="exr-4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercício 1.4 </strong></span></p>
+<ul>
+<li>Seja <span class="math inline">\(\{N(t),t\geq 0\}\)</span> um processo de contagem com incrementos estacionários, com <span class="math inline">\(N(0)=0\)</span>. Prove que <span class="math inline">\(N(t+s)-N(s)\)</span> e <span class="math inline">\(N(t)\)</span> tem a mesma distribuição.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Alguns autores denominam <span class="math inline">\(\mathcal{T}\)</span> como <em>espaço dos parâmetros</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Para calcular o erro padrão foi utilizada a técnica <em>bootstrap moving blocks</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Apresentação</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cap_2_poisson.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Processo de Poisson</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">UFAM | Processos Estocásticos: Um Curso de Graduação</div>   
+    <div class="nav-footer-right">Prof.&nbsp;James Dean</div>
+  </div>
+</footer>
+
+
+
+</body></html>
